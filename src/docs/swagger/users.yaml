@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+ title: User Management API 
+ description: API documentation for managing user-related operations including registration, authentication, and more.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  "/auth/register":
+    post:
+      summary: Register a New User 
+      description: | 
+        Endpoint to register a new user in the system. The request body must include user details 
+        such as first name, last name, email, password etc. On successful registration, 
+        the API returns a confirmation response along with the user's data.
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/UserData"
+      responses:
+        "201":
+          description: |
+           Registration was successful. The response includes the newly created user's details and a success message.
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+components:
+  schemas:
+    UserData:
+        type: object
+        properties:
+          _id: 
+            type: string
+            example: ObjectId
+          firstName:
+            type: string
+            description: The first name of the user.
+            example: Moshfiqur
+          lastName:
+            type: string
+            description: The last name of the user.
+            example: Rahmna
+          email:
+            type: string
+            description: The user's email address. Must be unique.
+            example: moshfiq@gmail.com
+          password:
+            type: string
+            format: password
+            description: A secure password for the user.
+            example: moshfiq@123
+          role:
+            type: string
+            description: The user's role in the system
+            example: user
+          status:
+            type: string
+            description: The current status of the user account.
+            example: active
+          createdAt:
+            type: string
+            format: date
+            description: Timestamp of when the user account was created.
+            example: "2025-01-03T09:37:17.755909"
+          updatedAt:
+            type: string
+            format: date
+            description: Timestamp of the last update to the user account.
+            example: "2025-01-03T09:37:17.755909"
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates if the operation was successful.
+          example: true
+        message:
+          type: string
+          description: A message describing the result of the operation.
+          example: User registered successfully
+        statusCode:
+          type: integer
+          description: The HTTP status code of the response.
+          example: 201
+        data: 
+          $ref: "#/components/schemas/UserData"      
+
