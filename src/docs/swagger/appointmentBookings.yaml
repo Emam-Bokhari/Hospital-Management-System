@@ -10,6 +10,8 @@ servers:
 paths:
   "/appointmentBookings":
     post:
+      tags: 
+        - Appointment Bookings
       summary: Create a new appointment 
       description: Endpoint to create a new appointment in the system.
       requestBody:
@@ -29,7 +31,9 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/AppointmentsData"
-    get: 
+    get:
+      tags: 
+        - Appointment Bookings 
       summary: Retrieve all appointments
       description: Fetch a list of all appointments with their details.
       responses:
@@ -47,7 +51,9 @@ paths:
                         items:
                           $ref: "#/components/schemas/AppointmentsData"
   "/appointmentBookings/{id}":  
-    get: 
+    get:
+      tags: 
+        - Appointment Bookings 
       summary: Retrieve a single appointment
       description: Fetch the details of a specific appointment using its unique identifier. 
       parameters:
@@ -70,6 +76,8 @@ paths:
                       data: 
                         $ref: "#/components/schemas/AppointmentsData"  
     patch: 
+      tags: 
+        - Appointment Bookings
       summary: Update an appointment
       description: Update the details of an existing appointment using its unique identifier. 
       operationId: updateAppointmentById
@@ -115,7 +123,9 @@ paths:
                             type: string 
                             description: The updated first name of the user.
                             example: Emam 
-    delete: 
+    delete:
+      tags: 
+        - Appointment Bookings 
       summary: Soft delete an appointment
       description: Soft delete an appointment record using its unique identifier. 
       parameters:
