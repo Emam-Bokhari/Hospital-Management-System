@@ -69,8 +69,7 @@ paths:
           required: true
           description: The unique identifier of the user to retrieve
           schema: 
-            type: integer
-            format: int64
+            type: string
       responses:
         "200": 
           description: Successfully retrieved the user details
@@ -96,8 +95,7 @@ paths:
           required: true 
           description: The unique identifier of the user to be updated.
           schema: 
-            type: integer
-            format: int64
+            type: string
       requestBody:
         content:
           "application/json":
@@ -142,8 +140,7 @@ paths:
           required: true
           description: The unique identifier of the user to delete.
           schema: 
-            type: integer
-            format: int64
+            type: string
       responses:
         "200": 
           description: Successfully deleted the user

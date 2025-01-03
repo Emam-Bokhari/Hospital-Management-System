@@ -46,8 +46,29 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/AppointmentsData"
-                    
-              
+  "/appointmentBookings/{id}":  
+    get: 
+      summary: Retrieve a single appointment
+      description: Fetch the details of a specific appointment using its unique identifier. 
+      parameters:
+        - name: id               
+          in: path 
+          required: true 
+          description: The unique identifier of the appointment.
+          schema: 
+            type: string 
+      responses: 
+        "200": 
+          description: Successfully retrieved the appointment details. 
+          content: 
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/AppointmentsData"  
         
                     
 
