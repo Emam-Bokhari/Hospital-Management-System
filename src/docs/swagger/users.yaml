@@ -125,7 +125,31 @@ paths:
                           firstName:
                             type: string
                             example: Emam
-
+    delete:
+      summary: Delete a user by their unique ID
+      description: >
+        Deletes the user identified by their unique ID from the system. The user will be soft delete.
+      operationId: deleteUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the user to delete.
+          schema: 
+            type: integer
+            format: int64
+      responses:
+        "200": 
+          description: Successfully deleted the user
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: object
 components:
   schemas:
     UserData:
