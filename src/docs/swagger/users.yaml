@@ -9,6 +9,8 @@ servers:
 paths:
   "/auth/register":
     post:
+      tags:
+        - Auths
       summary: Register a New User 
       description: | 
         Endpoint to register a new user in the system. The request body must include user details 
@@ -26,12 +28,41 @@ paths:
           content:
             "application/json":
               schema:
-                $ref: "#/components/schemas/SuccessResponse"
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/UserData"
+  "/users":
+    get:
+      tags:
+        - Users
+      responses:
+        "200": 
+          description: Get all users
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/UserData"
 
 components:
   schemas:
     UserData:
         type: object
+        required:
+          - firstName
+          - lastName
+          - email
+          - password
+
         properties:
           _id: 
             type: string
@@ -71,21 +102,18 @@ components:
             format: date
             description: Timestamp of the last update to the user account.
             example: "2025-01-03T09:37:17.755909"
-    SuccessResponse:
+    BaseResponse:
       type: object
       properties:
-        success:
+        success: 
           type: boolean
           description: Indicates if the operation was successful.
           example: true
         message:
           type: string
-          description: A message describing the result of the operation.
-          example: User registered successfully
+          example: Operation completed successfully
         statusCode:
           type: integer
           description: The HTTP status code of the response.
-          example: 201
-        data: 
-          $ref: "#/components/schemas/UserData"      
+          example: 200     
 
