@@ -69,7 +69,54 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/AppointmentsData"  
-        
+    patch: 
+      summary: Update an appointment
+      description: Update the details of an existing appointment using its unique identifier. 
+      operationId: updateAppointmentById
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the appointment to be updated.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object 
+              properties: 
+                _id: 
+                  type: string 
+                  description: The unique identifier of the appointment.
+                  example: 54abc12345de67890fghiaz
+                firstName:
+                  type: string 
+                  description: The updated first name of the user.
+                  example: Emam 
+      responses:
+        "200": 
+          description: Successfully updated the appointment details.
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: object 
+                        properties:
+                          _id: 
+                            type: string 
+                            description: The unique identifier of the updated appointment.
+                            example: 54abc12345de67890fghiaz
+                          firstName:
+                            type: string 
+                            description: The updated first name of the user.
+                            example: Emam 
+
+         
                     
 
 components: 
