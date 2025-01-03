@@ -81,6 +81,50 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/UserData"
+    patch:
+      summary: Update a user by their unique ID
+      description: >
+       Updates the details of a user identified by their unique ID. You can modify user properties such as the first name, last name, email, etc.
+      operationId: updateUserById
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          description: The unique identifier of the user to be updated.
+          schema: 
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          "application/json":
+            schema: 
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: ObjectId
+                firstName:
+                  type: string
+                  example: "Emam"
+      responses:
+        "200": 
+          description: Successfully updated the user details
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties: 
+                      data: 
+                        type: object
+                        properties:
+                          _id: 
+                            type: string
+                            example: ObjectId
+                          firstName:
+                            type: string
+                            example: Emam
 
 components:
   schemas:
