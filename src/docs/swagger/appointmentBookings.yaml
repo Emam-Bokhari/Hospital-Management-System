@@ -115,8 +115,29 @@ paths:
                             type: string 
                             description: The updated first name of the user.
                             example: Emam 
-
-         
+    delete: 
+      summary: Soft delete an appointment
+      description: Soft delete an appointment record using its unique identifier. 
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the appointment to be deleted. 
+          schema:
+            type: string 
+      responses:
+        "200": 
+          description: Successfully marked the appointment as deleted 
+          content:
+            "application/json":
+              schema:
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: object
+          
                     
 
 components: 
