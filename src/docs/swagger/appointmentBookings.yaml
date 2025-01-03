@@ -29,7 +29,27 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/AppointmentsData"
+    get: 
+      summary: Retrieve all appointments
+      description: Fetch a list of all appointments with their details.
+      responses:
+        "200":
+          description: Successfully retrieved the list of appointments.  
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/AppointmentsData"
+                    
               
+        
+                    
 
 components: 
   schemas:
