@@ -1,0 +1,273 @@
+openapi: 3.0.0
+info:
+ title: Appointments Management API 
+ description: |
+   API documentation for managing appointments, including creation, updates, and other operations.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  "/appointmentBookings":
+    post:
+      tags: 
+        - Appointment Bookings
+      summary: Create a new appointment 
+      description: Endpoint to create a new appointment in the system.
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/AppointmentsData"
+      responses: 
+        "200": 
+          description: Successfully created an appointment. 
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/AppointmentsData"
+    get:
+      tags: 
+        - Appointment Bookings 
+      summary: Retrieve all appointments
+      description: Fetch a list of all appointments with their details.
+      responses:
+        "200":
+          description: Successfully retrieved the list of appointments.  
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/AppointmentsData"
+  "/appointmentBookings/{id}":  
+    get:
+      tags: 
+        - Appointment Bookings 
+      summary: Retrieve a single appointment
+      description: Fetch the details of a specific appointment using its unique identifier. 
+      parameters:
+        - name: id               
+          in: path 
+          required: true 
+          description: The unique identifier of the appointment.
+          schema: 
+            type: string 
+      responses: 
+        "200": 
+          description: Successfully retrieved the appointment details. 
+          content: 
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/AppointmentsData"  
+    patch: 
+      tags: 
+        - Appointment Bookings
+      summary: Update an appointment
+      description: Update the details of an existing appointment using its unique identifier. 
+      operationId: updateAppointmentById
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the appointment to be updated.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object 
+              properties: 
+                _id: 
+                  type: string 
+                  description: The unique identifier of the appointment.
+                  example: 54abc12345de67890fghiaz
+                firstName:
+                  type: string 
+                  description: The updated first name of the user.
+                  example: Emam 
+      responses:
+        "200": 
+          description: Successfully updated the appointment details.
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: object 
+                        properties:
+                          _id: 
+                            type: string 
+                            description: The unique identifier of the updated appointment.
+                            example: 54abc12345de67890fghiaz
+                          firstName:
+                            type: string 
+                            description: The updated first name of the user.
+                            example: Emam 
+    delete:
+      tags: 
+        - Appointment Bookings 
+      summary: Soft delete an appointment
+      description: Soft delete an appointment record using its unique identifier. 
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the appointment to be deleted. 
+          schema:
+            type: string 
+      responses:
+        "200": 
+          description: Successfully marked the appointment as deleted 
+          content:
+            "application/json":
+              schema:
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: object
+          
+                    
+
+components: 
+  schemas:
+    AppointmentsData:
+      type: object
+      required: 
+        - firstName 
+        - lastName
+        - age
+        - address 
+        - contactInformation
+        - doctorId
+        - appointmentDetails
+        - paymentId
+      properties: 
+        _id: 
+          type: string
+          description: Unique identifier for the appointment. 
+          example: 64abc12345de67890fghijk
+        userId: 
+          type: string
+          description: ID of the user who booked the appointment. 
+          example: 84abc12345de67890fghias
+        firstName: 
+          type: string 
+          description: First name of the user.
+          example: Moshfiqur
+        lastName: 
+          type: string
+          description: Last name of the user.
+          example: Rahman 
+        age: 
+          type: string
+          description: Age of the user.
+          example: 24
+        address:
+          type: object
+          description: Address details of the user. 
+          properties:
+            district:
+              type: string
+              description: District of the user. 
+              example: Brahmanbaria
+            subDistrict: 
+              type: string
+              description: Sub-district of the user. 
+              example: Qasba
+        contactInformation:
+          type: object 
+          description: Contact details of the user.
+          properties: 
+            phone:
+              type: string
+              description: Phone number of the user. 
+              example: "+8801315773424"
+            email: 
+              type: string 
+              description: Email address of the user.
+              example: moshfiq@gmail.com 
+        doctorId:
+          type: string 
+          description: ID of the assigned doctor.
+          example: 94abc12345de67890fghibb
+        appointmentDetails:
+          type: object
+          description: Details of the appointment.
+          properties:
+            date:
+              type: string 
+              format: date 
+              description: Date of the appointment.
+              example: "2025-01-03T17:32:19.319281+00:00"
+            timeSlot:
+              type: string 
+              description: Time slot for the appointment.
+              example: morning
+            status: 
+              type: string 
+              description: Current status of the appointment.
+              example: pending
+        paymentId:
+          type: string
+          description: Payment ID associated with the appointment.
+          example: 14abc12345de67890fghiac
+        additionalNotes:
+          type: string 
+          description: Any additional notes related to the appointment.
+          example: Fever
+        prescriptionFiles:
+          type: string 
+          format: url 
+          description: URL of the uploaded prescription files.
+          example: https://placeholder.files.com
+        testReportFiles:
+          type: string 
+          format: url 
+          description: URL of the uploaded test report files.
+          example: https://placeholder.files.com
+        createdAt: 
+          type: string 
+          format: date 
+          description: Timestamp when the appointment was created.
+          example: "2025-01-03T17:32:19.319281+00:00"
+        updatedAt: 
+          type: string 
+          format: date 
+          description: Timestamp when the appointment was last updated.
+          example: "2025-01-03T17:32:19.319281+00:00"
+    BaseResponse:
+      type: object
+      properties:
+        success: 
+          type: boolean
+          description: Indicates if the operation was successful.
+          example: true
+        message:
+          type: string
+          example: Operation completed successfully
+        statusCode:
+          type: integer
+          description: The HTTP status code of the response.
+          example: 200  
