@@ -38,9 +38,12 @@ paths:
     get:
       tags:
         - Users
+      summary: Retrieve a list of all users
+      description: >
+        Fetches all users from the system. This endpoint returns a list of user objects, with each containing relevant user details.
       responses:
         "200": 
-          description: Get all users
+          description: Successfully retrieved the list of users
           content:
             "application/json":
               schema: 
@@ -52,6 +55,32 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/UserData"
+  "/users/{id}":
+    get:
+      summary: Retrieve a user by their unique ID
+      description: >
+        Fetches a single user based on the provided user ID. Returns user details including first name, last name, email, and other related information.
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the user to retrieve
+          schema: 
+            type: integer
+            format: int64
+      responses:
+        "200": 
+          description: Successfully retrieved the user details
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/UserData"
 
 components:
   schemas:
