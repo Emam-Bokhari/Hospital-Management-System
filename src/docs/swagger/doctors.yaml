@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+ title: Doctors Management API 
+ description: >
+  API documentation for managing doctor-related operations such as creating, updating, deleting, and retrieving doctor information.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  "/doctors":
+    post: 
+      summary: Create a new doctor
+      description: Adds a new doctor to the system with their details.
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/DoctorData"
+      responses:
+        "200": 
+          description: Successfully created a doctor 
+          content:
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/DoctorData"
+
+
+components:
+  schemas:
+    DoctorData:
+      type: object
+      properties:
+        _id: 
+          type: string 
+          example: 64abc12345de67890fghijk
+        userId:
+          type: string 
+          example: 64abc12345de67890fghijz
+        firstName:
+          type: string 
+          example: Moshfiqur
+        lastName:
+          type: string 
+          example: Rahman 
+        gender:
+          type: string 
+          example: male
+        dateOfBirth:
+          type: string 
+          example: "2000-04-23"
+        profilePicture:
+          type: string 
+          example: https://example.com/images/moshfiq.jpg
+        contactInformation:
+          type: object 
+          properties:
+            phone:
+              type: string 
+              example: "+8801315773424"
+            email: 
+              type: string 
+              example: moshfiq@gmail.com 
+        nationality:
+          type: string 
+          example: Bangladeshi
+        prefessionalInformation:
+          type: object 
+          properties:
+            specialization:
+              type: string 
+              example: Cardiologist
+            qualifications:
+              type: string 
+              example: ["MBBS","MD"]
+            licenseNumber:
+              type: string 
+              example: "Abc123"
+            licenseExpiryDate:
+              type: string 
+              example: "2030-05-15"
+            hospitalOrClinic:
+              type: string 
+              example: City Medical Hospital 
+            yearsOfExperience:
+              type: number 
+              format: int32 
+              example: 15
+        educationDetails:
+          type: array 
+          items:
+            type: object
+            properties:
+              universityName:
+                type: string 
+                example: Dhaka Medical College
+              degreeEarned:
+                type: string 
+                example: "MBBS"
+              duration:
+                type: string 
+                example: "2000-2005"
+              specializationEducation:
+                type: string 
+                example: General Medicine
+              universityWebsite:
+                type: string 
+                format: url 
+                example: https://example.com 
+        awardsAndRecognition:
+          type: array 
+          items: 
+            type: object
+            properties:
+              awardName:
+                type: string 
+                example: Best Cardiologist
+              awardYear:
+                type: string 
+                example: 2020
+              awardDescription:
+                type: string 
+                example: Awarded for outstanding patient care 
+              issuingOrganization:
+                type: string 
+                example: Bangladesh Medical Council
+              awardCategory:
+                type: string 
+                example: Excellence in Medicine 
+        availabilityInformation:
+          type: object
+          properties:
+            workingDays:
+              type: string 
+              example: ["Monday","Wednesday","Friday"]
+            workingHours:
+              type: string
+              example: "9:00 AM - 5:00 PM"
+            availableTimeSlots:
+              type: string
+              example: ["Morning","Afternoon","Evening"]
+            offDays:
+              type: string
+              example: ["2024-12-25"]
+        emergencyContact:
+          type: object
+          properties:
+            name: 
+              type: string
+              example: Emam
+            phone:
+              type: string
+              example: "+8801315773424"
+            email:
+              type: string
+              example: moshfiq@gmail.com
+            relationship:
+              type: string
+              example: cousin
+        medicalPracticeInformation:
+          type: object
+          properties:
+            hospitalAffiliation:
+              type: string
+              example: City Medical Hospital
+            chamberAddress:
+              type: string
+              example: "123 Medical Road, Dhaka"
+    BaseResponse:
+      type: object
+      properties:
+        success: 
+          type: boolean
+          description: Indicates if the operation was successful.
+          example: true
+        message:
+          type: string
+          example: Operation completed successfully
+        statusCode:
+          type: integer
+          description: The HTTP status code of the response.
+          example: 200  
