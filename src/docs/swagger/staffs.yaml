@@ -29,7 +29,23 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/StaffData"
-
+    get: 
+      summary: Retrieve all staff's information 
+      description: Fetches the complete list of staff's data. 
+      responses: 
+        "200":
+          description: Successful response 
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: array 
+                        items: 
+                          $ref: "#/components/schemas/StaffData"
               
 
 components:
