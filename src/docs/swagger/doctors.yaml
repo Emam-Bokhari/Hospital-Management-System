@@ -110,6 +110,18 @@ components:
   schemas:
     DoctorData:
       type: object
+      required: 
+        - firstName
+        - lastName
+        - gender 
+        - dateOfBirth
+        - contactInformation
+        - nationality
+        - religion
+        - professionalInformation
+        - educationDetails
+        - availabilityInformation
+        - emergencyContact
       properties:
         _id: 
           type: string 
@@ -144,8 +156,17 @@ components:
         nationality:
           type: string 
           example: Bangladeshi
-        prefessionalInformation:
+        religion:
+          type: string 
+          example: Islam
+        professionalInformation:
           type: object 
+          required:
+            - specialization
+            - qualifications
+            - licenseNumber
+            - licenseExpiryDate
+            - yearsOfExperience
           properties:
             specialization:
               type: string 
@@ -170,6 +191,11 @@ components:
           type: array 
           items:
             type: object
+            required:
+              - universityName
+              - degreeEarned
+              - duration
+              - universityLocation
             properties:
               universityName:
                 type: string 
@@ -183,6 +209,9 @@ components:
               specializationEducation:
                 type: string 
                 example: General Medicine
+              universityLocation:
+                type: string 
+                example: Dhaka, Bangladesh 
               universityWebsite:
                 type: string 
                 format: url 
@@ -209,6 +238,11 @@ components:
                 example: Excellence in Medicine 
         availabilityInformation:
           type: object
+          required:
+            - workingDays
+            - workingHours
+            - availableTimeSlots
+            - offDays
           properties:
             workingDays:
               type: string 
@@ -224,6 +258,10 @@ components:
               example: ["2024-12-25"]
         emergencyContact:
           type: object
+          required: 
+            - name 
+            - phone 
+            - relationship
           properties:
             name: 
               type: string
