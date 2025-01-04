@@ -30,7 +30,25 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/DoctorData"
+    get:
+      summary: Retrieve all doctors' information
+      description: Fetches the complete list of doctors' data.
+      responses: 
+        "200": 
+          description: Successful response 
+          content: 
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties: 
+                      data: 
+                        type: array 
+                        items: 
+                          $ref: "#/components/schemas/DoctorData"
 
+                        
 
 components:
   schemas:
