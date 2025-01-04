@@ -10,6 +10,8 @@ servers:
 paths:
   "/doctors":
     post: 
+      tags: 
+        - doctors
       summary: Create a new doctor
       description: Adds a new doctor to the system with their details.
       requestBody:
@@ -31,6 +33,8 @@ paths:
                       data: 
                         $ref: "#/components/schemas/DoctorData"
     get:
+      tags: 
+        - doctors
       summary: Retrieve all doctors' information
       description: Fetches the complete list of doctors' data.
       responses: 
@@ -49,6 +53,8 @@ paths:
                           $ref: "#/components/schemas/DoctorData"
   "/doctors/{id}":
     get:
+      tags: 
+        - doctors
       summary: Retrieve a doctor's details
       description: Fetch information for a specific doctor by their unique identifier.
       parameters:
@@ -71,6 +77,8 @@ paths:
                       data: 
                         $ref: "#/components/schemas/DoctorData"
     patch: 
+      tags: 
+        - doctors
       summary:  Update a doctor's details
       description: Modify information for a specific doctor using their unique identifier. 
       parameters:
@@ -106,6 +114,8 @@ paths:
                             type: string 
                             example: Emam                  
     delete: 
+      tags: 
+        - doctors
       summary: Soft Delete a doctor by their unique ID
       description: Perform a soft delete operation on a record.
       parameters:
