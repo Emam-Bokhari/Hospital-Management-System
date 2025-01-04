@@ -70,7 +70,41 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/DoctorData"
-                        
+    patch: 
+      summary:  Update a doctor's details
+      description: Modify information for a specific doctor using their unique identifier. 
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the doctor.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema: 
+              type: object 
+              properties:
+                firstName:
+                  type: string 
+                  example: Emam
+      responses:
+        "200": 
+          description: Successful response 
+          content:
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties: 
+                      data: 
+                        type: object 
+                        properties:
+                          firstName:
+                            type: string 
+                            example: Emam                  
 
 components:
   schemas:
