@@ -48,6 +48,30 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/DepartmentData"
+  "/departments/{id}":
+    get:
+      summary: Retrieve a department by ID 
+      description: Fetches the details of a department using its unique ID.
+      operationId: getDepartmentById
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier for the department.
+          schema:
+            type: string 
+      responses: 
+        "200": 
+          description: Successfully retrieved department data 
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties: 
+                      data: 
+                        $ref: "#/components/schemas/DepartmentData"
 components:
   schemas:
     DepartmentData:
