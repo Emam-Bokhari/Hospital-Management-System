@@ -72,6 +72,42 @@ paths:
                     properties: 
                       data: 
                         $ref: "#/components/schemas/DepartmentData"
+    patch: 
+      summary: Update department details by ID
+      description: Updates the information of a specific department using its unique ID
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the department to be updated.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema: 
+              type: object 
+              properties:
+                departmentName:
+                  type: string 
+                  example: Neurology 
+      responses: 
+        "200": 
+          description: Successfully updated the department information 
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: object 
+                        properties:
+                          departmentName:
+                            type: string 
+                            example: Neurology
+
 components:
   schemas:
     DepartmentData:
