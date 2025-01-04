@@ -10,7 +10,7 @@ paths:
   "/auth/register":
     post:
       tags:
-        - Auths
+        - auths
       summary: Register a New User 
       description: | 
         Endpoint to register a new user in the system. The request body must include user details 
@@ -37,7 +37,7 @@ paths:
   "/users":
     get:
       tags:
-        - Users
+        - users
       summary: Retrieve a list of all users
       description: >
         Fetches all users from the system. This endpoint returns a list of user objects, with each containing relevant user details.
@@ -58,7 +58,7 @@ paths:
   "/users/{id}":
     get:
       tags:
-        - Users
+        - users
       summary: Retrieve a user by their unique ID
       description: >
         Fetches a single user based on the provided user ID. Returns user details including first name, last name, email, and other related information.
@@ -84,7 +84,7 @@ paths:
                         $ref: "#/components/schemas/UserData"
     patch:
       tags:
-        - Users
+        - users
       summary: Update a user by their unique ID
       description: >
        Updates the details of a user identified by their unique ID. You can modify user properties such as the first name, last name, email, etc.
@@ -129,7 +129,7 @@ paths:
                             example: Emam
     delete:
       tags:
-        - Users
+        - users
       summary: Soft Delete a user by their unique ID
       description: >
         Deletes the user identified by their unique ID from the system. The user will be soft delete.
