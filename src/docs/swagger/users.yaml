@@ -130,7 +130,7 @@ paths:
     delete:
       tags:
         - Users
-      summary: Delete a user by their unique ID
+      summary: Soft Delete a user by their unique ID
       description: >
         Deletes the user identified by their unique ID from the system. The user will be soft delete.
       operationId: deleteUserById
@@ -153,6 +153,7 @@ paths:
                     properties:
                       data: 
                         type: object
+                        example: {}
 components:
   schemas:
     UserData:

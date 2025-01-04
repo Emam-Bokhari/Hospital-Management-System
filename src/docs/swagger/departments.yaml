@@ -107,6 +107,29 @@ paths:
                           departmentName:
                             type: string 
                             example: Neurology
+    delete: 
+      summary: Soft Delete a department by ID
+      description: Soft Deletes a specific department using its unique ID.
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the department to be deleted.
+          schema:
+            type: string 
+      responses: 
+        "200": 
+          description: Successfully deleted the department
+          content:
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}
 
 components:
   schemas:
