@@ -47,7 +47,29 @@ paths:
                         type: array 
                         items: 
                           $ref: "#/components/schemas/DoctorData"
-
+  "/doctors/{id}":
+    get:
+      summary: Retrieve a doctor's details
+      description: Fetch information for a specific doctor by their unique identifier.
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the doctor.
+          schema: 
+            type: string 
+      responses: 
+        "200": 
+          description: Successful response
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/DoctorData"
                         
 
 components:
