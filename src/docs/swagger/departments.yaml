@@ -31,7 +31,23 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/DepartmentData"
-              
+    get:
+      summary: Retrieve all departments 
+      description: Fetches a list of all available departments with their details.
+      responses:
+        "200": 
+          description: Successful response with department data
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/DepartmentData"
 components:
   schemas:
     DepartmentData:
