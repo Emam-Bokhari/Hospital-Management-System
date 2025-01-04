@@ -1,0 +1,212 @@
+openapi: 3.0.0
+info:
+ title: Department Management API 
+ description:  API documentation for managing department-related operations, such as creating, retrieving, updating, and more.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  "/departments":
+    post: 
+      tags: 
+        - Departments 
+      summary: Create a new department 
+      description: >
+        Use this endpoint to create a new department with detailed information, including associated doctors, symptoms addressed, and possible causes.
+      requestBody: 
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/DepartmentData"
+      responses: 
+        "200": 
+          description: The department has been successfully created. 
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/DepartmentData"
+    get:
+      summary: Retrieve all departments 
+      description: Fetches a list of all available departments with their details.
+      responses:
+        "200": 
+          description: Successful response with department data
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/DepartmentData"
+  "/departments/{id}":
+    get:
+      summary: Retrieve a department by ID 
+      description: Fetches the details of a department using its unique ID.
+      operationId: getDepartmentById
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier for the department.
+          schema:
+            type: string 
+      responses: 
+        "200": 
+          description: Successfully retrieved department data 
+          content: 
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties: 
+                      data: 
+                        $ref: "#/components/schemas/DepartmentData"
+    patch: 
+      summary: Update department details by ID
+      description: Updates the information of a specific department using its unique ID
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the department to be updated.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema: 
+              type: object 
+              properties:
+                departmentName:
+                  type: string 
+                  example: Neurology 
+      responses: 
+        "200": 
+          description: Successfully updated the department information 
+          content:
+            "application/json":
+              schema: 
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: object 
+                        properties:
+                          departmentName:
+                            type: string 
+                            example: Neurology
+    delete: 
+      summary: Soft Delete a department by ID
+      description: Soft Deletes a specific department using its unique ID.
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the department to be deleted.
+          schema:
+            type: string 
+      responses: 
+        "200": 
+          description: Successfully deleted the department
+          content:
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}
+
+components:
+  schemas:
+    DepartmentData:
+      type: object
+      required:
+        - departmentName 
+        - overview
+        - description
+        - symptomsAddressed
+        - possibleCauses
+        - associatedDoctors
+      properties:
+        departmentName:
+          type: string
+          description: The name of the department (e.g., Cardiology, Neurology).
+          example: Cardiology
+        departmentCode:
+          type: string
+          description: A unique code to identify the department.
+          example: CARD 
+        overview:
+          type: string 
+          description: A brief summary of the department's primary focus or area of expertise.
+          example: Cardiology focuses on heart health
+        description:
+          type: string 
+          example: Specializes in diagnosing and treating heart diseases.
+        symptomsAddressed:
+          type: array
+          items:
+            type: object
+            properties:
+              symptom: 
+                type: string 
+                example: Chest pain
+              description:
+                type: string 
+                description: Additional information about the symptom.
+                example: A pressing or squeezing sensation in the chest area.
+        possibleCauses:
+          type: array 
+          items: 
+            type: object 
+            properties:
+              cause: 
+                type: string 
+                description: The potential cause related to the department's focus area.
+                example: Smoking
+              description:
+                type: string 
+                description: Further explanation of the cause.
+                example: Damages blood vessels, increasing the risk of heart disease.
+        associatedDoctors:
+            type: string 
+            description: A list of unique IDs for doctors associated with the department.
+            example: ["63fbc1234abcd56789def123", "63fbc1234abcd56789def456"]
+        status: 
+          type: string 
+          description: The current status of the department (e.g., Active, Inactive).
+          example: Active 
+        createdBy:
+          type: string 
+          description: The ID of the user who created the department.
+          example: 63fbc1234abcd56789def124
+    BaseResponse:
+      type: object
+      properties:
+        success: 
+          type: boolean
+          description: Indicates if the operation was successful.
+          example: true
+        message:
+          type: string
+          example: Operation completed successfully
+        statusCode:
+          type: integer
+          description: The HTTP status code of the response.
+          example: 200    
+            
