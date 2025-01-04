@@ -1,0 +1,297 @@
+openapi: 3.0.0
+info:
+ title: Staff Management API 
+ description: |
+  API documentation for managing staff-related operations including creation, updates, and more.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths: 
+  "/staffs":
+    post: 
+      summary: Create a staffs 
+      description: Endpoint to create a new staff member. 
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/StaffData"
+      responses: 
+        "200":
+          description:  Success response indicating the staff has been created successfully.
+          content: 
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/StaffData"
+
+              
+
+components:
+  schemas:
+    StaffData:
+      type: object
+      required: 
+        - firstName
+        - lastName
+        - gender 
+        - dateOfBirth
+        - contactInformation
+        - nationality
+        - religion
+        - address 
+        - emergencyContact
+        - identification
+        - gurdian
+        - employment
+        - salary 
+        - educationDetails
+      properties:
+        _id: 
+          type: string 
+          example: 64abc12345de67890fghijk
+        firstName:
+          type: string 
+          example: Moshfiqur
+        lastName:
+          type: string 
+          example: Rahman 
+        gender:
+          type: string 
+          example: male
+        dateOfBirth:
+          type: string 
+          example: "2000-04-23"
+        profilePicture:
+          type: string 
+          example: https://example.com/images/moshfiq.jpg
+        contactInformation:
+          type: object 
+          required: 
+            - phone 
+            - email 
+          properties:
+            phone:
+              type: string 
+              example: "+8801315773424"
+            email: 
+              type: string 
+              example: moshfiq@gmail.com 
+        nationality:
+          type: string 
+          example: Bangladeshi
+        religion:
+          type: string 
+          example: Islam
+        address:
+          type: object 
+          required: 
+            - permanent
+            - current
+          properties:
+            permanent:
+              type: string 
+              example: "Qasba, Brahmanbaria"
+            current:
+              type: string 
+              example: "Gulshan-02, Dhaka"
+        emergencyContact:
+          type: object
+          required: 
+            - name 
+            - phone 
+            - relationship
+          properties:
+            name: 
+              type: string
+              example: Emam
+            phone:
+              type: string
+              example: "+8801315773424"
+            email:
+              type: string
+              example: moshfiq@gmail.com
+            relationship:
+              type: string
+              example: cousin
+        identification:
+          type: object 
+          required: 
+            - nid 
+            - birthCertificate
+          properties:
+            nid:
+              type: object
+              properties: 
+                number: 
+                  type: number   
+                  example: "1345464444"
+                scannedCopy:
+                  type: string 
+                  format: url 
+                  example: https://example.com/images/moshfiq.jpg
+            birthCertificate:
+              type: object 
+              properties: 
+                number: 
+                  type: string 
+                  example: "1234541541515151512521"
+                scannedCopy:
+                  type: string 
+                  format: url 
+                  example: https://example.com/images/moshfiq.jpg
+            passport:
+              type: object 
+              properties:
+                number: 
+                  type: string 
+                  example: "1234541541515151512521"
+                expiryDate:
+                  type: string 
+                  format: date 
+                  example: "12/12/2025"
+                scannedCopy:
+                  type: string 
+                  format: url 
+                  example: https://example.com/images/moshfiq.jpg
+        gurdian:
+          type: object
+          required: 
+            - name 
+            - relationship
+            - contactInformation
+          properties:
+            name: 
+              type: string 
+              example: Mokhlesur Rahman 
+            relationship: 
+              type: string 
+              example: Father
+            contactInformation:
+              required: 
+                - phone 
+                - email
+              type: object 
+              properties:
+                phone:
+                  type: string 
+                  example: "+8801315773424"
+                email: 
+                  type: string 
+                  example: mokhlesurrahman@gmail.com 
+        employment:
+          type: object 
+          required: 
+            - jobTitle
+            - department
+            - dateOfJoining
+            - workSchedule
+          properties:
+            jobTitle:
+              type: string 
+              example: Admin
+            department:
+              type: string 
+              example: Administrator
+            employmentID:
+              type: string 
+              example: EMP-001
+            dateOfJoining:
+              type: string 
+              format: date 
+              example: "12/11/2024"
+            workSchedule:
+              type: object
+              required:
+                - shiftType
+                - dailyHours
+              properties:
+                shiftType: 
+                  type: string 
+                  example: Day 
+                dailyHours:
+                  type: number 
+                  example: 8
+        salary:
+          type: object 
+          required:
+            - monthlySalary
+            - payCycle
+            - paymentMethod
+          properties:
+            monthlySalary:
+              type: number 
+              example: 25000
+            payCycle:
+              type: string 
+              example: Monthly 
+            paymentMethod:
+              type: string 
+              example: Bank Transfer
+            bankDetails:
+              type: object 
+              properties:
+                bankName:
+                  type: string 
+                  example: Islami Bank 
+                accountNumber:
+                  type: string 
+                  example: "20506030200030404"
+                branchCode:
+                  type: string 
+                  example: "110" 
+        educationDetails: 
+          type: object 
+          required:
+            - highestEducation
+            - certifications
+            - institution
+            - yearOfGraduation
+          properties:
+            highestEducation: 
+              type: string 
+              example: "Doctor of Medicine (MD)"
+            certifications:
+              type: string 
+              example: ["MBBS", "Cardiology Fellowship"]
+            institution:
+              type: string  
+              example: Dhaka Medical College
+            yearOfGraduation:
+              type: string 
+              format: date 
+              example: "2022"
+        experience: 
+          type: object 
+          properties:
+            previousEmployers:
+              type: string 
+              example: ["City Medical Hospital", "Greenfield Clinic"]
+            jobTitles:
+              type: string 
+              example: ["Cardiologist", "General Practitioner"]
+            yearsOfExperience: 
+              type: number 
+              example: 10
+            reasonForLeaving:
+              type: string 
+              example: Pursued advanced specialization in cardiology       
+    BaseResponse:
+      type: object
+      properties:
+        success: 
+          type: boolean
+          description: Indicates if the operation was successful.
+          example: true
+        message:
+          type: string
+          example: Operation completed successfully
+        statusCode:
+          type: integer
+          description: The HTTP status code of the response.
+          example: 200  
