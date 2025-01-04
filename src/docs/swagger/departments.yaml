@@ -10,7 +10,7 @@ paths:
   "/departments":
     post: 
       tags: 
-        - Departments 
+        - departments 
       summary: Create a new department 
       description: >
         Use this endpoint to create a new department with detailed information, including associated doctors, symptoms addressed, and possible causes.
@@ -32,6 +32,8 @@ paths:
                       data: 
                         $ref: "#/components/schemas/DepartmentData"
     get:
+      tags: 
+        - departments
       summary: Retrieve all departments 
       description: Fetches a list of all available departments with their details.
       responses:
@@ -50,6 +52,8 @@ paths:
                           $ref: "#/components/schemas/DepartmentData"
   "/departments/{id}":
     get:
+      tags:
+        - departments
       summary: Retrieve a department by ID 
       description: Fetches the details of a department using its unique ID.
       operationId: getDepartmentById
@@ -72,7 +76,9 @@ paths:
                     properties: 
                       data: 
                         $ref: "#/components/schemas/DepartmentData"
-    patch: 
+    patch:
+      tags: 
+        - departments
       summary: Update department details by ID
       description: Updates the information of a specific department using its unique ID
       parameters:
@@ -108,6 +114,8 @@ paths:
                             type: string 
                             example: Neurology
     delete: 
+      tags: 
+        - departments
       summary: Soft Delete a department by ID
       description: Soft Deletes a specific department using its unique ID.
       parameters:
