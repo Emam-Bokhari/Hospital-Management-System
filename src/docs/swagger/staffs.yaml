@@ -69,7 +69,42 @@ paths:
                     properties:
                       data: 
                         $ref: "#/components/schemas/StaffData"
-
+    patch: 
+      summary:  Update staff data 
+      description: Modify the details of a specific staff member.
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: Unique identifier for the staff member.
+          schema: 
+            type: string  
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object 
+              properties:
+                firstName:
+                  type: string 
+                  example: Emam 
+      responses:
+        "200":
+          description: Successfully updated staff data.
+          content: 
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: object 
+                        properties:
+                          firstName: 
+                            type: string 
+                            example: Emam 
+                        
 
 components:
   schemas:
