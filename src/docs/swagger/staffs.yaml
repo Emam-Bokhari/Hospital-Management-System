@@ -46,7 +46,30 @@ paths:
                         type: array 
                         items: 
                           $ref: "#/components/schemas/StaffData"
-              
+  "/staffs/{id}":
+    get:
+      summary: Retrieve a staff member's details 
+      description: Fetch the details of a specific staff member based on their unique identifier. 
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the staff member. 
+          schema:
+            type: string 
+      responses: 
+        "200":
+          description: Successfully retrieved staff details.
+          content: 
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "#/components/schemas/StaffData"
+
 
 components:
   schemas:
