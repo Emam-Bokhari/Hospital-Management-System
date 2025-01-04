@@ -105,7 +105,30 @@ paths:
                           firstName:
                             type: string 
                             example: Emam                  
-
+    delete: 
+      summary: Soft Delete a doctor by their unique ID
+      description: Perform a soft delete operation on a record.
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description:  The unique identifier of the doctor to delete.
+          schema: 
+            type: string 
+      responses:
+        "200": 
+          description: Successfully deleted the doctor 
+          content:
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties: 
+                      data: 
+                        type: object 
+                        example: {}
+                      
 components:
   schemas:
     DoctorData:
