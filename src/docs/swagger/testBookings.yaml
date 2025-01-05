@@ -51,5 +51,29 @@ paths:
                         type: array 
                         items:
                           $ref: "./components/schemas/TestBookingData.yaml"
-
+  "/testBookings/{id}":
+    get:
+      tags: 
+        - test bookings
+      summary: Retrieve a specific test booking
+      description: Fetch details of a specific test booking by its unique identifier
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: Unique identifier of the test booking
+          schema: 
+            type: string 
+      responses: 
+        "200":
+          description:  Successful response
+          content: 
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "./components/schemas/AppointmentBookingData.yaml"
           
