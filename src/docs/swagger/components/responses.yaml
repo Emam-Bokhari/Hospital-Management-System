@@ -1,0 +1,27 @@
+components:
+  responses:
+    BaseResponse:
+      description: >
+        Standard response structure for all API endpoints. 
+        Includes fields such as `success`, `message`, and `statusCode`
+      content:
+        "application/json":
+          schema:
+            $ref: "#/components/schemas/BaseResponse"
+
+  schemas:
+    BaseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates if the operation was successful.
+          example: true
+        message:
+          type: string
+          description: A message providing more details about the response.
+          example: Operation completed successfully
+        statusCode:
+          type: integer
+          description: The HTTP status code of the response.
+          example: 200
