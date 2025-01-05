@@ -20,7 +20,7 @@ paths:
         content:
           "application/json":
             schema:
-              $ref: "./components/schemas/UserData.yaml"
+              $ref: "../components/schemas/UserData.yaml"
       responses:
         "201":
           description: |
@@ -29,11 +29,11 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 
-                        $ref: "./components/schemas/UserData.yaml"
+                        $ref: "../components/schemas/UserData.yaml"
   "/users":
     get:
       tags:
@@ -48,13 +48,13 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 
                         type: array
                         items:
-                          $ref: "./components/schemas/UserData.yaml"
+                          $ref: "../components/schemas/UserData.yaml"
   "/users/{id}":
     get:
       tags:
@@ -77,11 +77,11 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 
-                        $ref: "./components/schemas/UserData.yaml"
+                        $ref: "../components/schemas/UserData.yaml"
     patch:
       tags:
         - users
@@ -115,7 +115,7 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties: 
                       data: 
@@ -148,7 +148,7 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 

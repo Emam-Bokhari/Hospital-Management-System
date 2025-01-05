@@ -18,7 +18,7 @@ paths:
         content:
           "application/json":
             schema:
-              $ref: "./components/schemas/AppointmentBookingData.yaml"
+              $ref: "../components/schemas/AppointmentBookingData.yaml"
       responses: 
         "200": 
           description: Successfully created an appointment. 
@@ -26,11 +26,11 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/AppointmentBookingData.yaml"
+                        $ref: "../components/schemas/AppointmentBookingData.yaml"
     get:
       tags: 
         - appointment bookings 
@@ -43,13 +43,13 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 
                         type: array
                         items:
-                          $ref: "./components/schemas/AppointmentBookingData.yaml"
+                          $ref: "../components/schemas/AppointmentBookingData.yaml"
   "/appointmentBookings/{id}":  
     get:
       tags: 
@@ -70,11 +70,11 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/AppointmentBookingData.yaml"  
+                        $ref: "../components/schemas/AppointmentBookingData.yaml"  
     patch: 
       tags: 
         - appointment bookings
@@ -109,7 +109,7 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 
@@ -142,7 +142,7 @@ paths:
             "application/json":
               schema:
                 allOf: 
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data: 

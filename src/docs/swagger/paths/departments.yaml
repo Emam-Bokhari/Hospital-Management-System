@@ -18,7 +18,7 @@ paths:
         content:
           "application/json":
             schema:
-              $ref: "./components/schemas/DepartmentData.yaml"
+              $ref: "../components/schemas/DepartmentData.yaml"
       responses: 
         "200": 
           description: The department has been successfully created. 
@@ -26,11 +26,11 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/DepartmentData.yaml"
+                        $ref: "../components/schemas/DepartmentData.yaml"
     get:
       tags: 
         - departments
@@ -43,13 +43,13 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "./components/schemas/DepartmentData.yaml"
+                          $ref: "../components/schemas/DepartmentData.yaml"
   "/departments/{id}":
     get:
       tags:
@@ -71,11 +71,11 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties: 
                       data: 
-                        $ref: "./components/schemas/DepartmentData.yaml"
+                        $ref: "../components/schemas/DepartmentData.yaml"
     patch:
       tags: 
         - departments
@@ -104,7 +104,7 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -132,7 +132,7 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object
                     properties:
                       data:
