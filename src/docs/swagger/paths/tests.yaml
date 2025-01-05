@@ -32,7 +32,9 @@ paths:
                     properties:
                       data: 
                         $ref: "../components/schemas/TestData.yaml"
-    get: 
+    get:
+      tags: 
+        - tests 
       summary: Retrieve all test data
       description: Fetch a list of all available test data
       responses: 
@@ -51,6 +53,8 @@ paths:
                           $ref: "../components/schemas/TestData.yaml"
   "/tests/{id}":
     get: 
+      tags: 
+        - tests
       summary: Retrieve a specific test data
       description: Fetch detailed information about a specific test using its unique identifier
       parameters:
@@ -73,6 +77,8 @@ paths:
                       data: 
                         $ref: "../components/schemas/TestData.yaml"
     patch: 
+      tags: 
+        - tests
       summary:  Update test data
       description: Modify details of an existing test using its unique identifier 
       parameters:
@@ -108,6 +114,8 @@ paths:
                             type: string 
                             example: Ct Scean
     delete: 
+      tags: 
+        - tests  
       summary: Perform a soft delete
       description: Mark an existing test record as deleted without permanently removing it from the database
       parameters:
