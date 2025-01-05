@@ -116,6 +116,33 @@ paths:
                           firstName:
                            type: string 
                            example: Emam 
+    delete:
+      tags: 
+        - test bookings
+      summary:  Perform a soft delete on a test booking
+      description: Mark a test booking as deleted without permanently removing it
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: Unique identifier of the test booking
+          schema:
+            type: string 
+      responses:
+        "200":
+          description:  Successful response 
+          content: 
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object
+                    properties:
+                      data: 
+                        type: object 
+                        example: {}
+
+
                 
 
 
