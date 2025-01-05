@@ -26,7 +26,7 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -43,7 +43,7 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -70,7 +70,7 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -103,7 +103,7 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -124,7 +124,7 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -379,18 +379,4 @@ components:
               example: 10
             reasonForLeaving:
               type: string 
-              example: Pursued advanced specialization in cardiology       
-    BaseResponse:
-      type: object
-      properties:
-        success: 
-          type: boolean
-          description: Indicates if the operation was successful.
-          example: true
-        message:
-          type: string
-          example: Operation completed successfully
-        statusCode:
-          type: integer
-          description: The HTTP status code of the response.
-          example: 200  
+              example: Pursued advanced specialization in cardiology        
