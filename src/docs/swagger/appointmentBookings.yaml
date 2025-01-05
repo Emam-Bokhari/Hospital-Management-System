@@ -18,7 +18,7 @@ paths:
         content:
           "application/json":
             schema:
-              $ref: "./components/schemas/AppointmentBookingsData.yaml"
+              $ref: "./components/schemas/AppointmentBookingData.yaml"
       responses: 
         "200": 
           description: Successfully created an appointment. 
@@ -30,7 +30,7 @@ paths:
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/AppointmentBookingsData.yaml"
+                        $ref: "./components/schemas/AppointmentBookingData.yaml"
     get:
       tags: 
         - appointment bookings 
@@ -49,7 +49,7 @@ paths:
                       data: 
                         type: array
                         items:
-                          $ref: "./components/schemas/AppointmentBookingsData.yaml"
+                          $ref: "./components/schemas/AppointmentBookingData.yaml"
   "/appointmentBookings/{id}":  
     get:
       tags: 
@@ -74,7 +74,7 @@ paths:
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/AppointmentBookingsData.yaml"  
+                        $ref: "./components/schemas/AppointmentBookingData.yaml"  
     patch: 
       tags: 
         - appointment bookings
