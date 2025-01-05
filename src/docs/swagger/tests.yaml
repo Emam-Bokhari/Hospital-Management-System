@@ -72,3 +72,40 @@ paths:
                     properties:
                       data: 
                         $ref: "./components/schemas/TestData.yaml"
+    patch: 
+      summary:  Update test data
+      description: Modify details of an existing test using its unique identifier 
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the test to update
+          schema:
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object 
+              properties:
+                testName:
+                  type: string 
+                  example: Ct Scean 
+      responses: 
+        "200":
+          description: Successfully updated test data 
+          content: 
+            "application/json":
+              schema:
+                allOf: 
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: object 
+                        properties:
+                          testName:
+                            type: string 
+                            example: Ct Scean
+        
+
