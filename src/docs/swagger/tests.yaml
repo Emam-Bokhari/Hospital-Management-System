@@ -107,5 +107,29 @@ paths:
                           testName:
                             type: string 
                             example: Ct Scean
+    delete: 
+      summary: Perform a soft delete
+      description: Mark an existing test record as deleted without permanently removing it from the database
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier of the test to be deleted
+          schema:
+            type: string 
+      responses:
+        "200":
+          description: Success Response 
+          content: 
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: object 
+                        example: {}
+
         
 
