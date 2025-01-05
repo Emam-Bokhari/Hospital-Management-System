@@ -49,3 +49,26 @@ paths:
                         type: array 
                         items: 
                           $ref: "./components/schemas/TestData.yaml"
+  "/tests/{id}":
+    get: 
+      summary: Retrieve a specific test data
+      description: Fetch detailed information about a specific test using its unique identifier
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: The unique identifier for the test
+          schema:
+            type: string 
+      responses: 
+        "200":
+          description: success response 
+          content: 
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "./components/schemas/TestData.yaml"
