@@ -19,7 +19,7 @@ paths:
           "application/json":
             schema:
               allOf:
-                - $ref: "./components/schemas/TestData.yaml"
+                - $ref: "../components/schemas/TestData.yaml"
       responses:
         "201":
           description: Success Response 
@@ -27,11 +27,11 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/TestData.yaml"
+                        $ref: "../components/schemas/TestData.yaml"
     get: 
       summary: Retrieve all test data
       description: Fetch a list of all available test data
@@ -42,13 +42,13 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties: 
                       data:
                         type: array 
                         items: 
-                          $ref: "./components/schemas/TestData.yaml"
+                          $ref: "../components/schemas/TestData.yaml"
   "/tests/{id}":
     get: 
       summary: Retrieve a specific test data
@@ -67,11 +67,11 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/TestData.yaml"
+                        $ref: "../components/schemas/TestData.yaml"
     patch: 
       summary:  Update test data
       description: Modify details of an existing test using its unique identifier 
@@ -98,7 +98,7 @@ paths:
             "application/json":
               schema:
                 allOf: 
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
@@ -124,7 +124,7 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
