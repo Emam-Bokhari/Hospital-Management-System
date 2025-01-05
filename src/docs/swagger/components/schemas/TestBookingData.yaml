@@ -1,0 +1,55 @@
+type: object 
+required: 
+  - 
+properties: 
+  _id: 
+    type: string 
+    example: 64abc12345de67890fghijk
+  userId:
+    type: string 
+    example: 44abc12345de67890fghijz 
+  testId:
+    type: string 
+    example: 94abc12345de67890fghijf
+  paymentId:
+    type: string 
+    example: 24abc12345de67890fghijc
+  userInfo:
+    type: object
+    properties: 
+      firstName:
+        type: string 
+        example: Moshfiqur 
+      lastName: 
+        type: string 
+        example: Rahman 
+      age: 
+        type: number 
+        example: 24
+      gender: 
+        type: string 
+        example: Male 
+      contactInformation:
+        type: object 
+        properties: 
+          phone: 
+            type: string 
+            example: "+8801315773424"
+          email: 
+            type: string 
+            example: moshfiq@gmail.com 
+      address: 
+        type: object
+        properties:
+          district:
+            type: string 
+            example: Brahmanbaria
+          subDistrict:
+            type: string 
+            example: Qasba 
+      medicalHistory:
+        type: string 
+        example: ["Diabetes"]
+      symptoms:
+        type: string 
+        example: ["Fever","Fatigue"]
