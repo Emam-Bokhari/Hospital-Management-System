@@ -32,3 +32,24 @@ paths:
                     properties:
                       data: 
                         $ref: "./components/schemas/TestBookingData.yaml"
+    get:
+      tags: 
+        - test bookings
+      summary: Retrieve test bookings data
+      description: Retrieve all test bookings information
+      responses:
+        "200":
+          description: Successful response
+          content:
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        type: array 
+                        items:
+                          $ref: "./components/schemas/TestBookingData.yaml"
+
+          
