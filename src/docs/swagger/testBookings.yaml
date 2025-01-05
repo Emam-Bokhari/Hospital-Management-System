@@ -79,13 +79,13 @@ paths:
     patch: 
       tags: 
         - test bookings
-      summary: update test booking data 
-      description: update test booking data 
+      summary: Update test booking details 
+      description: Modify the details of a specific test booking
       parameters:
         - name: id 
           in: path 
           required: true 
-          description: unique identifier
+          description: Unique identifier of the test booking
           schema: 
             type: string 
       requestBody:
@@ -102,7 +102,7 @@ paths:
                         example: Emam 
       responses: 
         "200":
-          description: success response 
+          description: Successful response
           content:
             "application/json":
               schema:
