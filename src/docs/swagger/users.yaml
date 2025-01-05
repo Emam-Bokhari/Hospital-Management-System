@@ -20,7 +20,7 @@ paths:
         content:
           "application/json":
             schema:
-              $ref: "#/components/schemas/UserData"
+              $ref: "./components/schemas/UserData.yaml"
       responses:
         "201":
           description: |
@@ -33,7 +33,7 @@ paths:
                   - type: object
                     properties:
                       data: 
-                        $ref: "#/components/schemas/UserData"
+                        $ref: "./components/schemas/UserData.yaml"
   "/users":
     get:
       tags:
@@ -54,7 +54,7 @@ paths:
                       data: 
                         type: array
                         items:
-                          $ref: "#/components/schemas/UserData"
+                          $ref: "./components/schemas/UserData.yaml"
   "/users/{id}":
     get:
       tags:
@@ -81,7 +81,7 @@ paths:
                   - type: object
                     properties:
                       data: 
-                        $ref: "#/components/schemas/UserData"
+                        $ref: "./components/schemas/UserData.yaml"
     patch:
       tags:
         - users
@@ -153,53 +153,5 @@ paths:
                     properties:
                       data: 
                         type: object
-                        example: {}
-components:
-  schemas:
-    UserData:
-        type: object
-        required:
-          - firstName
-          - lastName
-          - email
-          - password
-        properties:
-          _id: 
-            type: string
-            example: ObjectId
-          firstName:
-            type: string
-            description: The first name of the user.
-            example: Moshfiqur
-          lastName:
-            type: string
-            description: The last name of the user.
-            example: Rahmna
-          email:
-            type: string
-            description: The user's email address. Must be unique.
-            example: moshfiq@gmail.com
-          password:
-            type: string
-            format: password
-            description: A secure password for the user.
-            example: moshfiq@123
-          role:
-            type: string
-            description: The user's role in the system
-            example: user
-          status:
-            type: string
-            description: The current status of the user account.
-            example: active
-          createdAt:
-            type: string
-            format: date
-            description: Timestamp of when the user account was created.
-            example: "2025-01-03T09:37:17.755909"
-          updatedAt:
-            type: string
-            format: date
-            description: Timestamp of the last update to the user account.
-            example: "2025-01-03T09:37:17.755909"   
+                        example: {}  
 
