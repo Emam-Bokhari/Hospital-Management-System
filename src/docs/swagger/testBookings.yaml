@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+ title: Test Booking API
+ description: |
+  API documentation for managing test booking operations, including creation, updates, and more.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths: 
+  "/testBookings":
+    post: 
+      tags: 
+      - test bookings
+      summary: Create a test booking 
+      description: >
+       This endpoint allows the creation of a new test booking record. A test booking represents a reservation for a test at a specified time and location. The request should include details about the user, the test type, preferred time, and any other relevant information like medical history or symptoms 
+      requestBody:
+        content: 
+          "application/json":
+            schema:
+              $ref: "./components/schemas/TestBookingData.yaml"
+      responses: 
+        "201":
+          description: Successful response indicating that the test booking was created
+          content:
+            "application/json":
+              schema: 
+                allOf: 
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "./components/schemas/TestBookingData.yaml"
