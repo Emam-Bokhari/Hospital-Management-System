@@ -76,4 +76,47 @@ paths:
                     properties:
                       data: 
                         $ref: "./components/schemas/AppointmentBookingData.yaml"
+    patch: 
+      tags: 
+        - test bookings
+      summary: update test booking data 
+      description: update test booking data 
+      parameters:
+        - name: id 
+          in: path 
+          required: true 
+          description: unique identifier
+          schema: 
+            type: string 
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object 
+              properties:
+                  userInfo:
+                    type: object
+                    properties: 
+                      firstName:
+                        type: string 
+                        example: Emam 
+      responses: 
+        "200":
+          description: success response 
+          content:
+            "application/json":
+              schema:
+                allOf: 
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      userInfo:
+                        type: object
+                        properties: 
+                          firstName:
+                           type: string 
+                           example: Emam 
+                
+
+
           
