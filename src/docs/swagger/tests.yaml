@@ -32,3 +32,20 @@ paths:
                     properties:
                       data: 
                         $ref: "./components/schemas/TestData.yaml"
+    get: 
+      summary: Retrieve all test data
+      description: Fetch a list of all available test data
+      responses: 
+        "200":
+          description: Fetch a list of all available test data
+          content: 
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties: 
+                      data:
+                        type: array 
+                        items: 
+                          $ref: "./components/schemas/TestData.yaml"
