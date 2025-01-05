@@ -19,7 +19,7 @@ paths:
           "application/json":
             schema:
               allOf:
-                - $ref: "./components/schemas/DoctorData.yaml"
+                - $ref: "../components/schemas/DoctorData.yaml"
       responses:
         "200": 
           description: Successfully created a doctor 
@@ -27,11 +27,11 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/DoctorData.yaml"
+                        $ref: "../components/schemas/DoctorData.yaml"
     get:
       tags: 
         - doctors
@@ -44,13 +44,13 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties: 
                       data: 
                         type: array 
                         items: 
-                          $ref: "./components/schemas/DoctorData.yaml"
+                          $ref: "../components/schemas/DoctorData.yaml"
   "/doctors/{id}":
     get:
       tags: 
@@ -71,11 +71,11 @@ paths:
             "application/json":
               schema: 
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties:
                       data: 
-                        $ref: "./components/schemas/DoctorData.yaml"
+                        $ref: "../components/schemas/DoctorData.yaml"
     patch: 
       tags: 
         - doctors
@@ -104,7 +104,7 @@ paths:
             "application/json":
               schema:
                 allOf:
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties: 
                       data: 
@@ -132,7 +132,7 @@ paths:
             "application/json":
               schema: 
                 allOf: 
-                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
                   - type: object 
                     properties: 
                       data: 
