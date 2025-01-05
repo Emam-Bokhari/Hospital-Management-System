@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+ title: Test  API
+ description: |
+  API documentation for managing test operations, including creation, updates, and more.
+ version: "1.0.0"
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths: 
+  "/tests":
+    post: 
+      tags: 
+        - tests 
+      summary: Create test data
+      description: Add a new test to the system
+      requestBody:
+        content: 
+          "application/json":
+            schema:
+              allOf:
+                - $ref: "./components/schemas/TestData.yaml"
+      responses:
+        "201":
+          description: Success Response 
+          content: 
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "./components/responses.yaml#/components/schemas/BaseResponse"
+                  - type: object 
+                    properties:
+                      data: 
+                        $ref: "./components/schemas/TestData.yaml"
