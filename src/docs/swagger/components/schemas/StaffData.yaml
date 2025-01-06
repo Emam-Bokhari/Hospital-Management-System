@@ -129,9 +129,12 @@ properties:
       - relationship
       - contactInformation
     properties:
-      name: 
+      firstName: 
         type: string 
-        example: Mokhlesur Rahman 
+        example: Mokhlesur
+      lastName: 
+        type: string 
+        example: Rahman 
       relationship: 
         type: string 
         example: Father
@@ -147,6 +150,19 @@ properties:
           email: 
             type: string 
             example: mokhlesurrahman@gmail.com 
+      identification:
+            type: object 
+            properties:
+              nid:
+                type: object
+                properties: 
+                  number: 
+                     type: number   
+                     example: "1345464444"
+                  scannedCopy:
+                     type: string 
+                     format: url 
+                     example: https://example.com/images/moshfiq.jpg
   employment:
     type: object 
     required: 
@@ -176,7 +192,7 @@ properties:
         properties:
           shiftType: 
             type: string 
-            example: Day 
+            example: Morning # Morning/Evening/Night 
           dailyHours:
             type: number 
             example: 8

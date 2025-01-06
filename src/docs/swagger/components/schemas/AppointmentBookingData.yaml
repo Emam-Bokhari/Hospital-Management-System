@@ -29,6 +29,9 @@ properties:
     type: string
     description: Age of the user.
     example: 24
+  weight:
+    type: number 
+    example: 55
   address:
     type: object
     description: Address details of the user. 
@@ -69,7 +72,7 @@ properties:
       timeSlot:
         type: string 
         description: Time slot for the appointment.
-        example: morning
+        example: "09:00 Am"
       status: 
         type: string 
         description: Current status of the appointment.

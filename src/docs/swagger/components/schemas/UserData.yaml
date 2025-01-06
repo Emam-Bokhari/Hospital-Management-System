@@ -33,6 +33,9 @@ properties:
     type: string
     description: The current status of the user account.
     example: active
+  isDeleted:
+    type: boolean 
+    example: false 
   createdAt:
     type: string
     format: date

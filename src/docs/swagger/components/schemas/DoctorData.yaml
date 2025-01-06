@@ -138,10 +138,10 @@ properties:
         example: ["Monday","Wednesday","Friday"]
       workingHours:
         type: string
-        example: "9:00 AM - 5:00 PM"
+        example: ["9:00 AM - 5:00 PM"]
       availableTimeSlots:
         type: string
-        example: ["Morning","Afternoon","Evening"]
+        example: ["9:00 AM - 10:00 AM", "3:00 PM - 4:00 PM"]
       offDays:
         type: string
         example: ["2024-12-25"]
