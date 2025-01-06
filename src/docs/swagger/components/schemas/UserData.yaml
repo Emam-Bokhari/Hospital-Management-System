@@ -35,7 +35,7 @@ properties:
     example: active
   isDeleted:
     type: boolean 
-    example: false 
+    example: false
   createdAt:
     type: string
     format: date

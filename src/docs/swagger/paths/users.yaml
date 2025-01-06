@@ -153,5 +153,5 @@ paths:
                     properties:
                       data: 
                         type: object
-                        example: {}  
+                        example: {}                 
 
