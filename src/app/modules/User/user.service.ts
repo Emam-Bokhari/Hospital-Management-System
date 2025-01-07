@@ -12,7 +12,13 @@ const getAllUsers = async () => {
     return result;
 }
 
+const getUserById = async (id: string) => {
+    const result = await User.findById(id);
+    return result;
+}
+
 export const UserServices = {
     createUser,
     getAllUsers,
+    getUserById,
 }
