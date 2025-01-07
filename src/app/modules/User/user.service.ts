@@ -13,15 +13,27 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (id: string) => {
+
   const result = await User.findById(id);
+
+  if (!result) {
+    throw new Error(`No user found with ID: ${id}`);
+  }
+
   return result;
 };
 
 const updateUserById = async (id: string, payload: Partial<TUser>) => {
+
   const result = await User.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
   });
+
+  if (!result) {
+    throw new Error(`No user found with ID: ${id}`)
+  }
+
   return result;
 };
 
@@ -31,6 +43,10 @@ const deleteUserById = async (id: string) => {
     { isDeleted: true },
     { new: true, runValidators: true },
   );
+
+  if (!result) {
+    throw new Error(`No user found with ID: ${id}`)
+  }
 
   return result;
 };
