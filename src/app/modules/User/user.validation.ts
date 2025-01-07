@@ -14,8 +14,8 @@ const createUserValidationSchema = z.object({
     lastName: z
       .string()
       .trim()
-      .min(1, 'First name is required')
-      .max(50, 'First name cannot exceed 50 characters')
+      .min(1, 'Last name is required')
+      .max(50, 'Last name cannot exceed 50 characters')
       .regex(
         /^[a-zA-Z\-'\s]+$/,
         'Last name can only contain letters, spaces, hyphens, or apostrophes',
@@ -29,8 +29,8 @@ const createUserValidationSchema = z.object({
       .min(8, 'Password must be at least 8 characters long')
       .max(64, 'Password cannot exceed 64 characters')
       .regex(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
+        'Password must contain at least one letter and one number'
       ),
     role: z
       .enum([
@@ -47,6 +47,54 @@ const createUserValidationSchema = z.object({
   }),
 });
 
+const updateUserValidationSchema = z.object({
+  body: z.object({
+    firstName: z
+      .string()
+      .trim()
+      .min(1, 'First name is required')
+      .max(50, 'First name cannot exceed 50 characters')
+      .regex(
+        /^[a-zA-Z\-'\s]+$/,
+        'First name can only contain letters, spaces, hyphens, or apostrophes',
+      ).optional(),
+    lastName: z
+      .string()
+      .trim()
+      .min(1, 'First name is required')
+      .max(50, 'First name cannot exceed 50 characters')
+      .regex(
+        /^[a-zA-Z\-'\s]+$/,
+        'Last name can only contain letters, spaces, hyphens, or apostrophes',
+      ).optional(),
+    email: z
+      .string()
+      .email('Invalid email format')
+      .max(100, 'Email cannot exceed 100 characters').optional(),
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters long')
+      .max(64, 'Password cannot exceed 64 characters')
+      .regex(
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
+        'Password must contain at least one letter and one number'
+      ).optional(),
+    role: z
+      .enum([
+        'user',
+        'doctor',
+        'accounts-specialist',
+        'finance-manager',
+        'admin',
+        'super-admin',
+      ])
+      .default('user').optional(),
+    status: z.enum(['active', 'suspend']).default('active').optional(),
+    isDeleted: z.boolean().default(false).optional(),
+  }),
+});
+
 export const UserValidationSchema = {
   createUserValidationSchema,
+  updateUserValidationSchema,
 };
