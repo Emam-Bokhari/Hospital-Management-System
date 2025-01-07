@@ -1,63 +1,63 @@
 type: object
-required: 
-  - firstName 
+required:
+  - firstName
   - lastName
   - age
-  - address 
+  - address
   - contactInformation
   - doctorId
   - appointmentDetails
   - paymentId
-properties: 
-  _id: 
+properties:
+  _id:
     type: string
-    description: Unique identifier for the appointment. 
+    description: Unique identifier for the appointment.
     example: 64abc12345de67890fghijk
-  userId: 
+  userId:
     type: string
-    description: ID of the user who booked the appointment. 
+    description: ID of the user who booked the appointment.
     example: 84abc12345de67890fghias
-  firstName: 
-    type: string 
+  firstName:
+    type: string
     description: First name of the user.
     example: Moshfiqur
-  lastName: 
+  lastName:
     type: string
     description: Last name of the user.
-    example: Rahman 
-  age: 
+    example: Rahman
+  age:
     type: string
     description: Age of the user.
     example: 24
   weight:
-    type: number 
+    type: number
     example: 55
   address:
     type: object
-    description: Address details of the user. 
+    description: Address details of the user.
     properties:
       district:
         type: string
-        description: District of the user. 
+        description: District of the user.
         example: Brahmanbaria
-      subDistrict: 
+      subDistrict:
         type: string
-        description: Sub-district of the user. 
+        description: Sub-district of the user.
         example: Qasba
   contactInformation:
-    type: object 
+    type: object
     description: Contact details of the user.
-    properties: 
+    properties:
       phone:
         type: string
-        description: Phone number of the user. 
-        example: "+8801315773424"
-      email: 
-        type: string 
+        description: Phone number of the user.
+        example: '+8801315773424'
+      email:
+        type: string
         description: Email address of the user.
-        example: moshfiq@gmail.com 
+        example: moshfiq@gmail.com
   doctorId:
-    type: string 
+    type: string
     description: ID of the assigned doctor.
     example: 94abc12345de67890fghibb
   appointmentDetails:
@@ -65,16 +65,16 @@ properties:
     description: Details of the appointment.
     properties:
       date:
-        type: string 
-        format: date 
+        type: string
+        format: date
         description: Date of the appointment.
-        example: "2025-01-03T17:32:19.319281+00:00"
+        example: '2025-01-03T17:32:19.319281+00:00'
       timeSlot:
-        type: string 
+        type: string
         description: Time slot for the appointment.
-        example: "09:00 Am"
-      status: 
-        type: string 
+        example: '09:00 Am'
+      status:
+        type: string
         description: Current status of the appointment.
         example: pending
   paymentId:
@@ -82,26 +82,26 @@ properties:
     description: Payment ID associated with the appointment.
     example: 14abc12345de67890fghiac
   additionalNotes:
-    type: string 
+    type: string
     description: Any additional notes related to the appointment.
     example: Fever
   prescriptionFiles:
-    type: string 
-    format: url 
+    type: string
+    format: url
     description: URL of the uploaded prescription files.
     example: https://placeholder.files.com
   testReportFiles:
-    type: string 
-    format: url 
+    type: string
+    format: url
     description: URL of the uploaded test report files.
     example: https://placeholder.files.com
-  createdAt: 
-    type: string 
-    format: date 
+  createdAt:
+    type: string
+    format: date
     description: Timestamp when the appointment was created.
-    example: "2025-01-03T17:32:19.319281+00:00"
-  updatedAt: 
-    type: string 
-    format: date 
+    example: '2025-01-03T17:32:19.319281+00:00'
+  updatedAt:
+    type: string
+    format: date
     description: Timestamp when the appointment was last updated.
-    example: "2025-01-03T17:32:19.319281+00:00"
+    example: '2025-01-03T17:32:19.319281+00:00'

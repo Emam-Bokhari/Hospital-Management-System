@@ -1,6 +1,6 @@
 type: object
 required:
-  - departmentName 
+  - departmentName
   - overview
   - description
   - symptomsAddressed
@@ -14,48 +14,48 @@ properties:
   departmentCode:
     type: string
     description: A unique code to identify the department.
-    example: CARD 
+    example: CARD
   overview:
-    type: string 
+    type: string
     description: A brief summary of the department's primary focus or area of expertise.
     example: Cardiology focuses on heart health
   description:
-    type: string 
+    type: string
     example: Specializes in diagnosing and treating heart diseases.
   symptomsAddressed:
     type: array
     items:
       type: object
       properties:
-        symptom: 
-          type: string 
+        symptom:
+          type: string
           example: Chest pain
         description:
-          type: string 
+          type: string
           description: Additional information about the symptom.
           example: A pressing or squeezing sensation in the chest area.
   possibleCauses:
-    type: array 
-    items: 
-      type: object 
+    type: array
+    items:
+      type: object
       properties:
-        cause: 
-          type: string 
+        cause:
+          type: string
           description: The potential cause related to the department's focus area.
           example: Smoking
         description:
-          type: string 
+          type: string
           description: Further explanation of the cause.
           example: Damages blood vessels, increasing the risk of heart disease.
   associatedDoctors:
-      type: string 
-      description: A list of unique IDs for doctors associated with the department.
-      example: ["63fbc1234abcd56789def123", "63fbc1234abcd56789def456"]
-  status: 
-    type: string 
+    type: string
+    description: A list of unique IDs for doctors associated with the department.
+    example: ['63fbc1234abcd56789def123', '63fbc1234abcd56789def456']
+  status:
+    type: string
     description: The current status of the department (e.g., Active, Inactive).
-    example: Active 
+    example: Active
   createdBy:
-    type: string 
+    type: string
     description: The ID of the user who created the department.
     example: 63fbc1234abcd56789def124

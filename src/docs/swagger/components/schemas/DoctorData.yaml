@@ -1,8 +1,8 @@
 type: object
-required: 
+required:
   - firstName
   - lastName
-  - gender 
+  - gender
   - dateOfBirth
   - contactInformation
   - nationality
@@ -12,44 +12,44 @@ required:
   - availabilityInformation
   - emergencyContact
 properties:
-  _id: 
-    type: string 
+  _id:
+    type: string
     example: 64abc12345de67890fghijk
   userId:
-    type: string 
+    type: string
     example: 64abc12345de67890fghijz
   firstName:
-    type: string 
+    type: string
     example: Moshfiqur
   lastName:
-    type: string 
-    example: Rahman 
+    type: string
+    example: Rahman
   gender:
-    type: string 
+    type: string
     example: male
   dateOfBirth:
-    type: string 
-    example: "2000-04-23"
+    type: string
+    example: '2000-04-23'
   profilePicture:
-    type: string 
+    type: string
     example: https://example.com/images/moshfiq.jpg
   contactInformation:
-    type: object 
+    type: object
     properties:
       phone:
-        type: string 
-        example: "+8801315773424"
-      email: 
-        type: string 
-        example: moshfiq@gmail.com 
+        type: string
+        example: '+8801315773424'
+      email:
+        type: string
+        example: moshfiq@gmail.com
   nationality:
-    type: string 
+    type: string
     example: Bangladeshi
   religion:
-    type: string 
+    type: string
     example: Islam
   professionalInformation:
-    type: object 
+    type: object
     required:
       - specialization
       - qualifications
@@ -58,26 +58,26 @@ properties:
       - yearsOfExperience
     properties:
       specialization:
-        type: string 
+        type: string
         example: Cardiologist
       qualifications:
-        type: string 
-        example: ["MBBS","MD"]
+        type: string
+        example: ['MBBS', 'MD']
       licenseNumber:
-        type: string 
-        example: "Abc123"
+        type: string
+        example: 'Abc123'
       licenseExpiryDate:
-        type: string 
-        example: "2030-05-15"
+        type: string
+        example: '2030-05-15'
       hospitalOrClinic:
-        type: string 
-        example: City Medical Hospital 
+        type: string
+        example: City Medical Hospital
       yearsOfExperience:
-        type: number 
-        format: int32 
+        type: number
+        format: int32
         example: 15
   educationDetails:
-    type: array 
+    type: array
     items:
       type: object
       required:
@@ -87,44 +87,44 @@ properties:
         - universityLocation
       properties:
         universityName:
-          type: string 
+          type: string
           example: Dhaka Medical College
         degreeEarned:
-          type: string 
-          example: "MBBS"
+          type: string
+          example: 'MBBS'
         duration:
-          type: string 
-          example: "2000-2005"
+          type: string
+          example: '2000-2005'
         specializationEducation:
-          type: string 
+          type: string
           example: General Medicine
         universityLocation:
-          type: string 
-          example: Dhaka, Bangladesh 
+          type: string
+          example: Dhaka, Bangladesh
         universityWebsite:
-          type: string 
-          format: url 
-          example: https://example.com 
+          type: string
+          format: url
+          example: https://example.com
   awardsAndRecognition:
-    type: array 
-    items: 
+    type: array
+    items:
       type: object
       properties:
         awardName:
-          type: string 
+          type: string
           example: Best Cardiologist
         awardYear:
-          type: string 
+          type: string
           example: 2020
         awardDescription:
-          type: string 
-          example: Awarded for outstanding patient care 
+          type: string
+          example: Awarded for outstanding patient care
         issuingOrganization:
-          type: string 
+          type: string
           example: Bangladesh Medical Council
         awardCategory:
-          type: string 
-          example: Excellence in Medicine 
+          type: string
+          example: Excellence in Medicine
   availabilityInformation:
     type: object
     required:
@@ -134,30 +134,30 @@ properties:
       - offDays
     properties:
       workingDays:
-        type: string 
-        example: ["Monday","Wednesday","Friday"]
+        type: string
+        example: ['Monday', 'Wednesday', 'Friday']
       workingHours:
         type: string
-        example: ["9:00 AM - 5:00 PM"]
+        example: ['9:00 AM - 5:00 PM']
       availableTimeSlots:
         type: string
-        example: ["9:00 AM - 10:00 AM", "3:00 PM - 4:00 PM"]
+        example: ['9:00 AM - 10:00 AM', '3:00 PM - 4:00 PM']
       offDays:
         type: string
-        example: ["2024-12-25"]
+        example: ['2024-12-25']
   emergencyContact:
     type: object
-    required: 
-      - name 
-      - phone 
+    required:
+      - name
+      - phone
       - relationship
     properties:
-      name: 
+      name:
         type: string
         example: Emam
       phone:
         type: string
-        example: "+8801315773424"
+        example: '+8801315773424'
       email:
         type: string
         example: moshfiq@gmail.com
@@ -172,4 +172,4 @@ properties:
         example: City Medical Hospital
       chamberAddress:
         type: string
-        example: "123 Medical Road, Dhaka"
+        example: '123 Medical Road, Dhaka'

@@ -1,141 +1,140 @@
 openapi: 3.0.0
 info:
- title: Doctors Management API 
- description: >
-  API documentation for managing doctor-related operations such as creating, updating, deleting, and retrieving doctor information.
- version: "1.0.0"
+  title: Doctors Management API
+  description: >
+    API documentation for managing doctor-related operations such as creating, updating, deleting, and retrieving doctor information.
+  version: '1.0.0'
 servers:
   - url: localhost:3000/api/docs
     description: Development Server
 paths:
-  "/doctors":
-    post: 
-      tags: 
+  '/doctors':
+    post:
+      tags:
         - doctors
       summary: Create a new doctor
       description: Adds a new doctor to the system with their details.
       requestBody:
         content:
-          "application/json":
+          'application/json':
             schema:
               allOf:
-                - $ref: "../components/schemas/DoctorData.yaml"
+                - $ref: '../components/schemas/DoctorData.yaml'
       responses:
-        "200": 
-          description: Successfully created a doctor 
+        '200':
+          description: Successfully created a doctor
           content:
-            "application/json":
+            'application/json':
               schema:
                 allOf:
-                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
-                  - type: object 
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
                     properties:
-                      data: 
-                        $ref: "../components/schemas/DoctorData.yaml"
+                      data:
+                        $ref: '../components/schemas/DoctorData.yaml'
     get:
-      tags: 
+      tags:
         - doctors
       summary: Retrieve all doctors' information
       description: Fetches the complete list of doctors' data.
-      responses: 
-        "200": 
-          description: Successful response 
-          content: 
-            "application/json":
-              schema: 
-                allOf: 
-                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
-                  - type: object 
-                    properties: 
-                      data: 
-                        type: array 
-                        items: 
-                          $ref: "../components/schemas/DoctorData.yaml"
-  "/doctors/{id}":
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '../components/schemas/DoctorData.yaml'
+  '/doctors/{id}':
     get:
-      tags: 
+      tags:
         - doctors
       summary: Retrieve a doctor's details
       description: Fetch information for a specific doctor by their unique identifier.
       parameters:
-        - name: id 
-          in: path 
-          required: true 
-          description: The unique identifier of the doctor.
-          schema: 
-            type: string 
-      responses: 
-        "200": 
-          description: Successful response
-          content:
-            "application/json":
-              schema: 
-                allOf:
-                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
-                  - type: object 
-                    properties:
-                      data: 
-                        $ref: "../components/schemas/DoctorData.yaml"
-    patch: 
-      tags: 
-        - doctors
-      summary:  Update a doctor's details
-      description: Modify information for a specific doctor using their unique identifier. 
-      parameters:
-        - name: id 
-          in: path 
-          required: true 
+        - name: id
+          in: path
+          required: true
           description: The unique identifier of the doctor.
           schema:
-            type: string 
-      requestBody:
-        content:
-          "application/json":
-            schema: 
-              type: object 
-              properties:
-                firstName:
-                  type: string 
-                  example: Emam
+            type: string
       responses:
-        "200": 
-          description: Successful response 
+        '200':
+          description: Successful response
           content:
-            "application/json":
+            'application/json':
               schema:
                 allOf:
-                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
-                  - type: object 
-                    properties: 
-                      data: 
-                        type: object 
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/DoctorData.yaml'
+    patch:
+      tags:
+        - doctors
+      summary: Update a doctor's details
+      description: Modify information for a specific doctor using their unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the doctor.
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: Emam
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
                         properties:
                           firstName:
-                            type: string 
-                            example: Emam                  
-    delete: 
-      tags: 
+                            type: string
+                            example: Emam
+    delete:
+      tags:
         - doctors
       summary: Soft Delete a doctor by their unique ID
       description: Perform a soft delete operation on a record.
       parameters:
-        - name: id 
-          in: path 
-          required: true 
-          description:  The unique identifier of the doctor to delete.
-          schema: 
-            type: string 
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the doctor to delete.
+          schema:
+            type: string
       responses:
-        "200": 
-          description: Successfully deleted the doctor 
+        '200':
+          description: Successfully deleted the doctor
           content:
-            "application/json":
-              schema: 
-                allOf: 
-                  - $ref: "../components/responses.yaml#/components/schemas/BaseResponse"
-                  - type: object 
-                    properties: 
-                      data: 
-                        type: object 
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
                         example: {}
-                      
