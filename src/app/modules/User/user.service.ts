@@ -10,6 +10,11 @@ const createUser = async (payload: TUser) => {
 
 const getAllUsers = async () => {
   const result = await User.find();
+
+  if (result.length === 0) {
+    throw new HttpError(404, "No users were found in the database")
+  }
+
   return result;
 };
 
