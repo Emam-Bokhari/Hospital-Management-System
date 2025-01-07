@@ -5,7 +5,7 @@ required:
   - email
   - password
 properties:
-  _id: 
+  _id:
     type: string
     example: ObjectId
   firstName:
@@ -34,15 +34,15 @@ properties:
     description: The current status of the user account.
     example: active
   isDeleted:
-    type: boolean 
-    example: false 
+    type: boolean
+    example: false
   createdAt:
     type: string
     format: date
     description: Timestamp of when the user account was created.
-    example: "2025-01-03T09:37:17.755909"
+    example: '2025-01-03T09:37:17.755909'
   updatedAt:
     type: string
     format: date
     description: Timestamp of the last update to the user account.
-    example: "2025-01-03T09:37:17.755909"  
+    example: '2025-01-03T09:37:17.755909'

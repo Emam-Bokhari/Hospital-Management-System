@@ -5,9 +5,9 @@ components:
         Standard response structure for all API endpoints. 
         Includes fields such as `success`, `message`, and `statusCode`
       content:
-        "application/json":
+        'application/json':
           schema:
-            $ref: "#/components/schemas/BaseResponse"
+            $ref: '#/components/schemas/BaseResponse'
 
   schemas:
     BaseResponse:
