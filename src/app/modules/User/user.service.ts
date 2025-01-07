@@ -1,7 +1,7 @@
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
 
-const createUserIntoDB = async (payload: TUser) => {
+const createUser = async (payload: TUser) => {
     const result = await User.create(payload);
 
     return result;
@@ -13,6 +13,6 @@ const getAllUsers = async () => {
 }
 
 export const UserServices = {
-    createUserIntoDB,
+    createUser,
     getAllUsers,
 }
