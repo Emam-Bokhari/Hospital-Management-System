@@ -1,23 +1,21 @@
-import { Request, Response } from "express";
 import { UserServices } from "./user.service";
 import { sendResponse } from "../../utils/sendResponse";
+import { asyncHandler } from "../../utils/asyncHandler";
 
-const createUserController = async (req: Request, res: Response) => {
-    try {
-        const userPayload = req.body;
-        const createdUser = await UserServices.createUser(userPayload);
+const createUserController = asyncHandler(async (req, res) => {
 
-        sendResponse(res, {
-            statusCode: 201,
-            success: true,
-            message: "User registered successfully",
-            data: createdUser,
-        })
-    } catch (err) {
-        console.log(err);
-    }
+    const userPayload = req.body;
+    const createdUser = await UserServices.createUser(userPayload);
+
+    sendResponse(res, {
+        statusCode: 201,
+        success: true,
+        message: "User registered successfully",
+        data: createdUser,
+    })
+
 }
-
+)
 export const UserControllers = {
     createUserController,
 }
