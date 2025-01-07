@@ -1,3 +1,4 @@
+import { HttpError } from '../../errors/HttpError';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 
@@ -17,7 +18,7 @@ const getUserById = async (id: string) => {
   const result = await User.findById(id);
 
   if (!result) {
-    throw new Error(`No user found with ID: ${id}`);
+    throw new HttpError(404, `No user found with ID: ${id}`);
   }
 
   return result;
@@ -31,7 +32,7 @@ const updateUserById = async (id: string, payload: Partial<TUser>) => {
   });
 
   if (!result) {
-    throw new Error(`No user found with ID: ${id}`)
+    throw new HttpError(404, `No user found with ID: ${id}`)
   }
 
   return result;
@@ -45,7 +46,7 @@ const deleteUserById = async (id: string) => {
   );
 
   if (!result) {
-    throw new Error(`No user found with ID: ${id}`)
+    throw new HttpError(404, `No user found with ID: ${id}`)
   }
 
   return result;
