@@ -8,14 +8,27 @@ const createUserController = asyncHandler(async (req, res) => {
     const createdUser = await UserServices.createUser(userPayload);
 
     sendResponse(res, {
-        statusCode: 201,
         success: true,
         message: "User registered successfully",
+        statusCode: 201,
         data: createdUser,
     })
 
 }
 )
+
+const getAllUsersController = asyncHandler(async (req, res) => {
+    const users = await UserServices.getAllUsers();
+
+    sendResponse(res, {
+        success: true,
+        message: "Users retrieved successfully",
+        statusCode: 200,
+        data: users,
+    })
+})
+
 export const UserControllers = {
     createUserController,
+    getAllUsersController,
 }
