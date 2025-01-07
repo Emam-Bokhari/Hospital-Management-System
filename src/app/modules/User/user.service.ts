@@ -17,8 +17,14 @@ const getUserById = async (id: string) => {
     return result;
 }
 
+const updateUserById = async (id: string, payload: Partial<TUser>) => {
+    const result = await User.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
+    return result;
+}
+
 export const UserServices = {
     createUser,
     getAllUsers,
     getUserById,
+    updateUserById,
 }
