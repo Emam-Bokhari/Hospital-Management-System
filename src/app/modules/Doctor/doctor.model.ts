@@ -82,30 +82,6 @@ const previousWorkPlaceSchema = new Schema<TPreviousWorkPlace>({
     }
 });
 
-const professionalInformationSchema = new Schema<TProfessionalInformation>({
-    specialization: {
-        type: String,
-        trim: true,
-        required: true,
-    },
-    qualifications: [
-        {
-            type: String,
-            trim: true,
-            required: true,
-        }
-    ],
-    licenseNumber: {
-        type: String,
-        trim: true,
-        required: true,
-    },
-    previousWorkPlace: [previousWorkPlaceSchema],
-    yearsOfExperience: {
-        type: Number,
-        trim: true,
-    }
-})
 
 const educationDetailsSchema = new Schema<TEducationDetails>({
     universityName: {
@@ -176,38 +152,6 @@ const awardsSchema = new Schema<TAwards>({
     }
 })
 
-const availabilityInformationSchema = new Schema<TAvailabilityInformation>({
-    workingDays: [{
-        type: String,
-        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        required: true,
-    }],
-    workingHours: [{
-        startTime: {
-            type: String,
-            required: true,
-        },
-        endTime: {
-            type: String,
-            required: true,
-        },
-    }],
-    availableTimeSlots: [{
-        startTime: {
-            type: String,
-            required: true,
-        },
-        endTime: {
-            type: String,
-            required: true,
-        },
-    }],
-    offDays: [{
-        type: String,
-        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        required: true,
-    }]
-})
 
 const medicalPracticeInformationSchema = new Schema<TMedicalPracticeInformation>({
     hospitalAffiliation: {
@@ -266,11 +210,61 @@ const doctorSchema = new Schema<TDoctor>({
     },
     contactInformation: contactInformationSchema,
     emergencyContact: emergencyContactSchema,
-    professionalInformation: professionalInformationSchema,
     educationDetails: [educationDetailsSchema],
-    awards: [awardsSchema],
-    availabilityInformation: availabilityInformationSchema,
+    specialization: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    qualifications: [
+        {
+            type: String,
+            trim: true,
+            required: true,
+        }
+    ],
+    licenseNumber: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    previousWorkPlace: [previousWorkPlaceSchema],
+    yearsOfExperience: {
+        type: Number,
+        trim: true,
+    },
     medicalPracticeInformation: medicalPracticeInformationSchema,
+    awards: [awardsSchema],
+    workingDays: [{
+        type: String,
+        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        required: true,
+    }],
+    workingHours: [{
+        startTime: {
+            type: String,
+            required: true,
+        },
+        endTime: {
+            type: String,
+            required: true,
+        },
+    }],
+    availableTimeSlots: [{
+        startTime: {
+            type: String,
+            required: true,
+        },
+        endTime: {
+            type: String,
+            required: true,
+        },
+    }],
+    offDays: [{
+        type: String,
+        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        required: true,
+    }]
 },
     {
         timestamps: true,
