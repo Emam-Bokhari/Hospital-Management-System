@@ -1,3 +1,4 @@
+import { User } from "../User/user.model";
 import { TDoctor } from "./doctor.interface";
 import { Doctor } from "./doctor.model";
 
@@ -17,8 +18,17 @@ const getDoctorById = async (id: string) => {
     return doctor;
 }
 
+const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
+    const updatedDoctor = await Doctor.findOneAndUpdate({ _id: id }, payload, { new: true, runValidators: true });
+
+    return updatedDoctor;
+}
+
+
+
 export const DoctorServices = {
     createDoctor,
     getAllDoctors,
     getDoctorById,
+    updateDoctorById,
 }
