@@ -1,0 +1,279 @@
+import { Schema } from "mongoose";
+import { TAvailabilityInformation, TAwards, TContactInformation, TDoctor, TEducationDetails, TEmergencyContact, TMedicalPracticeInformation, TPreviousWorkPlace, TProfessionalInformation } from "./doctor.interface";
+
+const contactInformationSchema = new Schema<TContactInformation>({
+    phone: {
+        type: String,
+        trim: true,
+        required: true,
+        validate: {
+            validator: function (value) {
+                return /^\+\d{1,4}\d{7,15}$/.test(value);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        }
+    },
+    email: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true,
+    }
+})
+
+const emergencyContactSchema = new Schema<TEmergencyContact>({
+    name: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    phone: {
+        type: String,
+        trim: true,
+        required: true,
+        validate: {
+            validator: function (value) {
+                return /^\+\d{1,4}\d{7,15}$/.test(value);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        }
+    },
+    email: {
+        type: String,
+        unique: true,
+    },
+    relationship: {
+        type: String,
+        trim: true,
+        required: true,
+    }
+})
+
+const previousWorkPlaceSchema = new Schema<TPreviousWorkPlace>({
+    companyName: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    position: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    startDate: {
+        type: Date,
+        validate: {
+            validator: function (value) {
+                return value instanceof Date;
+            },
+            message: props => `${props.value} is not a valid date!`
+        },
+        required: true,
+    },
+    endDate: {
+        type: Date,
+        validate: {
+            validator: function (value) {
+                return value instanceof Date;
+            },
+            message: props => `${props.value} is not a valid date!`
+        },
+        required: true,
+    }
+});
+
+const professionalInformationSchema = new Schema<TProfessionalInformation>({
+    specialization: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    qualifications: [
+        {
+            type: String,
+            trim: true,
+            required: true,
+        }
+    ],
+    licenseNumber: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    previousWorkPlace: [previousWorkPlaceSchema],
+    yearsOfExperience: {
+        type: Number,
+        trim: true,
+    }
+})
+
+const educationDetailsSchema = new Schema<TEducationDetails>({
+    universityName: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    degreeEarned: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    duration: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    specializationInEducation: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    universityLocation: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    universityWebsite: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(value);
+            },
+            message: props => `${props.value} is not a valid URL!`
+        },
+        trim: true,
+    }
+})
+
+const awardsSchema = new Schema<TAwards>({
+    awardName: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    awardCategory: {
+        type: String,
+        trim: true,
+    },
+    awardYear: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /^\d{4}$/.test(value); // Validating year (YYYY format)
+            },
+            message: props => `${props.value} is not a valid year!`
+        },
+        required: true,
+    },
+    awardDescription: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    issuingOrganization: {
+        type: String,
+        trim: true,
+    }
+})
+
+const availabilityInformationSchema = new Schema<TAvailabilityInformation>({
+    workingDays: [{
+        type: String,
+        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        required: true,
+    }],
+    workingHours: [{
+        startTime: {
+            type: String,
+            required: true,
+        },
+        endTime: {
+            type: String,
+            required: true,
+        },
+    }],
+    availableTimeSlots: [{
+        startTime: {
+            type: String,
+            required: true,
+        },
+        endTime: {
+            type: String,
+            required: true,
+        },
+    }],
+    offDays: [{
+        type: String,
+        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        required: true,
+    }]
+})
+
+const medicalPracticeInformationSchema = new Schema<TMedicalPracticeInformation>({
+    hospitalAffiliation: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    chamberAddress: {
+        type: String,
+        trim: true,
+        required: true,
+    }
+})
+
+export const doctorSchema = new Schema<TDoctor>({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        unique: true,
+    },
+    firstName: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female"],
+        required: true,
+    },
+    dateOfBirth: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /^\d{4}-\d{2}-\d{2}$/.test(value); // YYYY-MM-DD format
+            },
+            message: props => `${props.value} is not a valid date format!`
+        },
+        required: true,
+    },
+    nationality: {
+        type: String,
+        required: true,
+    },
+    religion: {
+        type: String,
+        required: true,
+    },
+    profilePicture: {
+        type: String,
+    },
+    contactInformation: contactInformationSchema,
+    emergencyContact: emergencyContactSchema,
+    professionalInformation: professionalInformationSchema,
+    educationDetails: [educationDetailsSchema],
+    awards: [awardsSchema],
+    availabilityInformation: availabilityInformationSchema,
+    medicalPracticeInformation: medicalPracticeInformationSchema,
+},
+    {
+        timestamps: true,
+        versionKey: false, // disables the '__v' field
+    }
+)

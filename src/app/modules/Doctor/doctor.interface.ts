@@ -1,24 +1,25 @@
 import { Types } from "mongoose"
 
-type TContactInformation = {
+export type TContactInformation = {
     phone: string;
     email: string;
 }
 
-type TEmergencyContact = {
+export type TEmergencyContact = {
     name: string;
     phone: string;
+    email?: string;
     relationship: string;
 }
 
-type TPreviousWorkPlace = {
+export type TPreviousWorkPlace = {
     companyName: string;
     position: string;
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
 };
 
-type TProfessionalInformation = {
+export type TProfessionalInformation = {
     specialization: string;
     qualifications: string[];
     licenseNumber: string;
@@ -27,7 +28,7 @@ type TProfessionalInformation = {
     yearsOfExperience?: number;
 }
 
-type TEducationDetails =
+export type TEducationDetails =
     {
         universityName: string;
         degreeEarned: string;
@@ -38,7 +39,7 @@ type TEducationDetails =
     }
 
 
-type TAwards = {
+export type TAwards = {
     awardName: string;
     awardCategory?: string;
     awardYear: string;
@@ -46,16 +47,16 @@ type TAwards = {
     issuingOrganization?: string;
 }
 
-type TAvailabilityInformation = {
-    workingDays: string[];
-    workingHours: string[];
-    availableTimeSlots: string[];
-    offDays: string[];
+export type TAvailabilityInformation = {
+    workingDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
+    workingHours: { startTime: string; endTime: string }[];
+    availableTimeSlots: { startTime: string; endTime: string }[];
+    offDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
 }
 
 
 
-type TMedicalPracticeInformation = {
+export type TMedicalPracticeInformation = {
     hospitalAffiliation: string;
     chamberAddress: string;
 }
