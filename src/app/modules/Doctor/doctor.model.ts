@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { TAvailabilityInformation, TAwards, TContactInformation, TDoctor, TEducationDetails, TEmergencyContact, TMedicalPracticeInformation, TPreviousWorkPlace, TProfessionalInformation } from "./doctor.interface";
 
 const contactInformationSchema = new Schema<TContactInformation>({
@@ -222,7 +222,7 @@ const medicalPracticeInformationSchema = new Schema<TMedicalPracticeInformation>
     }
 })
 
-export const doctorSchema = new Schema<TDoctor>({
+const doctorSchema = new Schema<TDoctor>({
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -277,3 +277,5 @@ export const doctorSchema = new Schema<TDoctor>({
         versionKey: false, // disables the '__v' field
     }
 )
+
+export const Doctor = model<TDoctor>("Doctor", doctorSchema);
