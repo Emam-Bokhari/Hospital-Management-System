@@ -4,12 +4,12 @@ export type TUser = {
   email: string;
   password: string;
   role:
-  | 'user'
-  | 'doctor'
-  | 'accounts-specialist'
-  | 'finance-manager'
-  | 'admin'
-  | 'super-admin';
+    | 'user'
+    | 'doctor'
+    | 'accounts-specialist'
+    | 'finance-manager'
+    | 'admin'
+    | 'super-admin';
   status: 'active' | 'suspend';
   isDeleted: boolean;
 };

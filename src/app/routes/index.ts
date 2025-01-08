@@ -10,9 +10,9 @@ const moduleRoutes = [
     route: UserRoutes,
   },
   {
-    path: "/doctors",
+    path: '/doctors',
     route: DoctorRoutes,
-  }
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
