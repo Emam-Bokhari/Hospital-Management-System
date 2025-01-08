@@ -70,11 +70,11 @@ export type TDoctor = {
     nationality: string;
     religion: string;
     profilePicture?: string;
-    contactInformation: TContactInformation;
-    emergencyContact: TEmergencyContact;
+    contactInformation: TContactInformation; // done
+    emergencyContact: TEmergencyContact;  // done
     professionalInformation: TProfessionalInformation;
     educationDetails: TEducationDetails[];
     awards?: TAwards[];
     availabilityInformation: TAvailabilityInformation;
-    medicalPracticeInformation: TMedicalPracticeInformation;
+    medicalPracticeInformation: TMedicalPracticeInformation; // done
 }
