@@ -1,4 +1,3 @@
-import { User } from "../User/user.model";
 import { TDoctor } from "./doctor.interface";
 import { Doctor } from "./doctor.model";
 
