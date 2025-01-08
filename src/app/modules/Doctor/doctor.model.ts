@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { TAvailabilityInformation, TAwards, TContactInformation, TDoctor, TEducationDetails, TEmergencyContact, TMedicalPracticeInformation, TPreviousWorkPlace, TProfessionalInformation } from "./doctor.interface";
+import { TAwards, TContactInformation, TDoctor, TEducationDetails, TEmergencyContact, TMedicalPracticeInformation, TPreviousWorkPlace, } from "./doctor.interface";
 
 const contactInformationSchema = new Schema<TContactInformation>({
     phone: {
@@ -235,11 +235,14 @@ const doctorSchema = new Schema<TDoctor>({
     },
     medicalPracticeInformation: medicalPracticeInformationSchema,
     awards: [awardsSchema],
-    workingDays: [{
-        type: String,
-        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    workingDays: {
+        type: [String],
+        enum: [
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+            "Saturday", "Sunday"
+        ],
         required: true,
-    }],
+    },
     workingHours: [{
         startTime: {
             type: String,
@@ -260,11 +263,14 @@ const doctorSchema = new Schema<TDoctor>({
             required: true,
         },
     }],
-    offDays: [{
-        type: String,
-        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    offDays: {
+        type: [String],
+        enum: [
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+            "Saturday", "Sunday"
+        ],
         required: true,
-    }]
+    },
 },
     {
         timestamps: true,

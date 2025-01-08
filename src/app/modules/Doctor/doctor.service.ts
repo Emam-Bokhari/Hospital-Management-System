@@ -25,10 +25,18 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
         medicalPracticeInformation,
         educationDetails,
         awards,
+        previousWorkPlace,
+        workingHours,
+        availableTimeSlots,
+        qualifications,
+        offDays,
+        workingDays,
         ...remainingDoctorData
     } = payload;
 
     const modifiedUpdatedData: Record<string, unknown> = { ...remainingDoctorData };
+
+    const doctor = await Doctor.findById(id);
 
     // Flatten and update object fields
     flattenAndUpdate("contactInformation", contactInformation, modifiedUpdatedData);
@@ -47,6 +55,51 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
         })
     }
 
+    if (previousWorkPlace && previousWorkPlace.length > 0) {
+        previousWorkPlace.forEach((workPlace, index) => {
+            flattenAndUpdate(`previousWorkPlace.${index}`, workPlace, modifiedUpdatedData)
+        })
+    }
+
+    if (workingHours && workingHours.length > 0) {
+        workingHours.forEach((workingHour, index) => {
+            flattenAndUpdate(`workingHours.${index}`, workingHour, modifiedUpdatedData)
+        })
+    }
+
+    if (availableTimeSlots && availableTimeSlots.length > 0) {
+        availableTimeSlots.forEach((availableTimeSlot, index) => {
+            flattenAndUpdate(`availableTimeSlots.${index}`, availableTimeSlot, modifiedUpdatedData)
+        })
+    }
+
+    if (qualifications) {
+        const currentQualifications = doctor?.qualifications || [];
+
+        if (qualifications.length > 0) {
+            modifiedUpdatedData.qualifications = Array.from(new Set([...currentQualifications, ...qualifications]))
+        }
+    }
+
+    if (workingDays) {
+        const currentWorkingDays = doctor?.workingDays || [];
+
+        if (workingDays.length > 0) {
+            modifiedUpdatedData.workingDays = Array.from(new Set([...currentWorkingDays, ...workingDays]))
+        }
+    }
+
+    if (offDays) {
+
+        const currentOffDays = doctor?.offDays || [];
+
+
+        if (offDays.length > 0) {
+            modifiedUpdatedData.offDays = Array.from(new Set([...currentOffDays, ...offDays]));
+        }
+    }
+
+
     const updatedDoctor = await Doctor.findOneAndUpdate(
         { _id: id },
         modifiedUpdatedData,
@@ -61,3 +114,7 @@ export const DoctorServices = {
     getDoctorById,
     updateDoctorById,
 }
+
+
+
+// array: workingDays, offDays, qualifications,

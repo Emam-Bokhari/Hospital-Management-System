@@ -62,8 +62,8 @@ export type TDoctor = {
     yearsOfExperience?: number;
     medicalPracticeInformation: TMedicalPracticeInformation; // done
     awards?: TAwards[];
-    workingDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
+    workingDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     workingHours: { startTime: string; endTime: string }[];
     availableTimeSlots: { startTime: string; endTime: string }[];
-    offDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
+    offDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 }
