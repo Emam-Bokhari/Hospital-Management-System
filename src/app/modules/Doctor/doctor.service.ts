@@ -7,6 +7,12 @@ const createDoctor = async (payload: TDoctor) => {
     return createdDoctor;
 }
 
+const getAllDoctors = async () => {
+    const doctors = await Doctor.find();
+    return doctors;
+}
+
 export const DoctorServices = {
     createDoctor,
+    getAllDoctors,
 }
