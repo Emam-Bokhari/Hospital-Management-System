@@ -25,7 +25,20 @@ const getAllDoctorsController = asyncHandler(async (req, res) => {
     })
 })
 
+const getDoctorController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const doctor = await DoctorServices.getDoctorById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Doctor retrieved successfully",
+        statusCode: 200,
+        data: doctor,
+    })
+})
+
 export const DoctorControllers = {
     createDoctorController,
     getAllDoctorsController,
+    getDoctorController,
 }
