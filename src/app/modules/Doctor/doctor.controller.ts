@@ -37,8 +37,22 @@ const getDoctorController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateDoctorController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedDoctor = await DoctorServices.updateDoctorById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Doctor updated successfully",
+        statusCode: 200,
+        data: updatedDoctor,
+    })
+})
+
 export const DoctorControllers = {
     createDoctorController,
     getAllDoctorsController,
     getDoctorController,
+    updateDoctorController,
 }
