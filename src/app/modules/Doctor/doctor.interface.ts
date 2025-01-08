@@ -19,15 +19,6 @@ export type TPreviousWorkPlace = {
     endDate: Date;
 };
 
-export type TProfessionalInformation = {
-    specialization: string;
-    qualifications: string[];
-    licenseNumber: string;
-    licenseExpiryDate: string;
-    previousWorkPlace?: TPreviousWorkPlace[];
-    yearsOfExperience?: number;
-}
-
 export type TEducationDetails =
     {
         universityName: string;
@@ -38,7 +29,6 @@ export type TEducationDetails =
         universityWebsite?: string;
     }
 
-
 export type TAwards = {
     awardName: string;
     awardCategory?: string;
@@ -46,15 +36,6 @@ export type TAwards = {
     awardDescription: string;
     issuingOrganization?: string;
 }
-
-export type TAvailabilityInformation = {
-    workingDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
-    workingHours: { startTime: string; endTime: string }[];
-    availableTimeSlots: { startTime: string; endTime: string }[];
-    offDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
-}
-
-
 
 export type TMedicalPracticeInformation = {
     hospitalAffiliation: string;
@@ -72,9 +53,17 @@ export type TDoctor = {
     profilePicture?: string;
     contactInformation: TContactInformation; // done
     emergencyContact: TEmergencyContact;  // done
-    professionalInformation: TProfessionalInformation;
     educationDetails: TEducationDetails[];
-    awards?: TAwards[];
-    availabilityInformation: TAvailabilityInformation;
+    specialization: string;
+    qualifications: string[];
+    licenseNumber: string;
+    licenseExpiryDate: string;
+    previousWorkPlace?: TPreviousWorkPlace[];
+    yearsOfExperience?: number;
     medicalPracticeInformation: TMedicalPracticeInformation; // done
+    awards?: TAwards[];
+    workingDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
+    workingHours: { startTime: string; endTime: string }[];
+    availableTimeSlots: { startTime: string; endTime: string }[];
+    offDays: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"[];
 }

@@ -25,7 +25,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
         medicalPracticeInformation,
         educationDetails,
         awards,
-        professionalInformation,
         ...remainingDoctorData
     } = payload;
 
@@ -48,7 +47,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
         })
     }
 
-    // Perform the update operation
     const updatedDoctor = await Doctor.findOneAndUpdate(
         { _id: id },
         modifiedUpdatedData,
