@@ -14,6 +14,18 @@ const createDoctorController = asyncHandler(async (req, res) => {
     })
 })
 
+const getAllDoctorsController = asyncHandler(async (req, res) => {
+    const doctors = await DoctorServices.getAllDoctors()
+
+    sendResponse(res, {
+        success: true,
+        message: "Doctors retrieved successfully",
+        statusCode: 200,
+        data: doctors,
+    })
+})
+
 export const DoctorControllers = {
     createDoctorController,
+    getAllDoctorsController,
 }
