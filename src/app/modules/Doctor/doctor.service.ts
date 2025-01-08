@@ -12,7 +12,13 @@ const getAllDoctors = async () => {
     return doctors;
 }
 
+const getDoctorById = async (id: string) => {
+    const doctor = await Doctor.findById(id)
+    return doctor;
+}
+
 export const DoctorServices = {
     createDoctor,
     getAllDoctors,
+    getDoctorById,
 }

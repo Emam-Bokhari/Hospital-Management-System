@@ -3,58 +3,58 @@ import { TUser } from './user.interface';
 import { User } from './user.model';
 
 const createUser = async (payload: TUser) => {
-  const result = await User.create(payload);
+  const createdUser = await User.create(payload);
 
-  return result;
+  return createdUser;
 };
 
 const getAllUsers = async () => {
-  const result = await User.find();
+  const users = await User.find();
 
-  if (result.length === 0) {
+  if (users.length === 0) {
     throw new HttpError(404, "No users were found in the database")
   }
 
-  return result;
+  return users;
 };
 
 const getUserById = async (id: string) => {
 
-  const result = await User.findById(id);
+  const user = await User.findById(id);
 
-  if (!result) {
+  if (!user) {
     throw new HttpError(404, `No user found with ID: ${id}`);
   }
 
-  return result;
+  return user;
 };
 
 const updateUserById = async (id: string, payload: Partial<TUser>) => {
 
-  const result = await User.findOneAndUpdate({ _id: id, isDeleted: false }, payload, {
+  const updatedUser = await User.findOneAndUpdate({ _id: id, isDeleted: false }, payload, {
     new: true,
     runValidators: true,
   });
 
-  if (!result) {
+  if (!updatedUser) {
     throw new HttpError(404, `No user found with ID: ${id}`)
   }
 
-  return result;
+  return updatedUser;
 };
 
 const deleteUserById = async (id: string) => {
-  const result = await User.findOneAndUpdate(
+  const deletedUser = await User.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
     { new: true, runValidators: true },
   );
 
-  if (!result) {
+  if (!deletedUser) {
     throw new HttpError(404, `No user found with ID: ${id}`)
   }
 
-  return result;
+  return deletedUser;
 };
 
 export const UserServices = {
