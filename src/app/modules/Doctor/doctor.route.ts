@@ -11,4 +11,6 @@ router.get('/:id', DoctorControllers.getDoctorController);
 
 router.patch('/:id', DoctorControllers.updateDoctorController);
 
+router.delete("/:id", DoctorControllers.deleteDoctorController)
+
 export const DoctorRoutes = router;
