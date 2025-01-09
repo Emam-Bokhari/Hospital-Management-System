@@ -10,12 +10,20 @@ const createDoctor = async (payload: TDoctor) => {
 };
 
 const getAllDoctors = async () => {
-  const doctors = await Doctor.find({ isHidden: false });
+  const doctors = await Doctor.find();
+  if (doctors.length === 0) {
+    throw new HttpError(404, "No doctor were found in the database")
+  }
   return doctors;
 };
 
 const getDoctorById = async (id: string) => {
-  const doctor = await Doctor.findOne({ _id: id, isHidden: false });
+  const doctor = await Doctor.findById(id);
+
+  if (!doctor) {
+    throw new HttpError(404, `No doctor found with ID: ${id}`)
+  }
+
   return doctor;
 };
 
@@ -127,6 +135,10 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     modifiedUpdatedData,
     { new: true, runValidators: true },
   );
+
+  if (!updatedDoctor) {
+    throw new HttpError(404, `No doctor found with ID: ${id}`)
+  }
 
   return updatedDoctor;
 };
