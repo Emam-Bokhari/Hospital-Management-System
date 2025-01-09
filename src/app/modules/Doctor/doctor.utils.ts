@@ -15,3 +15,13 @@ export const validateTimeRange = (startTime: string, endTime: string, errorMessa
         throw new HttpError(400, errorMessage)
     }
 }
+
+export const validateOffDays = (workingDays: string[], offDays: string[], errorMessage: string) => {
+    const overlappingDays = workingDays.filter((day) => {
+        offDays.includes(day)
+    })
+    console.log(overlappingDays)
+    if (overlappingDays.length > 0) {
+        throw new HttpError(404, errorMessage)
+    }
+}
