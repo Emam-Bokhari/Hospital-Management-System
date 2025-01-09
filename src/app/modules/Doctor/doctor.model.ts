@@ -8,6 +8,7 @@ import {
   TMedicalPracticeInformation,
   TPreviousWorkPlace,
 } from './doctor.interface';
+import { validateDateRange } from './doctor.utils';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {
@@ -88,7 +89,8 @@ const previousWorkPlaceSchema = new Schema<TPreviousWorkPlace>({
     },
     required: true,
   },
-});
+},
+);
 
 const educationDetailsSchema = new Schema<TEducationDetails>({
   universityName: {
@@ -325,6 +327,17 @@ doctorSchema.pre('aggregate', async function (next) {
   this.pipeline().unshift({ $project: { isDeleted: 0 } });
   next();
 });
+
+// check previous work place if start date before end date
+previousWorkPlaceSchema.pre("save", async function (next) {
+  try {
+    validateDateRange(this.startDate, this.endDate, "The previous work place start date cannot be later than the end date.")
+    next()
+  } catch (err: any) {
+    this.invalidate("endDate", err.message)
+    next(err)
+  }
+})
 
 
 
