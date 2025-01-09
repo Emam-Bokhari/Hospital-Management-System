@@ -1,3 +1,4 @@
+import { HttpError } from '../../errors/HttpError';
 import { flattenAndUpdate } from '../../utils/flattenAndUpdate';
 import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
@@ -9,12 +10,12 @@ const createDoctor = async (payload: TDoctor) => {
 };
 
 const getAllDoctors = async () => {
-  const doctors = await Doctor.find();
+  const doctors = await Doctor.find({ isHidden: false });
   return doctors;
 };
 
 const getDoctorById = async (id: string) => {
-  const doctor = await Doctor.findById(id);
+  const doctor = await Doctor.findOne({ _id: id, isHidden: false });
   return doctor;
 };
 
@@ -129,11 +130,24 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   return updatedDoctor;
 };
+
+const deleteDoctorById = async (id: string) => {
+  const deletedDoctor = await Doctor.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true, runValidators: true })
+
+  if (!deletedDoctor) {
+    throw new HttpError(404, `No doctor found with ID: ${id}`);
+  }
+
+  return deletedDoctor;
+}
+
+
 export const DoctorServices = {
   createDoctor,
   getAllDoctors,
   getDoctorById,
   updateDoctorById,
+  deleteDoctorById,
 };
 
-// array: workingDays, offDays, qualifications,
+

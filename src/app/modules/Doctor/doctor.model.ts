@@ -293,7 +293,7 @@ const doctorSchema = new Schema<TDoctor>(
       ],
       required: true,
     },
-    isHidden: {
+    isDeleted: {
       type: Boolean,
       default: false,
     }

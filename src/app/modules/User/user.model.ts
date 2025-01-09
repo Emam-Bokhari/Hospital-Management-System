@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
-import { Doctor } from '../Doctor/doctor.model';
 
 const userSchema = new Schema<TUser>(
   {
@@ -53,13 +52,6 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-// document middleware
-userSchema.pre("save", async function (next) {
-  if (this.isModified("isDeleted") && this.isDeleted) {
-    await Doctor.updateMany({ userId: this._id }, { isHidden: true })
-  }
-  next()
-})
 
 // query middleware
 userSchema.pre('find', async function (next) {
