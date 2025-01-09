@@ -304,4 +304,28 @@ const doctorSchema = new Schema<TDoctor>(
   },
 );
 
+// query middleware
+doctorSchema.pre('find', async function (next) {
+  this.where({ isDeleted: false });
+  next();
+});
+
+doctorSchema.pre('findOne', async function (next) {
+  this.where({ isDeleted: false });
+  next();
+});
+
+// aggregate middleware
+doctorSchema.pre('aggregate', async function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
+doctorSchema.pre('aggregate', async function (next) {
+  this.pipeline().unshift({ $project: { isDeleted: 0 } });
+  next();
+});
+
+
+
 export const Doctor = model<TDoctor>('Doctor', doctorSchema);
