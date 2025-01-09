@@ -30,7 +30,7 @@ const createUserValidationSchema = z.object({
       .max(64, 'Password cannot exceed 64 characters')
       .regex(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
-        'Password must contain at least one letter and one number'
+        'Password must contain at least one letter and one number',
       ),
     role: z
       .enum([
@@ -57,7 +57,8 @@ const updateUserValidationSchema = z.object({
       .regex(
         /^[a-zA-Z\-'\s]+$/,
         'First name can only contain letters, spaces, hyphens, or apostrophes',
-      ).optional(),
+      )
+      .optional(),
     lastName: z
       .string()
       .trim()
@@ -66,19 +67,22 @@ const updateUserValidationSchema = z.object({
       .regex(
         /^[a-zA-Z\-'\s]+$/,
         'Last name can only contain letters, spaces, hyphens, or apostrophes',
-      ).optional(),
+      )
+      .optional(),
     email: z
       .string()
       .email('Invalid email format')
-      .max(100, 'Email cannot exceed 100 characters').optional(),
+      .max(100, 'Email cannot exceed 100 characters')
+      .optional(),
     password: z
       .string()
       .min(8, 'Password must be at least 8 characters long')
       .max(64, 'Password cannot exceed 64 characters')
       .regex(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
-        'Password must contain at least one letter and one number'
-      ).optional(),
+        'Password must contain at least one letter and one number',
+      )
+      .optional(),
     role: z
       .enum([
         'user',
@@ -88,7 +92,8 @@ const updateUserValidationSchema = z.object({
         'admin',
         'super-admin',
       ])
-      .default('user').optional(),
+      .default('user')
+      .optional(),
     status: z.enum(['active', 'suspend']).default('active').optional(),
     isDeleted: z.boolean().default(false).optional(),
   }),

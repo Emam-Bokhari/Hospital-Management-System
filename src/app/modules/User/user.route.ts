@@ -5,13 +5,21 @@ import { UserValidationSchema } from './user.validation';
 
 const router = express.Router();
 
-router.post('/', validateRequestSchema(UserValidationSchema.createUserValidationSchema), UserControllers.createUserController);
+router.post(
+  '/',
+  validateRequestSchema(UserValidationSchema.createUserValidationSchema),
+  UserControllers.createUserController,
+);
 
 router.get('/', UserControllers.getAllUsersController);
 
 router.get('/:id', UserControllers.getUserController);
 
-router.patch('/:id', validateRequestSchema(UserValidationSchema.updateUserValidationSchema), UserControllers.updateUserController);
+router.patch(
+  '/:id',
+  validateRequestSchema(UserValidationSchema.updateUserValidationSchema),
+  UserControllers.updateUserController,
+);
 
 router.delete('/:id', UserControllers.deleteUserController);
 

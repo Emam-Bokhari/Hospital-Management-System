@@ -52,26 +52,27 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-// query middleware
-userSchema.pre("find", function (next) {
-  this.where({ isDeleted: false })
-  next()
-})
 
-userSchema.pre("findOne", function (next) {
-  this.where({ isDeleted: false })
-  next()
-})
+// query middleware
+userSchema.pre('find', async function (next) {
+  this.where({ isDeleted: false });
+  next();
+});
+
+userSchema.pre('findOne', async function (next) {
+  this.where({ isDeleted: false });
+  next();
+});
 
 // aggregate middleware
-userSchema.pre("aggregate", function (next) {
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } })
-  next()
-})
+userSchema.pre('aggregate', async function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 
-userSchema.pre("aggregate", function (next) {
-  this.pipeline().unshift({ $project: { isDeleted: 0 } })
-  next()
-})
+userSchema.pre('aggregate', async function (next) {
+  this.pipeline().unshift({ $project: { isDeleted: 0 } });
+  next();
+});
 
 export const User = model<TUser>('User', userSchema);
