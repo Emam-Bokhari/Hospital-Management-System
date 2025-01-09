@@ -8,7 +8,7 @@ import {
   TMedicalPracticeInformation,
   TPreviousWorkPlace,
 } from './doctor.interface';
-import { validateDateRange } from './doctor.utils';
+import { validateDateRange, validateTimeRange } from './doctor.utils';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {
@@ -335,6 +335,28 @@ previousWorkPlaceSchema.pre("save", async function (next) {
     next()
   } catch (err: any) {
     this.invalidate("endDate", err.message)
+    next(err)
+  }
+})
+
+// check working hours & available time slots if start time before end time
+doctorSchema.pre("save", async function (next) {
+  try {
+    // validate working hours
+    this.workingHours.forEach((workingHour) => {
+      validateTimeRange(workingHour.startTime, workingHour.endTime, "Start time cannot be later than end time in working hours. ")
+    })
+
+    // validate available time slots
+    this.availableTimeSlots.forEach((availableTimeSlot) => {
+      validateTimeRange(availableTimeSlot.startTime, availableTimeSlot.endTime, "Start time cannot be later than end time in available time slots.")
+    })
+
+    next()
+
+  } catch (err: any) {
+    this.invalidate("workingDays", err.message)
+    this.invalidate("availableTimeSlots", err.message)
     next(err)
   }
 })
