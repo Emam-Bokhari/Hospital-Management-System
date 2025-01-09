@@ -41,24 +41,24 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
   const doctor = await Doctor.findById(id);
 
   // Flatten and update object fields
-  flattenAndUpdate(
-    'contactInformation',
-    contactInformation,
-    modifiedUpdatedData,
-  );
-  flattenAndUpdate('emergencyContact', emergencyContact, modifiedUpdatedData);
-  flattenAndUpdate(
-    'medicalPracticeInformation',
-    medicalPracticeInformation,
-    modifiedUpdatedData,
-  );
+  if (contactInformation) {
+    flattenAndUpdate('contactInformation', contactInformation, modifiedUpdatedData,
+    );
+  }
 
+  if (emergencyContact) {
+    flattenAndUpdate('emergencyContact', emergencyContact, modifiedUpdatedData);
+  }
+
+  if (medicalPracticeInformation) {
+    flattenAndUpdate('medicalPracticeInformation', medicalPracticeInformation, modifiedUpdatedData,
+    );
+  }
+
+  // Flatten and update array of object fields
   if (educationDetails && educationDetails.length > 0) {
     educationDetails.forEach((education, index) => {
-      flattenAndUpdate(
-        `educationDetails.${index}`,
-        education,
-        modifiedUpdatedData,
+      flattenAndUpdate(`educationDetails.${index}`, education, modifiedUpdatedData,
       );
     });
   }
@@ -71,34 +71,26 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   if (previousWorkPlace && previousWorkPlace.length > 0) {
     previousWorkPlace.forEach((workPlace, index) => {
-      flattenAndUpdate(
-        `previousWorkPlace.${index}`,
-        workPlace,
-        modifiedUpdatedData,
+      flattenAndUpdate(`previousWorkPlace.${index}`, workPlace, modifiedUpdatedData,
       );
     });
   }
 
   if (workingHours && workingHours.length > 0) {
     workingHours.forEach((workingHour, index) => {
-      flattenAndUpdate(
-        `workingHours.${index}`,
-        workingHour,
-        modifiedUpdatedData,
+      flattenAndUpdate(`workingHours.${index}`, workingHour, modifiedUpdatedData,
       );
     });
   }
 
   if (availableTimeSlots && availableTimeSlots.length > 0) {
     availableTimeSlots.forEach((availableTimeSlot, index) => {
-      flattenAndUpdate(
-        `availableTimeSlots.${index}`,
-        availableTimeSlot,
-        modifiedUpdatedData,
+      flattenAndUpdate(`availableTimeSlots.${index}`, availableTimeSlot, modifiedUpdatedData,
       );
     });
   }
 
+  // update array fields
   if (qualifications) {
     const currentQualifications = doctor?.qualifications || [];
 
@@ -132,7 +124,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
   const updatedDoctor = await Doctor.findOneAndUpdate(
     { _id: id },
     modifiedUpdatedData,
-    { new: true },
+    { new: true, runValidators: true },
   );
 
   return updatedDoctor;
