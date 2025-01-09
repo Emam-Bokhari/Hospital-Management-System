@@ -136,7 +136,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     { new: true, runValidators: true },
   );
 
-  if (!updatedDoctor) {
+  if (!doctor) {
     throw new HttpError(404, `No doctor found with ID: ${id}`)
   }
 
