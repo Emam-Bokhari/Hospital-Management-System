@@ -8,7 +8,7 @@ import {
   TMedicalPracticeInformation,
   TPreviousWorkPlace,
 } from './doctor.interface';
-import { validateDateRange, validateTimeRange } from './doctor.utils';
+import { validateDateRange, validateOffDays, validateTimeRange } from './doctor.utils';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {
@@ -361,6 +361,16 @@ doctorSchema.pre("save", async function (next) {
   }
 })
 
+// check if working days and off days overlapping
+doctorSchema.pre("save", async function (next) {
+  try {
+    validateOffDays(this.workingDays, this.offDays, "Off days cannot overlap with working days, Change your days")
+    next()
+  } catch (err: any) {
+    this.invalidate("offDays", err.message)
+    next(err);
+  }
+})
 
 
 export const Doctor = model<TDoctor>('Doctor', doctorSchema);
