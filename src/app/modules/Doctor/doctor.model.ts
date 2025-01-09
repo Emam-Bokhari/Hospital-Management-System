@@ -293,6 +293,10 @@ const doctorSchema = new Schema<TDoctor>(
       ],
       required: true,
     },
+    isHidden: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,

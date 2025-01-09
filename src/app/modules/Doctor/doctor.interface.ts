@@ -81,4 +81,5 @@ export type TDoctor = {
     'Saturday',
     'Sunday',
   ];
+  isHidden: boolean;
 };
