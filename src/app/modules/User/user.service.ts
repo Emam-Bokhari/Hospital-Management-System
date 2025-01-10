@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import { HttpError } from '../../errors/HttpError';
 import { Doctor } from '../Doctor/doctor.model';
