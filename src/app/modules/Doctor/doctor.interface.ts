@@ -23,7 +23,6 @@ export type TEducationDetails = {
   universityName: string;
   degreeEarned: string;
   duration: string;
-  specializationInEducation: string;
   universityLocation: string;
   universityWebsite?: string;
 };
@@ -43,6 +42,8 @@ export type TMedicalPracticeInformation = {
 
 export type TDoctor = {
   userId: Types.ObjectId;
+  specialization: Types.ObjectId;
+  department: Types.ObjectId;
   firstName: string;
   lastName: string;
   gender: 'male' | 'female';
@@ -53,7 +54,6 @@ export type TDoctor = {
   contactInformation: TContactInformation;
   emergencyContact: TEmergencyContact;
   educationDetails: TEducationDetails[];
-  specialization: string;
   qualifications: string[];
   licenseNumber: string;
   licenseExpiryDate: string;

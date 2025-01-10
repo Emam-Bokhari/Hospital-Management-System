@@ -108,11 +108,6 @@ const educationDetailsSchema = new Schema<TEducationDetails>({
     trim: true,
     required: true,
   },
-  specializationInEducation: {
-    type: String,
-    trim: true,
-    required: true,
-  },
   universityLocation: {
     type: String,
     trim: true,
@@ -182,6 +177,16 @@ const doctorSchema = new Schema<TDoctor>(
       ref: 'User',
       unique: true,
     },
+    specialization: {
+      type: Schema.Types.ObjectId,
+      ref: 'Specialization',
+      unique: true,
+    },
+    department: {
+      type: Schema.Types.ObjectId,
+      ref: 'Department',
+      unique: true,
+    },
     firstName: {
       type: String,
       trim: true,
@@ -221,11 +226,6 @@ const doctorSchema = new Schema<TDoctor>(
     contactInformation: contactInformationSchema,
     emergencyContact: emergencyContactSchema,
     educationDetails: [educationDetailsSchema],
-    specialization: {
-      type: String,
-      trim: true,
-      required: true,
-    },
     qualifications: [
       {
         type: String,
