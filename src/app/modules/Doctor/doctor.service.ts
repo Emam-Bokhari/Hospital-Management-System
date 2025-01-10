@@ -143,15 +143,15 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
   return updatedDoctor;
 };
 
-const deleteDoctorById = async (id: string) => {
-  const deletedDoctor = await Doctor.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true, runValidators: true })
+// const deleteDoctorById = async (id: string) => {
+//   const deletedDoctor = await Doctor.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true, runValidators: true })
 
-  if (!deletedDoctor) {
-    throw new HttpError(404, `No doctor found with ID: ${id}`);
-  }
+//   if (!deletedDoctor) {
+//     throw new HttpError(404, `No doctor found with ID: ${id}`);
+//   }
 
-  return deletedDoctor;
-}
+//   return deletedDoctor;
+// }
 
 
 export const DoctorServices = {
@@ -159,7 +159,7 @@ export const DoctorServices = {
   getAllDoctors,
   getDoctorById,
   updateDoctorById,
-  deleteDoctorById,
+  // deleteDoctorById,
 };
 
 

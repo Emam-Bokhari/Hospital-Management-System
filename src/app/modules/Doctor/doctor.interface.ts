@@ -50,8 +50,8 @@ export type TDoctor = {
   nationality: string;
   religion: string;
   profilePicture?: string;
-  contactInformation: TContactInformation; // done
-  emergencyContact: TEmergencyContact; // done
+  contactInformation: TContactInformation;
+  emergencyContact: TEmergencyContact;
   educationDetails: TEducationDetails[];
   specialization: string;
   qualifications: string[];
@@ -59,7 +59,7 @@ export type TDoctor = {
   licenseExpiryDate: string;
   previousWorkPlace?: TPreviousWorkPlace[];
   yearsOfExperience?: number;
-  medicalPracticeInformation: TMedicalPracticeInformation; // done
+  medicalPracticeInformation: TMedicalPracticeInformation;
   awards?: TAwards[];
   workingDays: [
     'Monday',

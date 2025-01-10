@@ -1,4 +1,6 @@
+import mongoose from 'mongoose';
 import { HttpError } from '../../errors/HttpError';
+import { Doctor } from '../Doctor/doctor.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 
@@ -46,17 +48,47 @@ const updateUserById = async (id: string, payload: Partial<TUser>) => {
 };
 
 const deleteUserById = async (id: string) => {
-  const deletedUser = await User.findOneAndUpdate(
-    { _id: id, isDeleted: false },
-    { isDeleted: true },
-    { new: true, runValidators: true },
-  );
 
-  if (!deletedUser) {
-    throw new HttpError(404, `No user found with ID: ${id}`);
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    // check if user exists
+    const user = await User.findById(id).session(session)
+
+    // check if doctor exists
+    const doctor = await Doctor.findOne({ userId: id }).session(session)
+
+    // if no user and no doctor throw error
+    if (!user && !doctor) {
+      throw new HttpError(404, `No user or doctor found with ID:${id}`)
+    }
+
+    if (user && !user.isDeleted) {
+      await User.findByIdAndUpdate(
+        id,
+        { isDeleted: true },
+        { new: true, runValidators: true, session },
+      );
+    }
+
+
+
+    if (doctor && !doctor.isDeleted) {
+
+      await Doctor.findByIdAndUpdate(doctor._id, { isDeleted: true }, { new: true, runValidators: true, session })
+    }
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    return { message: `Successfully deleted!` };
+  } catch (err: any) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw new HttpError(500, err.message)
   }
-
-  return deletedUser;
 };
 
 export const UserServices = {

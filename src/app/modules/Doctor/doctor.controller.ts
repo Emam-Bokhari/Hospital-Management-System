@@ -53,22 +53,22 @@ const updateDoctorController = asyncHandler(async (req, res) => {
   });
 });
 
-const deleteDoctorController = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  await DoctorServices.deleteDoctorById(id);
+// const deleteDoctorController = asyncHandler(async (req, res) => {
+//   const id = req.params.id;
+//   await DoctorServices.deleteDoctorById(id);
 
-  sendResponse(res, {
-    success: true,
-    message: "Doctor deleted successfully",
-    statusCode: 200,
-    data: {}
-  })
-})
+//   sendResponse(res, {
+//     success: true,
+//     message: "Doctor deleted successfully",
+//     statusCode: 200,
+//     data: {}
+//   })
+// })
 
 export const DoctorControllers = {
   createDoctorController,
   getAllDoctorsController,
   getDoctorController,
   updateDoctorController,
-  deleteDoctorController,
+  // deleteDoctorController,
 };
