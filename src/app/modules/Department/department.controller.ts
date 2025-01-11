@@ -25,7 +25,20 @@ const getAllDepartmentsController = asyncHandler(async (req, res) => {
     })
 })
 
+const getDepartmentController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const department = await DepartmentServices.getDepartmentById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Department retrieved successfully",
+        statusCode: 200,
+        data: department,
+    })
+})
+
 export const DepartmentControllers = {
     createDepartmentController,
     getAllDepartmentsController,
+    getDepartmentController,
 }
