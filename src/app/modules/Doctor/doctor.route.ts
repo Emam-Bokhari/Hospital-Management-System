@@ -11,7 +11,7 @@ router.get('/', DoctorControllers.getAllDoctorsController);
 
 router.get('/:id', DoctorControllers.getDoctorController);
 
-router.patch('/:id', DoctorControllers.updateDoctorController);
+router.patch('/:id', validateRequestSchema(DoctorValidationSchema.updateDoctorValidationSchema), DoctorControllers.updateDoctorController);
 
 
 export const DoctorRoutes = router;
