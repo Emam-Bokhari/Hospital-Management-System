@@ -223,9 +223,18 @@ const doctorSchema = new Schema<TDoctor>(
     profilePicture: {
       type: String,
     },
-    contactInformation: contactInformationSchema,
-    emergencyContact: emergencyContactSchema,
-    educationDetails: [educationDetailsSchema],
+    contactInformation: {
+      type: contactInformationSchema,
+      required: true,
+    },
+    emergencyContact: {
+      type: emergencyContactSchema,
+      required: true,
+    },
+    educationDetails: {
+      type: [educationDetailsSchema],
+      required: true,
+    },
     qualifications: [
       {
         type: String,
@@ -238,13 +247,22 @@ const doctorSchema = new Schema<TDoctor>(
       trim: true,
       required: true,
     },
-    previousWorkPlace: [previousWorkPlaceSchema],
+    previousWorkPlace: {
+      type: [previousWorkPlaceSchema],
+      required: true,
+    },
     yearsOfExperience: {
       type: Number,
       trim: true,
     },
-    medicalPracticeInformation: medicalPracticeInformationSchema,
-    awards: [awardsSchema],
+    medicalPracticeInformation: {
+      type: medicalPracticeInformationSchema,
+      required: true,
+    },
+    awards: {
+      type: [awardsSchema],
+      required: true,
+    },
     workingDays: {
       type: [String],
       enum: [
