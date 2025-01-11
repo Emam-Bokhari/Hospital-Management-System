@@ -49,7 +49,12 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   const doctor = await Doctor.findById(id);
 
-  // Flatten and update object fields
+  if (!doctor) {
+    throw new HttpError(404, `No doctor found with ID: ${id}`);
+  }
+
+
+  // Utility function to flatten nested fields,  update object fields
   if (contactInformation) {
     flattenAndUpdate(
       'contactInformation',
@@ -70,7 +75,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     );
   }
 
-  // Flatten and update array of object fields
+  // Utility function to flatten nested fields, update array of object fields
   if (educationDetails && educationDetails.length > 0) {
     educationDetails.forEach((education, index) => {
       flattenAndUpdate(
@@ -117,7 +122,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     });
   }
 
-  // update array fields
+  // Utility function to flatten nested fields, update array fields
   if (qualifications) {
     const currentQualifications = doctor?.qualifications || [];
 
@@ -154,9 +159,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     { new: true, runValidators: true },
   );
 
-  if (!doctor) {
-    throw new HttpError(404, `No doctor found with ID: ${id}`);
-  }
 
   return updatedDoctor;
 };
