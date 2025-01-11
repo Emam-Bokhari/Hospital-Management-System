@@ -1,11 +1,11 @@
 import { Types } from "mongoose";
 
-type TSymptomsAddressed = {
+export type TSymptomsAddressed = {
     symptom: string;
     description: string;
 }
 
-type TPossibleCauses = {
+export type TPossibleCauses = {
     cause: string;
     description: string;
 }
