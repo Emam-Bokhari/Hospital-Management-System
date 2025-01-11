@@ -9,7 +9,11 @@ import {
   TMedicalPracticeInformation,
   TPreviousWorkPlace,
 } from './doctor.interface';
-import { validateDateRange, validateOffDays, validateTimeRange } from './doctor.utils';
+import {
+  validateDateRange,
+  validateOffDays,
+  validateTimeRange,
+} from './doctor.utils';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {
@@ -90,8 +94,7 @@ const previousWorkPlaceSchema = new Schema<TPreviousWorkPlace>({
     },
     required: true,
   },
-},
-);
+});
 
 const educationDetailsSchema = new Schema<TEducationDetails>({
   universityName: {
@@ -299,7 +302,7 @@ const doctorSchema = new Schema<TDoctor>(
     isDeleted: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   {
     timestamps: true,
@@ -330,48 +333,62 @@ doctorSchema.pre('aggregate', async function (next) {
 });
 
 // check previous work place if start date before end date
-previousWorkPlaceSchema.pre("save", async function (next) {
+previousWorkPlaceSchema.pre('save', async function (next) {
   try {
-    validateDateRange(this.startDate, this.endDate, "The previous work place start date cannot be later than the end date.")
-    next()
+    validateDateRange(
+      this.startDate,
+      this.endDate,
+      'The previous work place start date cannot be later than the end date.',
+    );
+    next();
   } catch (err: any) {
-    this.invalidate("endDate", err.message)
-    next(err)
+    this.invalidate('endDate', err.message);
+    next(err);
   }
-})
+});
 
 // check working hours & available time slots if start time before end time
-doctorSchema.pre("save", async function (next) {
+doctorSchema.pre('save', async function (next) {
   try {
     // validate working hours
     this.workingHours.forEach((workingHour) => {
-      validateTimeRange(workingHour.startTime, workingHour.endTime, "Start time cannot be later than end time in working hours. ")
-    })
+      validateTimeRange(
+        workingHour.startTime,
+        workingHour.endTime,
+        'Start time cannot be later than end time in working hours. ',
+      );
+    });
 
     // validate available time slots
     this.availableTimeSlots.forEach((availableTimeSlot) => {
-      validateTimeRange(availableTimeSlot.startTime, availableTimeSlot.endTime, "Start time cannot be later than end time in available time slots.")
-    })
+      validateTimeRange(
+        availableTimeSlot.startTime,
+        availableTimeSlot.endTime,
+        'Start time cannot be later than end time in available time slots.',
+      );
+    });
 
-    next()
-
+    next();
   } catch (err: any) {
-    this.invalidate("workingDays", err.message)
-    this.invalidate("availableTimeSlots", err.message)
-    next(err)
-  }
-})
-
-// check if working days and off days overlapping
-doctorSchema.pre("save", async function (next) {
-  try {
-    validateOffDays(this.workingDays, this.offDays, "Off days cannot overlap with working days, Change your days")
-    next()
-  } catch (err: any) {
-    this.invalidate("offDays", err.message)
+    this.invalidate('workingDays', err.message);
+    this.invalidate('availableTimeSlots', err.message);
     next(err);
   }
-})
+});
 
+// check if working days and off days overlapping
+doctorSchema.pre('save', async function (next) {
+  try {
+    validateOffDays(
+      this.workingDays,
+      this.offDays,
+      'Off days cannot overlap with working days, Change your days',
+    );
+    next();
+  } catch (err: any) {
+    this.invalidate('offDays', err.message);
+    next(err);
+  }
+});
 
 export const Doctor = model<TDoctor>('Doctor', doctorSchema);

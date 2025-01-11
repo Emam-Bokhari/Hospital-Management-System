@@ -49,21 +49,20 @@ const updateUserById = async (id: string, payload: Partial<TUser>) => {
 };
 
 const deleteUserById = async (id: string) => {
-
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
 
     // check if user exists
-    const user = await User.findById(id).session(session)
+    const user = await User.findById(id).session(session);
 
     // check if doctor exists
-    const doctor = await Doctor.findOne({ userId: id }).session(session)
+    const doctor = await Doctor.findOne({ userId: id }).session(session);
 
     // if no user and no doctor throw error
     if (!user && !doctor) {
-      throw new HttpError(404, `No user or doctor found with ID:${id}`)
+      throw new HttpError(404, `No user or doctor found with ID:${id}`);
     }
 
     if (user && !user.isDeleted) {
@@ -74,11 +73,12 @@ const deleteUserById = async (id: string) => {
       );
     }
 
-
-
     if (doctor && !doctor.isDeleted) {
-
-      await Doctor.findByIdAndUpdate(doctor._id, { isDeleted: true }, { new: true, runValidators: true, session })
+      await Doctor.findByIdAndUpdate(
+        doctor._id,
+        { isDeleted: true },
+        { new: true, runValidators: true, session },
+      );
     }
 
     await session.commitTransaction();
@@ -88,7 +88,7 @@ const deleteUserById = async (id: string) => {
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new HttpError(500, err.message)
+    throw new HttpError(500, err.message);
   }
 };
 

@@ -52,7 +52,6 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-
 // query middleware
 userSchema.pre('find', async function (next) {
   this.where({ isDeleted: false });

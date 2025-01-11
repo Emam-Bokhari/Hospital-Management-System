@@ -5,13 +5,20 @@ import { DoctorValidationSchema } from './doctor.validation';
 
 const router = express.Router();
 
-router.post('/', validateRequestSchema(DoctorValidationSchema.createDoctorValidationSchema), DoctorControllers.createDoctorController);
+router.post(
+  '/',
+  validateRequestSchema(DoctorValidationSchema.createDoctorValidationSchema),
+  DoctorControllers.createDoctorController,
+);
 
 router.get('/', DoctorControllers.getAllDoctorsController);
 
 router.get('/:id', DoctorControllers.getDoctorController);
 
-router.patch('/:id', validateRequestSchema(DoctorValidationSchema.updateDoctorValidationSchema), DoctorControllers.updateDoctorController);
-
+router.patch(
+  '/:id',
+  validateRequestSchema(DoctorValidationSchema.updateDoctorValidationSchema),
+  DoctorControllers.updateDoctorController,
+);
 
 export const DoctorRoutes = router;

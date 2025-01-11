@@ -12,7 +12,7 @@ const createDoctor = async (payload: TDoctor) => {
 const getAllDoctors = async () => {
   const doctors = await Doctor.find();
   if (doctors.length === 0) {
-    throw new HttpError(404, "No doctor were found in the database")
+    throw new HttpError(404, 'No doctor were found in the database');
   }
   return doctors;
 };
@@ -21,7 +21,7 @@ const getDoctorById = async (id: string) => {
   const doctor = await Doctor.findById(id);
 
   if (!doctor) {
-    throw new HttpError(404, `No doctor found with ID: ${id}`)
+    throw new HttpError(404, `No doctor found with ID: ${id}`);
   }
 
   return doctor;
@@ -51,7 +51,10 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   // Flatten and update object fields
   if (contactInformation) {
-    flattenAndUpdate('contactInformation', contactInformation, modifiedUpdatedData,
+    flattenAndUpdate(
+      'contactInformation',
+      contactInformation,
+      modifiedUpdatedData,
     );
   }
 
@@ -60,14 +63,20 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
   }
 
   if (medicalPracticeInformation) {
-    flattenAndUpdate('medicalPracticeInformation', medicalPracticeInformation, modifiedUpdatedData,
+    flattenAndUpdate(
+      'medicalPracticeInformation',
+      medicalPracticeInformation,
+      modifiedUpdatedData,
     );
   }
 
   // Flatten and update array of object fields
   if (educationDetails && educationDetails.length > 0) {
     educationDetails.forEach((education, index) => {
-      flattenAndUpdate(`educationDetails.${index}`, education, modifiedUpdatedData,
+      flattenAndUpdate(
+        `educationDetails.${index}`,
+        education,
+        modifiedUpdatedData,
       );
     });
   }
@@ -80,21 +89,30 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   if (previousWorkPlace && previousWorkPlace.length > 0) {
     previousWorkPlace.forEach((workPlace, index) => {
-      flattenAndUpdate(`previousWorkPlace.${index}`, workPlace, modifiedUpdatedData,
+      flattenAndUpdate(
+        `previousWorkPlace.${index}`,
+        workPlace,
+        modifiedUpdatedData,
       );
     });
   }
 
   if (workingHours && workingHours.length > 0) {
     workingHours.forEach((workingHour, index) => {
-      flattenAndUpdate(`workingHours.${index}`, workingHour, modifiedUpdatedData,
+      flattenAndUpdate(
+        `workingHours.${index}`,
+        workingHour,
+        modifiedUpdatedData,
       );
     });
   }
 
   if (availableTimeSlots && availableTimeSlots.length > 0) {
     availableTimeSlots.forEach((availableTimeSlot, index) => {
-      flattenAndUpdate(`availableTimeSlots.${index}`, availableTimeSlot, modifiedUpdatedData,
+      flattenAndUpdate(
+        `availableTimeSlots.${index}`,
+        availableTimeSlot,
+        modifiedUpdatedData,
       );
     });
   }
@@ -137,7 +155,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
   );
 
   if (!doctor) {
-    throw new HttpError(404, `No doctor found with ID: ${id}`)
+    throw new HttpError(404, `No doctor found with ID: ${id}`);
   }
 
   return updatedDoctor;
@@ -149,5 +167,3 @@ export const DoctorServices = {
   getDoctorById,
   updateDoctorById,
 };
-
-
