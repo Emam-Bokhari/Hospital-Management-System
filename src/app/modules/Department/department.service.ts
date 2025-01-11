@@ -14,6 +14,7 @@ const getAllDepartments = async () => {
     if (departments.length === 0) {
         throw new HttpError(404, "No department were found in the database")
     }
+    return departments;
 }
 
 const getDepartmentById = async (id: string) => {
@@ -51,11 +52,13 @@ const updateDepartmentById = async (id: string, payload: Partial<TDepartment>) =
         updateArrayField("possibleCauses", possibleCauses, modifiedUpdatedData)
     }
 
-    // Utility function to flatten nested fields, update array fields
     if (associatedDoctors) {
-        const currentAssociatedDoctors = department?.associatedDoctors || [];
-        modifiedUpdatedData.associatedDoctors = [...new Set([...currentAssociatedDoctors, ...associatedDoctors])]
+        modifiedUpdatedData.$addToSet = {
+            associatedDoctors: { $each: associatedDoctors },
+        };
     }
+
+
 
     const updateDepartment = await Department.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true })
 

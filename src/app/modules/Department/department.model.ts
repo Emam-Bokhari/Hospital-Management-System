@@ -69,6 +69,11 @@ export const departmentSchema = new Schema<TDepartment>({
         required: true,
     }
 
-})
+},
+    {
+        timestamps: true,
+        versionKey: false,
+    }
+)
 
 export const Department = model<TDepartment>("Department", departmentSchema)
