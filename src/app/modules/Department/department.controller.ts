@@ -37,8 +37,22 @@ const getDepartmentController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateDepartmentController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedDepartment = await DepartmentServices.updateDepartmentById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Department update successfully",
+        statusCode: 200,
+        data: updatedDepartment,
+    })
+})
+
 export const DepartmentControllers = {
     createDepartmentController,
     getAllDepartmentsController,
     getDepartmentController,
+    updateDepartmentController,
 }
