@@ -1,5 +1,4 @@
 import { HttpError } from "../../errors/HttpError";
-import { flattenAndUpdate } from "../../utils/flattenAndUpdate";
 import { updateArrayField } from "../../utils/updateArrayField";
 import { TDepartment } from "./department.interface";
 import { Department } from "./department.model";
