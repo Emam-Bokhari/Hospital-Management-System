@@ -30,7 +30,6 @@ const contactInformationSchema = new Schema<TContactInformation>({
   email: {
     type: String,
     trim: true,
-    required: true,
     unique: true,
   },
 });
@@ -54,7 +53,6 @@ const emergencyContactSchema = new Schema<TEmergencyContact>({
   },
   email: {
     type: String,
-    unique: true,
   },
   relationship: {
     type: String,
@@ -184,12 +182,10 @@ const doctorSchema = new Schema<TDoctor>(
     specialization: {
       type: Schema.Types.ObjectId,
       ref: 'Specialization',
-      unique: true,
     },
     department: {
       type: Schema.Types.ObjectId,
       ref: 'Department',
-      unique: true,
     },
     firstName: {
       type: String,
