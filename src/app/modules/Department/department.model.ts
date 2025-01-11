@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { TDepartment, TPossibleCauses, TSymptomsAddressed } from "./department.interface";
 
 const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
@@ -70,3 +70,5 @@ export const departmentSchema = new Schema<TDepartment>({
     }
 
 })
+
+export const Department = model<TDepartment>("Department", departmentSchema)
