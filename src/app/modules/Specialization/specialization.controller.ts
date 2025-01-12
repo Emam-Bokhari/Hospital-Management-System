@@ -14,6 +14,18 @@ const createSpecializationController = asyncHandler(async (req, res) => {
     })
 })
 
+const getAllSpecializationsController = asyncHandler(async (req, res) => {
+    const specializations = await SpecializationServices.getAllSpecializations();
+
+    sendResponse(res, {
+        success: true,
+        message: "Specializations retrieved successfully",
+        statusCode: 200,
+        data: specializations,
+    })
+})
+
 export const SpecializationControllers = {
     createSpecializationController,
+    getAllSpecializationsController,
 }
