@@ -37,8 +37,22 @@ const getSpecializationController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateSpecializationController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedSpecialization = await SpecializationServices.updateSpecializationById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Specialization updated successfully",
+        statusCode: 200,
+        data: updatedSpecialization,
+    })
+})
+
 export const SpecializationControllers = {
     createSpecializationController,
     getAllSpecializationsController,
     getSpecializationController,
+    updateSpecializationController,
 }
