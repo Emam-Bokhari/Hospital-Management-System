@@ -1,5 +1,6 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { TDepartment, TPossibleCauses, TSymptomsAddressed } from "./department.interface";
+import { HttpError } from "../../errors/HttpError";
 
 const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
     symptom: {
@@ -75,6 +76,19 @@ export const departmentSchema = new Schema<TDepartment>({
         versionKey: false,
     }
 )
+
+// document middleware to set department name based of specialization name
+departmentSchema.pre("save", async function (next) {
+    const specialization = await mongoose.model("Specialization").findById(this.specialization).select("name");
+    console.log(specialization, "Specialization")
+
+    if (specialization) {
+        this.departmentName = `Department of ${specialization.name}`
+    } else {
+        throw new HttpError(404, "Specialization not found!")
+    }
+    next();
+})
 
 // query middleware
 departmentSchema.pre('find', async function (next) {
