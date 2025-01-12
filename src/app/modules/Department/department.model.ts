@@ -80,7 +80,6 @@ export const departmentSchema = new Schema<TDepartment>({
 // document middleware to set department name based of specialization name
 departmentSchema.pre("save", async function (next) {
     const specialization = await mongoose.model("Specialization").findById(this.specialization).select("name");
-    console.log(specialization, "Specialization")
 
     if (specialization) {
         this.departmentName = `Department of ${specialization.name}`
