@@ -24,8 +24,19 @@ const getSpecializationById = async (id: string) => {
     return specialization;
 }
 
+const updateSpecializationById = async (id: string, payload: TSpecialization) => {
+    const updatedSpecialization = await Specialization.findByIdAndUpdate(id, payload, { new: true, runValidators: true })
+    if (!updatedSpecialization) {
+        throw new HttpError(404, `No specialization found with ID: ${id}`)
+    }
+
+    return updatedSpecialization;
+
+}
+
 export const SpecializationServices = {
     createSpecialization,
     getAllSpecializations,
     getSpecializationById,
+    updateSpecializationById,
 }
