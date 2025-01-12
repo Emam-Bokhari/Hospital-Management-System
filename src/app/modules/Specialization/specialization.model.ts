@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TSpecialization } from "./specialization.interface";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryUtils";
 
 export const specializationSchema = new Schema<TSpecialization>({
     name: {
@@ -21,5 +22,11 @@ export const specializationSchema = new Schema<TSpecialization>({
         versionKey: false
     }
 )
+// query middleware by utils
+specializationSchema.pre("find", excludeDeletedQuery);
+specializationSchema.pre("findOne", excludeDeletedQuery)
+
+// aggregate middleware by utils
+specializationSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const Specialization = model("Specialization", specializationSchema)
