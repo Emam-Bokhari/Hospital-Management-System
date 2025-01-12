@@ -50,9 +50,22 @@ const updateSpecializationController = asyncHandler(async (req, res) => {
     })
 })
 
+const deleteSpecializationController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await SpecializationServices.deleteSpecializationById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Specialization deleted successfully",
+        statusCode: 200,
+        data: {}
+    })
+})
+
 export const SpecializationControllers = {
     createSpecializationController,
     getAllSpecializationsController,
     getSpecializationController,
     updateSpecializationController,
+    deleteSpecializationController,
 }
