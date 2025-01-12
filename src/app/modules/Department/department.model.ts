@@ -1,0 +1,113 @@
+import mongoose, { model, Schema } from "mongoose";
+import { TDepartment, TPossibleCauses, TSymptomsAddressed } from "./department.interface";
+import { HttpError } from "../../errors/HttpError";
+
+const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
+    symptom: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    description: {
+        type: String,
+        trim: true,
+        required: true,
+    }
+})
+
+const possibleCausesSchema = new Schema<TPossibleCauses>({
+    cause: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    description: {
+        type: String,
+        trim: true,
+        required: true,
+    }
+})
+
+export const departmentSchema = new Schema<TDepartment>({
+    specialization: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Specialization"
+    },
+    departmentName: {
+        type: String,
+    },
+    overview: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    description: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    symptomsAddressed: {
+        type: [symptomsAddressedSchema],
+        required: true
+    },
+    possibleCauses: {
+        type: [possibleCausesSchema],
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ["active", "inActive"],
+        default: "active"
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    }
+
+},
+    {
+        timestamps: true,
+        versionKey: false,
+    }
+)
+
+// document middleware to set department name based of specialization name
+departmentSchema.pre("save", async function (next) {
+    const specialization = await mongoose.model("Specialization").findById(this.specialization).select("name");
+
+    if (specialization) {
+        this.departmentName = `Department of ${specialization.name}`
+    } else {
+        throw new HttpError(404, "Specialization not found!")
+    }
+    next();
+})
+
+// query middleware
+departmentSchema.pre('find', async function (next) {
+    this.where({ isDeleted: false });
+    next();
+});
+
+departmentSchema.pre("findOne", async function (next) {
+    this.where({ isDeleted: false });
+    next();
+})
+
+// aggregate middleware
+departmentSchema.pre("aggregate", async function (next) {
+    this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } })
+    next()
+})
+
+departmentSchema.pre("aggregate", async function (next) {
+    this.pipeline().unshift({ $project: { isDeleted: 0 } })
+    next();
+})
+
+export const Department = model<TDepartment>("Department", departmentSchema)

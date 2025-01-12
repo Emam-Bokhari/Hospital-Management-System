@@ -1,5 +1,6 @@
 import { HttpError } from '../../errors/HttpError';
 import { flattenAndUpdate } from '../../utils/flattenAndUpdate';
+import { updateArrayField } from '../../utils/updateArrayField';
 import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
 
@@ -49,7 +50,12 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   const doctor = await Doctor.findById(id);
 
-  // Flatten and update object fields
+  if (!doctor) {
+    throw new HttpError(404, `No doctor found with ID: ${id}`);
+  }
+
+
+  // Utility function to flatten nested fields,  update object fields
   if (contactInformation) {
     flattenAndUpdate(
       'contactInformation',
@@ -70,54 +76,28 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     );
   }
 
-  // Flatten and update array of object fields
+  // Utility function to flatten nested fields, update array of object fields
   if (educationDetails && educationDetails.length > 0) {
-    educationDetails.forEach((education, index) => {
-      flattenAndUpdate(
-        `educationDetails.${index}`,
-        education,
-        modifiedUpdatedData,
-      );
-    });
+    updateArrayField("educationDetails", educationDetails, modifiedUpdatedData)
   }
 
   if (awards && awards.length > 0) {
-    awards.forEach((award, index) => {
-      flattenAndUpdate(`awards.${index}`, award, modifiedUpdatedData);
-    });
+    updateArrayField("awards", awards, modifiedUpdatedData)
   }
 
   if (previousWorkPlace && previousWorkPlace.length > 0) {
-    previousWorkPlace.forEach((workPlace, index) => {
-      flattenAndUpdate(
-        `previousWorkPlace.${index}`,
-        workPlace,
-        modifiedUpdatedData,
-      );
-    });
+    updateArrayField("previousWorkPlace", previousWorkPlace, modifiedUpdatedData)
   }
 
   if (workingHours && workingHours.length > 0) {
-    workingHours.forEach((workingHour, index) => {
-      flattenAndUpdate(
-        `workingHours.${index}`,
-        workingHour,
-        modifiedUpdatedData,
-      );
-    });
+    updateArrayField("workingHours", workingHours, modifiedUpdatedData)
   }
 
   if (availableTimeSlots && availableTimeSlots.length > 0) {
-    availableTimeSlots.forEach((availableTimeSlot, index) => {
-      flattenAndUpdate(
-        `availableTimeSlots.${index}`,
-        availableTimeSlot,
-        modifiedUpdatedData,
-      );
-    });
+    updateArrayField("availableTimeSlots", availableTimeSlots, modifiedUpdatedData)
   }
 
-  // update array fields
+  // Utility function to flatten nested fields, update array fields
   if (qualifications) {
     const currentQualifications = doctor?.qualifications || [];
 
@@ -154,9 +134,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     { new: true, runValidators: true },
   );
 
-  if (!doctor) {
-    throw new HttpError(404, `No doctor found with ID: ${id}`);
-  }
 
   return updatedDoctor;
 };
