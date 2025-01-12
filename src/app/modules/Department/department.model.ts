@@ -55,10 +55,6 @@ export const departmentSchema = new Schema<TDepartment>({
         type: [possibleCausesSchema],
         required: true,
     },
-    associatedDoctors: {
-        type: [Schema.Types.ObjectId],
-        required: true,
-    },
     status: {
         type: String,
         enum: ["active", "inActive"],
@@ -67,6 +63,10 @@ export const departmentSchema = new Schema<TDepartment>({
     createdBy: {
         type: Schema.Types.ObjectId,
         required: true,
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
     }
 
 },

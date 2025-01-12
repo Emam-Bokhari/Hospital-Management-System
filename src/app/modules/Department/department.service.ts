@@ -35,7 +35,6 @@ const updateDepartmentById = async (id: string, payload: Partial<TDepartment>) =
     const {
         symptomsAddressed,
         possibleCauses,
-        associatedDoctors,
         ...remainingDepartmentData
     } = payload;
 
@@ -52,13 +51,6 @@ const updateDepartmentById = async (id: string, payload: Partial<TDepartment>) =
         updateArrayField("possibleCauses", possibleCauses, modifiedUpdatedData)
     }
 
-    if (associatedDoctors) {
-        modifiedUpdatedData.$addToSet = {
-            associatedDoctors: { $each: associatedDoctors },
-        };
-    }
-
-
 
     const updateDepartment = await Department.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true })
 
@@ -67,9 +59,15 @@ const updateDepartmentById = async (id: string, payload: Partial<TDepartment>) =
 
 }
 
+const deleteDepartmentById = async (id: string) => {
+    const deletedDepartment = await Department.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
+    return deletedDepartment;
+}
+
 export const DepartmentServices = {
     createDepartment,
     getAllDepartments,
     getDepartmentById,
     updateDepartmentById,
+    deleteDepartmentById,
 }

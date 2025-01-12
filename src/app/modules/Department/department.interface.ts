@@ -17,7 +17,7 @@ export type TDepartment = {
     description: string;
     symptomsAddressed: TSymptomsAddressed[];
     possibleCauses: TPossibleCauses[];
-    associatedDoctors: Types.ObjectId[];
     status: "active" | "inActive";
     createdBy: Types.ObjectId;
+    isDeleted?: boolean;
 }
