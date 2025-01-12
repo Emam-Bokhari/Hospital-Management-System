@@ -50,9 +50,22 @@ const updateDepartmentController = asyncHandler(async (req, res) => {
     })
 })
 
+const deleteDepartmentController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await DepartmentServices.deleteDepartmentById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Delete department successfully",
+        statusCode: 200,
+        data: {}
+    })
+})
+
 export const DepartmentControllers = {
     createDepartmentController,
     getAllDepartmentsController,
     getDepartmentController,
     updateDepartmentController,
+    deleteDepartmentController,
 }

@@ -61,6 +61,9 @@ const updateDepartmentById = async (id: string, payload: Partial<TDepartment>) =
 
 const deleteDepartmentById = async (id: string) => {
     const deletedDepartment = await Department.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
+    if (!deletedDepartment) {
+        throw new HttpError(404, "No department found!")
+    }
     return deletedDepartment;
 }
 
