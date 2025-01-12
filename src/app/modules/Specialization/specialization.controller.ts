@@ -25,7 +25,20 @@ const getAllSpecializationsController = asyncHandler(async (req, res) => {
     })
 })
 
+const getSpecializationController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const specialization = await SpecializationServices.getSpecializationById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Specialization retrieved successfully",
+        statusCode: 200,
+        data: specialization,
+    })
+})
+
 export const SpecializationControllers = {
     createSpecializationController,
     getAllSpecializationsController,
+    getSpecializationController,
 }
