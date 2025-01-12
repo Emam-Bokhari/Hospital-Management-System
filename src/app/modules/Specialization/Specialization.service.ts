@@ -34,9 +34,20 @@ const updateSpecializationById = async (id: string, payload: TSpecialization) =>
 
 }
 
+const deleteSpecializationById = async (id: string) => {
+    const deletedSpecialization = await Specialization.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true });
+
+    if (!deletedSpecialization) {
+        throw new HttpError(404, `No specialization found with ID: ${id}`)
+    }
+
+    return deletedSpecialization;
+}
+
 export const SpecializationServices = {
     createSpecialization,
     getAllSpecializations,
     getSpecializationById,
     updateSpecializationById,
+    deleteSpecializationById,
 }
