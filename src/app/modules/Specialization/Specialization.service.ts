@@ -16,7 +16,16 @@ const getAllSpecializations = async () => {
     return specializations;
 }
 
+const getSpecializationById = async (id: string) => {
+    const specialization = await Specialization.findById(id);
+    if (!specialization) {
+        throw new HttpError(404, `No specialization found with ID: ${id}`)
+    }
+    return specialization;
+}
+
 export const SpecializationServices = {
     createSpecialization,
     getAllSpecializations,
+    getSpecializationById,
 }
