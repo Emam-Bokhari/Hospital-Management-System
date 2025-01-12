@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TSpecialization } from "./specialization.interface";
-import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryUtils";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters";
 
 export const specializationSchema = new Schema<TSpecialization>({
     name: {
