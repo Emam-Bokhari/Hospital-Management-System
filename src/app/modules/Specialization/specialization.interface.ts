@@ -1,4 +1,7 @@
+import { Types } from "mongoose";
+
 export type TSpecialization = {
     name: string;
-    isDeleted: boolean;
+    createdBy: Types.ObjectId;
+    isDeleted?: boolean;
 }
