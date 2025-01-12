@@ -12,7 +12,7 @@ export type TPossibleCauses = {
 
 export type TDepartment = {
     specialization: Types.ObjectId;
-    departmentName: string;
+    departmentName?: string;
     overview: string;
     description: string;
     symptomsAddressed: TSymptomsAddressed[];

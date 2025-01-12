@@ -36,7 +36,6 @@ export const departmentSchema = new Schema<TDepartment>({
     },
     departmentName: {
         type: String,
-        required: true,
     },
     overview: {
         type: String,
@@ -63,7 +62,7 @@ export const departmentSchema = new Schema<TDepartment>({
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        required: true,
+        ref: "User"
     },
     isDeleted: {
         type: Boolean,
