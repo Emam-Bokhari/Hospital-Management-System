@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TAddress, TBirthCertificate, TContactInformation, TEducationDetails, TEmergencyContact, TExperience, TGuardian, TNid, TPayrollInformation, TStaff, TWorkSchedule } from "./staff.interface";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters";
 
 
 const contactInformationSchema = new Schema<TContactInformation>({
@@ -245,7 +246,7 @@ const staffSchema = new Schema<TStaff>({
     bloodGroup: {
         type: String,
         enum: {
-            values: ["A+, A-, B+,B- ,AB+,AB-,O+,O-"],
+            values: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
             message: '{VALUE} is not a valid blood group'
         }
     },
@@ -286,7 +287,7 @@ const staffSchema = new Schema<TStaff>({
     staffRole: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: "StaffRole",
+        // ref: "StaffRole",
     },
     employmentType: {
         type: String,
@@ -333,7 +334,12 @@ const staffSchema = new Schema<TStaff>({
     }
 )
 
+// query middleware for soft delete by utils
+staffSchema.pre("find", excludeDeletedQuery);
+staffSchema.pre("findOne", excludeDeletedQuery);
 
+// aggregate middleware for soft delete by utils
+staffSchema.pre("aggregate", excludeDeletedAggregation);
 
 
 export const Staff = model<TStaff>("Staff", staffSchema)
