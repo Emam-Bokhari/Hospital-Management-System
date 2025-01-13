@@ -9,7 +9,7 @@ const createStaffRole = async (payload: TStaffRole) => {
 }
 
 const getAllStaffRoles = async () => {
-    const staffRoles = await StaffRole.find();
+    const staffRoles = await StaffRole.find().populate("createdBy");
 
     if (staffRoles.length === 0) {
         throw new HttpError(404, 'No staff roles were found in the database')
@@ -19,7 +19,7 @@ const getAllStaffRoles = async () => {
 }
 
 const getStaffRoleById = async (id: string) => {
-    const staff = await StaffRole.findById(id);
+    const staff = await StaffRole.findById(id).populate("createdBy");
 
     if (!staff) {
         throw new HttpError(404, `No staff role  found with ID:${id}`)
@@ -29,7 +29,7 @@ const getStaffRoleById = async (id: string) => {
 }
 
 const updateStaffRoleById = async (id: string, payload: Partial<TStaffRole>) => {
-    const updatedStaffRole = await StaffRole.findByIdAndUpdate(id, payload, { new: true, runValidators: true })
+    const updatedStaffRole = await StaffRole.findOneAndUpdate({ _id: id, isDeleted: false }, payload, { new: true, runValidators: true })
 
     if (!updatedStaffRole) {
         throw new HttpError(404, `No staff role found with ID:${id}`)
