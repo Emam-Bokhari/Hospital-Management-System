@@ -1,10 +1,24 @@
 import { HttpError } from '../../errors/HttpError';
 import { flattenAndUpdate } from '../../utils/flattenAndUpdate';
 import { updateArrayField } from '../../utils/updateArrayField';
+import { Department } from '../Department/department.model';
 import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
 
 const createDoctor = async (payload: TDoctor) => {
+
+  const specializationId = payload.specialization;
+
+  const department = await Department.findOne({ specialization: specializationId })
+
+  if (!department) {
+    throw new HttpError(404, "No department found for the given specialization.")
+  }
+
+
+  payload.department = department._id;
+
+
   const createdDoctor = await Doctor.create(payload);
 
   return createdDoctor;

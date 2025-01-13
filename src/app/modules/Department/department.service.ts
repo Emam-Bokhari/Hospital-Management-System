@@ -20,7 +20,7 @@ const getAllDepartments = async () => {
 const getDepartmentById = async (id: string) => {
     const department = await Department.findById(id).populate("specialization");
     if (!department) {
-        throw new HttpError(404, "No department found")
+        throw new HttpError(404, `No department found with ID: ${id}`)
     }
     return department;
 }
@@ -64,7 +64,7 @@ const deleteDepartmentById = async (id: string) => {
     const deletedDepartment = await Department.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true })
 
     if (!deletedDepartment) {
-        throw new HttpError(404, "No department found")
+        throw new HttpError(404, `No department found with ID: ${id}`)
     }
     return deletedDepartment;
 }

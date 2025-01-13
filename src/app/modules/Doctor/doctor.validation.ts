@@ -280,9 +280,9 @@ const updateMedicalPracticeInformationValidationSchema = z.object({
 
 const createDoctorValidationSchema = z.object({
   body: z.object({
-    userId: z.string(),
+    userId: z.string().optional(),
     specialization: z.string(),
-    department: z.string(),
+    department: z.string().optional(),
     firstName: z
       .string()
       .trim()

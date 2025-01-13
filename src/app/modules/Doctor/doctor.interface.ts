@@ -41,9 +41,9 @@ export type TMedicalPracticeInformation = {
 };
 
 export type TDoctor = {
-  userId: Types.ObjectId;
+  userId?: Types.ObjectId;
   specialization: Types.ObjectId;
-  department: Types.ObjectId;
+  department?: Types.ObjectId;
   firstName: string;
   lastName: string;
   gender: 'male' | 'female';
@@ -81,5 +81,5 @@ export type TDoctor = {
     'Saturday',
     'Sunday',
   ];
-  isDeleted: boolean;
+  isDeleted?: boolean;
 };
