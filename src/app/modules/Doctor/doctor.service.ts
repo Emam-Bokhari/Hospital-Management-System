@@ -25,7 +25,7 @@ const createDoctor = async (payload: TDoctor) => {
 };
 
 const getAllDoctors = async () => {
-  const doctors = await Doctor.find();
+  const doctors = await Doctor.find().populate("userId").populate("specialization").populate("department");
   if (doctors.length === 0) {
     throw new HttpError(404, 'No doctor were found in the database');
   }
@@ -33,7 +33,7 @@ const getAllDoctors = async () => {
 };
 
 const getDoctorById = async (id: string) => {
-  const doctor = await Doctor.findById(id);
+  const doctor = await Doctor.findById(id).populate("userId").populate("specialization").populate("department");
 
   if (!doctor) {
     throw new HttpError(404, `No doctor found with ID: ${id}`);

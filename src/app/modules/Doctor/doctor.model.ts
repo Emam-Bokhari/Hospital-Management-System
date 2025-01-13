@@ -177,17 +177,15 @@ const doctorSchema = new Schema<TDoctor>(
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      // unique: true,
+      unique: true,
     },
     specialization: {
       type: Schema.Types.ObjectId,
       required: true,
-      // unique: true,
       ref: 'Specialization',
     },
     department: {
       type: Schema.Types.ObjectId,
-      // unique: true,
       ref: 'Department',
     },
     firstName: {
