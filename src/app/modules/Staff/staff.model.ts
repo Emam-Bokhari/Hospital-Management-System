@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { TAddress, TBirthCertificate, TContactInformation, TEducationDetails, TEmergencyContact, TExperience, TGuardian, TNid, TPayrollInformation, TStaff, TStaffRole, TWorkSchedule } from "./staff.interface";
+import { TAddress, TBirthCertificate, TContactInformation, TEducationDetails, TEmergencyContact, TExperience, TGuardian, TNid, TPayrollInformation, TStaff, TWorkSchedule } from "./staff.interface";
 
 
 const contactInformationSchema = new Schema<TContactInformation>({
@@ -334,30 +334,9 @@ const staffSchema = new Schema<TStaff>({
 )
 
 
-const staffRoleSchema = new Schema<TStaffRole>({
-    name: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
-    },
-    createdBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    },
-    isDeleted: {
-        type: Boolean,
-        default: false,
-    }
-},
-    {
-        timestamps: true,
-        versionKey: false
-    }
-)
 
 
 export const Staff = model<TStaff>("Staff", staffSchema)
 
-export const StaffRole = model("StaffRole", staffRoleSchema)
+
 

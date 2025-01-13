@@ -94,11 +94,3 @@ export type TStaff = {
     createdBy?: Types.ObjectId;
     isDeleted?: boolean;
 }
-
-
-
-export type TStaffRole = {
-    name: string;
-    createdBy?: Types.ObjectId;
-    isDeleted?: boolean;
-}
