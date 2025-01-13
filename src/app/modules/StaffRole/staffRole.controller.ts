@@ -32,9 +32,23 @@ const getStaffRoleController = asyncHandler(async (req, res) => {
 
     sendResponse(res, {
         success: true,
-        message: "Staff role retrieved succssfully",
+        message: "Staff role retrieved successfully",
         statusCode: 200,
         data: staffRole,
+    })
+})
+
+const updateStaffRoleController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+
+    const updatedStaffRole = await StaffRoleServices.updateStaffRoleById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Staff role updated successfully",
+        statusCode: 200,
+        data: updatedStaffRole,
     })
 })
 
@@ -42,4 +56,5 @@ export const StaffRoleControllers = {
     createStaffRoleController,
     getAllStaffRolesController,
     getStaffRoleController,
+    updateStaffRoleController,
 }
