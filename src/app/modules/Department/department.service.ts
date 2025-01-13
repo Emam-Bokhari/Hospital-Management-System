@@ -9,7 +9,7 @@ const createDepartment = async (payload: TDepartment) => {
 }
 
 const getAllDepartments = async () => {
-    const departments = await Department.find().populate("specialization");
+    const departments = await Department.find().populate({ path: "specialization", populate: { path: "createdBy" } }).populate("createdBy");
 
     if (departments.length === 0) {
         throw new HttpError(404, "No department were found in the database")
@@ -18,7 +18,7 @@ const getAllDepartments = async () => {
 }
 
 const getDepartmentById = async (id: string) => {
-    const department = await Department.findById(id).populate("specialization");
+    const department = await Department.findById(id).populate({ path: "specialization", populate: { path: "createdBy" } }).populate("createdBy");
     if (!department) {
         throw new HttpError(404, `No department found with ID: ${id}`)
     }
