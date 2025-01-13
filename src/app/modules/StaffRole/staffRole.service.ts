@@ -28,8 +28,19 @@ const getStaffRoleById = async (id: string) => {
     return staff;
 }
 
+const updateStaffRoleById = async (id: string, payload: Partial<TStaffRole>) => {
+    const updatedStaffRole = await StaffRole.findByIdAndUpdate(id, payload, { new: true, runValidators: true })
+
+    if (!updatedStaffRole) {
+        throw new HttpError(404, `No staff role found with ID:${id}`)
+    }
+
+    return updatedStaffRole;
+}
+
 export const StaffRoleServices = {
     createStaffRole,
     getAllStaffRoles,
     getStaffRoleById,
+    updateStaffRoleById,
 }
