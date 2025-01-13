@@ -77,6 +77,8 @@ const deleteStaffById = async (id: string) => {
     if (!deletedStaff) {
         throw new HttpError(404, `No staff found with ID: ${id}`)
     }
+
+    return deletedStaff;
 }
 
 export const StaffServices = {
