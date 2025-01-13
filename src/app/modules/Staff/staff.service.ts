@@ -17,7 +17,16 @@ const getAllStaffs = async () => {
     return staffs;
 }
 
+const getStaffById = async (id: string) => {
+    const staff = await Staff.findById(id);
+    if (!staff) {
+        throw new HttpError(404, `No staff  found with ID:${id}`)
+    }
+    return staff;
+}
+
 export const StaffServices = {
     createStaff,
     getAllStaffs,
+    getStaffById,
 }
