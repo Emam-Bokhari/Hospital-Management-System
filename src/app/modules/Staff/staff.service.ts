@@ -9,7 +9,7 @@ const createStaff = async (payload: TStaff) => {
 };
 
 const getAllStaffs = async () => {
-    const staffs = await Staff.find();
+    const staffs = await Staff.find().populate("staffRole").populate("createdBy");
 
     if (staffs.length === 0) {
         throw new HttpError(404, 'No staffs were found in the database')
@@ -19,7 +19,7 @@ const getAllStaffs = async () => {
 }
 
 const getStaffById = async (id: string) => {
-    const staff = await Staff.findById(id);
+    const staff = await Staff.findById(id).populate("staffRole").populate("createdBy");
     if (!staff) {
         throw new HttpError(404, `No staff  found with ID:${id}`)
     }

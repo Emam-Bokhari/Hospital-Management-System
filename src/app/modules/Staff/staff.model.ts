@@ -285,8 +285,8 @@ const staffSchema = new Schema<TStaff>({
     },
     staffRole: {
         type: Schema.Types.ObjectId,
-        ref: "StaffRole",
         required: true,
+        ref: "StaffRole",
     },
     employmentType: {
         type: String,
