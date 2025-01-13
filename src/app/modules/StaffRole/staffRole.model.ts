@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose"
 import { TStaffRole } from "./staffRole.interface"
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters"
 
 const staffRoleSchema = new Schema<TStaffRole>({
     name: {
@@ -22,4 +23,13 @@ const staffRoleSchema = new Schema<TStaffRole>({
         versionKey: false
     }
 )
+
+// query middleware for soft delete by utils
+staffRoleSchema.pre("find", excludeDeletedQuery);
+staffRoleSchema.pre("findOne", excludeDeletedQuery);
+
+// aggregate middleware for soft delete by utils
+staffRoleSchema.pre("aggregate", excludeDeletedAggregation);
+
+
 export const StaffRole = model("StaffRole", staffRoleSchema)
