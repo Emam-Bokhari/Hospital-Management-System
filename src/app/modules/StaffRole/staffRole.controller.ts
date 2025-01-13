@@ -26,7 +26,20 @@ const getAllStaffRolesController = asyncHandler(async (req, res) => {
     })
 })
 
+const getStaffRoleController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const staffRole = await StaffRoleServices.getStaffRoleById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Staff role retrieved succssfully",
+        statusCode: 200,
+        data: staffRole,
+    })
+})
+
 export const StaffRoleControllers = {
     createStaffRoleController,
     getAllStaffRolesController,
+    getStaffRoleController,
 }
