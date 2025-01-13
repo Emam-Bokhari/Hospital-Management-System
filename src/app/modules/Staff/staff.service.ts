@@ -1,4 +1,5 @@
 import { HttpError } from "../../errors/HttpError";
+import { flattenAndUpdate } from "../../utils/flattenAndUpdate";
 import { TStaff } from "./staff.interface";
 import { Staff } from "./staff.model";
 
@@ -25,8 +26,50 @@ const getStaffById = async (id: string) => {
     return staff;
 }
 
+const updateStaffById = async (id: string, payload: Partial<TStaff>) => {
+    const { contactInformation, emergencyContact, birthCertificate, workSchedule, payrollInformation, educationDetails, experience, ...remainingStaffData } = payload;
+
+    const modifiedUpdatedData: Record<string, unknown> = {
+        ...remainingStaffData,
+    };
+
+    // Utility function to flatten nested fields,  update object fields
+    if (contactInformation) {
+        flattenAndUpdate("contactInformation", contactInformation, modifiedUpdatedData);
+    }
+
+    if (emergencyContact) {
+        flattenAndUpdate("emergencyContact", emergencyContact, modifiedUpdatedData)
+    };
+
+    if (birthCertificate) {
+        flattenAndUpdate("birthCertificate", birthCertificate, modifiedUpdatedData)
+    }
+
+    if (workSchedule) {
+        flattenAndUpdate("workSchedule", workSchedule, modifiedUpdatedData)
+    }
+
+    if (payrollInformation) {
+        flattenAndUpdate("payrollInformation", payrollInformation, modifiedUpdatedData)
+    }
+
+    if (educationDetails) {
+        flattenAndUpdate("educationDetails", educationDetails, modifiedUpdatedData)
+    }
+
+    if (experience) {
+        flattenAndUpdate("experience", experience, modifiedUpdatedData)
+    }
+
+    const updatedStaff = await Staff.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true });
+
+    return updatedStaff;
+}
+
 export const StaffServices = {
     createStaff,
     getAllStaffs,
     getStaffById,
+    updateStaffById,
 }
