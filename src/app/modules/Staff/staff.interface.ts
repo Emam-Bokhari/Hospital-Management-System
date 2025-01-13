@@ -15,6 +15,7 @@ export type TAddress = {
 export type TEmergencyContact = {
     name: string;
     phone: string;
+    email?: string;
     relationship: string;
 }
 
@@ -82,7 +83,7 @@ export type TStaff = {
     nid?: TNid;
     birthCertificate: TBirthCertificate;
     guardian: TGuardian;
-    staffRoles: Types.ObjectId;
+    staffRole: Types.ObjectId;
     employmentType: "fullTime" | "partTime" | "contractual";
     employmentID?: string;
     dateOfJoining: string;
@@ -90,11 +91,14 @@ export type TStaff = {
     payrollInformation: TPayrollInformation;
     educationDetails: TEducationDetails;
     experience?: TExperience;
+    createdBy?: Types.ObjectId;
+    isDeleted?: boolean;
 }
 
 
 
-export type TStaffRoles = {
+export type TStaffRole = {
     name: string;
-    createdBy: Types.ObjectId;
+    createdBy?: Types.ObjectId;
+    isDeleted?: boolean;
 }
