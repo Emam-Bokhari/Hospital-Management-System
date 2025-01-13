@@ -14,6 +14,18 @@ const createStaffController = asyncHandler(async (req, res) => {
     })
 })
 
+const getAllStaffsController = asyncHandler(async (req, res) => {
+    const staffs = await StaffServices.getAllStaffs();
+
+    sendResponse(res, {
+        success: true,
+        message: "Staffs retrieved successfully",
+        statusCode: 200,
+        data: staffs,
+    })
+})
+
 export const StaffControllers = {
     createStaffController,
+    getAllStaffsController,
 }
