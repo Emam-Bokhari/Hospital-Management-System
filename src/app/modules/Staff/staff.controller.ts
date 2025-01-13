@@ -37,8 +37,22 @@ const getStaffController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateStaffController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedStaff = await StaffServices.updateStaffById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Staff updated successfully",
+        statusCode: 200,
+        data: updatedStaff,
+    })
+})
+
 export const StaffControllers = {
     createStaffController,
     getAllStaffsController,
     getStaffController,
+    updateStaffController,
 }
