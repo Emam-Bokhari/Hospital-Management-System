@@ -38,9 +38,18 @@ const updateStaffRoleById = async (id: string, payload: Partial<TStaffRole>) => 
     return updatedStaffRole;
 }
 
+const deleteStaffRoleById = async (id: string) => {
+    const deletedStaffRole = await StaffRole.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true })
+
+    if (!deletedStaffRole) {
+        throw new HttpError(404, `No staff role found with ID:${id}`)
+    }
+}
+
 export const StaffRoleServices = {
     createStaffRole,
     getAllStaffRoles,
     getStaffRoleById,
     updateStaffRoleById,
+    deleteStaffRoleById,
 }
