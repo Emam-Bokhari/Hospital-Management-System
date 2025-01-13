@@ -9,13 +9,13 @@ const createStaffRole = async (payload: TStaffRole) => {
 }
 
 const getAllStaffRoles = async () => {
-    const staffs = await StaffRole.find();
+    const staffRoles = await StaffRole.find();
 
-    if (staffs.length === 0) {
+    if (staffRoles.length === 0) {
         throw new HttpError(404, 'No staff roles were found in the database')
     }
 
-    return staffs;
+    return staffRoles;
 }
 
 const getStaffRoleById = async (id: string) => {
