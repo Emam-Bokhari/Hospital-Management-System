@@ -64,6 +64,10 @@ const updateStaffById = async (id: string, payload: Partial<TStaff>) => {
 
     const updatedStaff = await Staff.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true });
 
+    if (!updatedStaff) {
+        throw new HttpError(404, `No staff found with ID: ${id}`)
+    }
+
     return updatedStaff;
 }
 
