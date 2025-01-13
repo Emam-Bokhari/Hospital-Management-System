@@ -52,9 +52,22 @@ const updateStaffRoleController = asyncHandler(async (req, res) => {
     })
 })
 
+const deleteStaffRoleController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await StaffRoleServices.deleteStaffRoleById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Staff role deleted successfully",
+        statusCode: 200,
+        data: {},
+    })
+})
+
 export const StaffRoleControllers = {
     createStaffRoleController,
     getAllStaffRolesController,
     getStaffRoleController,
     updateStaffRoleController,
+    deleteStaffRoleController,
 }
