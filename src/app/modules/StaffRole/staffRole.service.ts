@@ -18,7 +18,18 @@ const getAllStaffRoles = async () => {
     return staffs;
 }
 
+const getStaffRoleById = async (id: string) => {
+    const staff = await StaffRole.findById(id);
+
+    if (!staff) {
+        throw new HttpError(404, `No staff role  found with ID:${id}`)
+    }
+
+    return staff;
+}
+
 export const StaffRoleServices = {
     createStaffRole,
     getAllStaffRoles,
+    getStaffRoleById,
 }
