@@ -1,6 +1,7 @@
 import mongoose, { model, Schema } from "mongoose";
 import { TDepartment, TPossibleCauses, TSymptomsAddressed } from "./department.interface";
 import { HttpError } from "../../errors/HttpError";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters";
 
 const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
     symptom: {
@@ -88,26 +89,11 @@ departmentSchema.pre("save", async function (next) {
     next();
 })
 
-// query middleware
-departmentSchema.pre('find', async function (next) {
-    this.where({ isDeleted: false });
-    next();
-});
+// query middleware for soft delete by utils
+departmentSchema.pre("find", excludeDeletedQuery);
+departmentSchema.pre("findOne", excludeDeletedQuery)
 
-departmentSchema.pre("findOne", async function (next) {
-    this.where({ isDeleted: false });
-    next();
-})
-
-// aggregate middleware
-departmentSchema.pre("aggregate", async function (next) {
-    this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } })
-    next()
-})
-
-departmentSchema.pre("aggregate", async function (next) {
-    this.pipeline().unshift({ $project: { isDeleted: 0 } })
-    next();
-})
+// aggregate middleware for soft delete by utils
+departmentSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const Department = model<TDepartment>("Department", departmentSchema)
