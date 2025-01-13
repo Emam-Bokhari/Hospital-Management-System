@@ -53,11 +53,11 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-// query middleware by utils
+// query middleware for soft delete by utils
 userSchema.pre("find", excludeDeletedQuery);
 userSchema.pre("findOne", excludeDeletedQuery)
 
-// aggregate middleware by utils
+// aggregate middleware for soft delete by utils
 userSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const User = model<TUser>('User', userSchema);

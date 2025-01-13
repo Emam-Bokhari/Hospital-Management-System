@@ -23,11 +23,11 @@ export const specializationSchema = new Schema<TSpecialization>({
         versionKey: false
     }
 )
-// query middleware by utils
+// query middleware for soft delete by utils
 specializationSchema.pre("find", excludeDeletedQuery);
 specializationSchema.pre("findOne", excludeDeletedQuery)
 
-// aggregate middleware by utils
+// aggregate middleware for soft delete by utils
 specializationSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const Specialization = model("Specialization", specializationSchema)
