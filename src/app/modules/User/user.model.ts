@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
+import { excludeDeletedAggregation, excludeDeletedQuery } from '../../utils/queryFilters';
 
 const userSchema = new Schema<TUser>(
   {
@@ -52,26 +53,11 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-// query middleware
-userSchema.pre('find', async function (next) {
-  this.where({ isDeleted: false });
-  next();
-});
+// query middleware by utils
+userSchema.pre("find", excludeDeletedQuery);
+userSchema.pre("findOne", excludeDeletedQuery)
 
-userSchema.pre('findOne', async function (next) {
-  this.where({ isDeleted: false });
-  next();
-});
-
-// aggregate middleware
-userSchema.pre('aggregate', async function (next) {
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-  next();
-});
-
-userSchema.pre('aggregate', async function (next) {
-  this.pipeline().unshift({ $project: { isDeleted: 0 } });
-  next();
-});
+// aggregate middleware by utils
+userSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const User = model<TUser>('User', userSchema);
