@@ -67,9 +67,18 @@ const updateStaffById = async (id: string, payload: Partial<TStaff>) => {
     return updatedStaff;
 }
 
+const deleteStaffById = async (id: string) => {
+    const deletedStaff = await Staff.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true });
+
+    if (!deletedStaff) {
+        throw new HttpError(404, `No staff found with ID: ${id}`)
+    }
+}
+
 export const StaffServices = {
     createStaff,
     getAllStaffs,
     getStaffById,
     updateStaffById,
+    deleteStaffById,
 }
