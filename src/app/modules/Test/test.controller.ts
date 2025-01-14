@@ -25,7 +25,20 @@ const getAllTestsController = asyncHandler(async (req, res) => {
     })
 })
 
+const getTestController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const test = await TestServices.getTestById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Test retrieved successfully",
+        statusCode: 200,
+        data: test,
+    })
+})
+
 export const TestControllers = {
     createTestController,
     getAllTestsController,
+    getTestController,
 }
