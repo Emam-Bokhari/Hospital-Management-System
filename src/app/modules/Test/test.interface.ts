@@ -14,3 +14,7 @@ export type TTest = {
     testAvailability?: boolean;
     isDeleted?: boolean;
 }
+
+export interface TTestAvailabilityUpdate {
+    testAvailability: boolean;
+}

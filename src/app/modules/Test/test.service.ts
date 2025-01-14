@@ -1,5 +1,5 @@
 import { HttpError } from "../../errors/HttpError";
-import { TTest } from "./test.interface";
+import { TTest, TTestAvailabilityUpdate } from "./test.interface";
 import { Test } from "./test.model";
 
 const createTest = async (payload: TTest) => {
@@ -47,10 +47,26 @@ const deleteTestById = async (id: string) => {
     }
 }
 
+const updateTestAvailabilityById = async (id: string, payload: TTestAvailabilityUpdate) => {
+
+    if (payload.testAvailability === undefined) {
+        throw new HttpError(400, "Test availability status is required")
+    }
+
+    const updatedTestAvailability = await Test.findOneAndUpdate({ _id: id, isDeleted: false }, payload, { new: true, runValidators: true });
+
+    if (!updatedTestAvailability) {
+        throw new HttpError(404, `No test found with ID:${id}`)
+    }
+
+    return updatedTestAvailability;
+}
+
 export const TestServices = {
     createTest,
     getAllTests,
     getTestById,
     updateTestById,
     deleteTestById,
+    updateTestAvailabilityById,
 }
