@@ -17,7 +17,18 @@ const getAllTests = async () => {
     return tests;
 }
 
+const getTestById = async (id: string) => {
+    const test = await Test.findById(id);
+
+    if (!test) {
+        throw new HttpError(404, `No test found with ID:${id}`)
+    }
+
+    return test;
+}
+
 export const TestServices = {
     createTest,
     getAllTests,
+    getTestById,
 }
