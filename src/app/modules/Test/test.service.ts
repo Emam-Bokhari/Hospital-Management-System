@@ -27,8 +27,20 @@ const getTestById = async (id: string) => {
     return test;
 }
 
+const updateTestById = async (id: string, payload: Partial<TTest>) => {
+
+    const updatedTest = await Test.findOneAndUpdate({ _id: id, isDeleted: false }, payload, { new: true, runValidators: true });
+
+    if (!updatedTest) {
+        throw new HttpError(404, `No test found with ID:${id}`)
+    }
+
+    return updatedTest;
+}
+
 export const TestServices = {
     createTest,
     getAllTests,
     getTestById,
+    updateTestById,
 }
