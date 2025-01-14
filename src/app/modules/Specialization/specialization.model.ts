@@ -6,7 +6,6 @@ export const specializationSchema = new Schema<TSpecialization>({
     name: {
         type: String,
         trim: true,
-        unique: true,
         required: true,
     },
     createdBy: {
