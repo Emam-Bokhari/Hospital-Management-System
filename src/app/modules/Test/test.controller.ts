@@ -51,9 +51,22 @@ const updateTestController = asyncHandler(async (req, res) => {
     })
 })
 
+const deleteTestController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await TestServices.deleteTestById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Test deleted successfully",
+        statusCode: 200,
+        data: {}
+    })
+})
+
 export const TestControllers = {
     createTestController,
     getAllTestsController,
     getTestController,
     updateTestController
+    deleteTestController,
 }
