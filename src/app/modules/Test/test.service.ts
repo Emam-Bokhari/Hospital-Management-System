@@ -38,9 +38,19 @@ const updateTestById = async (id: string, payload: Partial<TTest>) => {
     return updatedTest;
 }
 
+const deleteTestById = async (id: string) => {
+
+    const deletedTest = await Test.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true });
+
+    if (!deletedTest) {
+        throw new HttpError(404, `No test found with ID:${id}`)
+    }
+}
+
 export const TestServices = {
     createTest,
     getAllTests,
     getTestById,
     updateTestById,
+    deleteTestById,
 }
