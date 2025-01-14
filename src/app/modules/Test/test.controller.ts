@@ -1,6 +1,5 @@
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
-import { Test } from "./test.model";
 import { TestServices } from "./test.service";
 
 const createTestController = asyncHandler(async (req, res) => {

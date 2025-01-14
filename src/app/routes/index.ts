@@ -7,6 +7,7 @@ import { SpecializationRoutes } from '../modules/Specialization/specialization.r
 import { DepartmentRoutes } from '../modules/Department/department.route';
 import { StaffRoutes } from '../modules/Staff/staff.route';
 import { StaffRoleRoutes } from '../modules/StaffRole/staffRole.route';
+import { TestRoutes } from '../modules/Test/test.route';
 
 const router = express.Router();
 
@@ -36,6 +37,10 @@ const moduleRoutes = [
   {
     path: "/staff-roles",
     route: StaffRoleRoutes
+  },
+  {
+    path: "/tests",
+    route: TestRoutes
   }
 ];
 
