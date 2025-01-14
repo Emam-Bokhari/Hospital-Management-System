@@ -2,6 +2,7 @@ import { HttpError } from '../../errors/HttpError';
 import { flattenAndUpdate } from '../../utils/flattenAndUpdate';
 import { updateArrayField } from '../../utils/updateArrayField';
 import { Department } from '../Department/department.model';
+import { Specialization } from '../Specialization/specialization.model';
 import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
 
@@ -9,6 +10,14 @@ const createDoctor = async (payload: TDoctor) => {
 
   const specializationId = payload.specialization;
 
+  // check if specialization is exist
+  const specialization = await Specialization.findOne({ _id: specializationId }).select("_id");
+
+  if (!specialization) {
+    throw new HttpError(404, "No specialization found the provided ID")
+  }
+
+  // check if department is exists by specialization id
   const department = await Department.findOne({ specialization: specializationId })
 
   if (!department) {
