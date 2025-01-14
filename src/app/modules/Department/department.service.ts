@@ -6,10 +6,18 @@ import { Department } from "./department.model";
 
 const createDepartment = async (payload: TDepartment) => {
 
+    // check if specialization is exist
     const specialization = await Specialization.findOne({ _id: payload.specialization }).select("_id");
 
     if (!specialization) {
         throw new HttpError(404, "No specialization found the provided ID")
+    }
+
+    // check if department is already exist the same specialization
+    const department = await Department.findOne({ specialization: payload.specialization });
+
+    if (department) {
+        throw new HttpError(400, "A department with the same specialization already exists.")
     }
 
     const createdDepartment = await Department.create(payload);
