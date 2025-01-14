@@ -63,10 +63,25 @@ const deleteTestController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateTestAvailabilityController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+
+    const updatedTestAvailability = await TestServices.updateTestAvailabilityById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Test availability updated successfully",
+        statusCode: 200,
+        data: updatedTestAvailability,
+    })
+})
+
 export const TestControllers = {
     createTestController,
     getAllTestsController,
     getTestController,
-    updateTestController
+    updateTestController,
     deleteTestController,
+    updateTestAvailabilityController,
 }
