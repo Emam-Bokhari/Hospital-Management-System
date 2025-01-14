@@ -61,6 +61,11 @@ const testSchema = new Schema<TTest>({
         type: Boolean,
         default: false,
     }
-})
+},
+    {
+        timestamps: true,
+        versionKey: false,
+    }
+)
 
 export const Test = model("Test", testSchema);
