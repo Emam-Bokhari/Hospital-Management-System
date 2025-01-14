@@ -1,9 +1,17 @@
 import { HttpError } from "../../errors/HttpError";
 import { updateArrayField } from "../../utils/updateArrayField";
+import { Specialization } from "../Specialization/specialization.model";
 import { TDepartment } from "./department.interface";
 import { Department } from "./department.model";
 
 const createDepartment = async (payload: TDepartment) => {
+
+    const specialization = await Specialization.findOne({ _id: payload.specialization }).select("_id");
+
+    if (!specialization) {
+        throw new HttpError(404, "No specialization found the provided ID")
+    }
+
     const createdDepartment = await Department.create(payload);
     return createdDepartment;
 }
