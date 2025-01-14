@@ -52,7 +52,7 @@ const updateDepartmentById = async (id: string, payload: Partial<TDepartment>) =
     }
 
 
-    const updateDepartment = await Department.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true })
+    const updateDepartment = await Department.findOneAndUpdate({ _id: id, isDeleted: false }, modifiedUpdatedData, { new: true, runValidators: true })
 
 
     return updateDepartment;

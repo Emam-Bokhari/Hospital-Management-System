@@ -62,7 +62,7 @@ const updateStaffById = async (id: string, payload: Partial<TStaff>) => {
         flattenAndUpdate("experience", experience, modifiedUpdatedData)
     }
 
-    const updatedStaff = await Staff.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true });
+    const updatedStaff = await Staff.findOneAndUpdate({ _id: id, isDeleted: false }, modifiedUpdatedData, { new: true, runValidators: true });
 
     if (!updatedStaff) {
         throw new HttpError(404, `No staff found with ID: ${id}`)

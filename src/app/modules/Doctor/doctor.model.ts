@@ -31,7 +31,6 @@ const contactInformationSchema = new Schema<TContactInformation>({
   email: {
     type: String,
     trim: true,
-    unique: true,
   },
 });
 

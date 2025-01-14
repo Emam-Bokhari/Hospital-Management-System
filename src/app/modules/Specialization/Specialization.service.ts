@@ -42,7 +42,7 @@ const updateSpecializationById = async (id: string, payload: TSpecialization) =>
         throw new HttpError(400, `Specialization with the name '${payload.name}' already exists. Please choose a different name.`)
     }
 
-    const updatedSpecialization = await Specialization.findByIdAndUpdate(id, payload, { new: true, runValidators: true })
+    const updatedSpecialization = await Specialization.findOneAndUpdate({ _id: id, isDeleted: false }, payload, { new: true, runValidators: true })
 
     if (!updatedSpecialization) {
         throw new HttpError(404, `No specialization found with ID: ${id}`)

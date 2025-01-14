@@ -143,7 +143,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
   }
 
   const updatedDoctor = await Doctor.findOneAndUpdate(
-    { _id: id },
+    { _id: id, isDeleted: false },
     modifiedUpdatedData,
     { new: true, runValidators: true },
   );
