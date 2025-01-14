@@ -1,5 +1,6 @@
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
+import { Test } from "./test.model";
 import { TestServices } from "./test.service";
 
 const createTestController = asyncHandler(async (req, res) => {
@@ -37,8 +38,22 @@ const getTestController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateTestController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedTest = await TestServices.updateTestById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Test updated successfully",
+        statusCode: 200,
+        data: updatedTest,
+    })
+})
+
 export const TestControllers = {
     createTestController,
     getAllTestsController,
     getTestController,
+    updateTestController
 }
