@@ -14,6 +14,18 @@ const createTestController = asyncHandler(async (req, res) => {
     })
 });
 
+const getAllTestsController = asyncHandler(async (req, res) => {
+    const tests = await TestServices.getAllTests();
+
+    sendResponse(res, {
+        success: true,
+        message: "Tests retrieved successfully",
+        statusCode: 200,
+        data: tests,
+    })
+})
+
 export const TestControllers = {
     createTestController,
+    getAllTestsController,
 }
