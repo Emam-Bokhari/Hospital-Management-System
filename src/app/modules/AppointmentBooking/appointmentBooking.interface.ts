@@ -31,12 +31,12 @@ export type TAppointmentBooking = {
     gender: "male" | "female";
     address: TAddress;
     contactInformation: TContactInformation;
-    doctorId: Types.ObjectId;
+    doctor: Types.ObjectId;
     dateOfAppointment: Date;
     timeSlot: string;
     status?: ["pending", "confirmed", "completed", "cancelled"];
     prescriptionFiles?: string[];
     testReportFiles?: string[];
     additionalNotes?: string;
-    paymentId: Types.ObjectId;
+    payment: Types.ObjectId;
 }

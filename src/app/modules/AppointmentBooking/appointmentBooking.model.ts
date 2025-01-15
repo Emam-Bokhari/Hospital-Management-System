@@ -81,7 +81,7 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>({
         type: contactInformationSchema,
         required: true,
     },
-    doctorId: {
+    doctor: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: "Doctor"
@@ -119,7 +119,7 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>({
         type: String,
         trim: true,
     },
-    paymentId: {
+    payment: {
         type: Schema.Types.ObjectId,
         // ref:"Payment"
     }
