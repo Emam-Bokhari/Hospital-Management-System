@@ -15,6 +15,8 @@ const createAppointmentBooking = async (payload: TAppointmentBooking) => {
     //TODO: check if payment is exist
 
 
+    //TODO: generate automatic appointment booking ID
+
     const createdAppointmentBooking = await AppointmentBooking.create(payload);
 
     return createdAppointmentBooking;
@@ -30,7 +32,18 @@ const getAllAppointmentBookings = async () => {
     return appointmentBookings;
 }
 
+const getAppointmentBookingById = async (id: string) => {
+    const appointmentBooking = await AppointmentBooking.findById(id);
+
+    if (!appointmentBooking) {
+        throw new HttpError(404, `No appointment booking found with ID: ${id}`)
+    }
+
+    return appointmentBooking;
+}
+
 export const AppointmentBookingServices = {
     createAppointmentBooking,
     getAllAppointmentBookings,
+    getAppointmentBookingById,
 }
