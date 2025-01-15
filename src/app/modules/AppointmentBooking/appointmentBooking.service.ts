@@ -1,6 +1,6 @@
 import { HttpError } from "../../errors/HttpError";
 import { Doctor } from "../Doctor/doctor.model";
-import { TAppointmentBooking, TStatus } from "./appointmentBooking.interface";
+import { TAppointmentBooking } from "./appointmentBooking.interface";
 import { AppointmentBooking } from "./appointmentBooking.model";
 
 const createAppointmentBooking = async (payload: TAppointmentBooking) => {
@@ -90,6 +90,8 @@ const updateAppointmentBookingStatusById = async (id: string, status: string, us
 
 
 }
+
+
 
 
 export const AppointmentBookingServices = {
