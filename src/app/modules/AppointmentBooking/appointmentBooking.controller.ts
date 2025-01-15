@@ -39,10 +39,9 @@ const getAppointmentBookingController = asyncHandler(async (req, res) => {
 
 const updateAppointmentBookingStatusController = asyncHandler(async (req, res) => {
     const id = req.params.id;
-    // const {status}=req.body;
-    const updatedPayload = req.body;
+    const { status } = req.body;
 
-    const updatedAppointmentBookingStatus = await AppointmentBookingServices.updateAppointmentBookingStatusById(id, updatedPayload)
+    const updatedAppointmentBookingStatus = await AppointmentBookingServices.updateAppointmentBookingStatusById(id, status)
 
     sendResponse(res, {
         success: true,

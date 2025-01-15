@@ -93,12 +93,6 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>({
     timeSlot: {
         type: String,
         required: true,
-        validate: {
-            validator: function (value) {
-                return value instanceof Date;
-            },
-            message: (props) => `${props.value} is not a valid date!`,
-        },
     },
     status: {
         type: String,
@@ -124,6 +118,11 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>({
         // ref:"Payment"
     }
 
-})
+},
+    {
+        timestamps: true,
+        versionKey: false
+    }
+)
 
 export const AppointmentBooking = model<TAppointmentBooking>("AppointmentBooking", appointmentBookingSchema)
