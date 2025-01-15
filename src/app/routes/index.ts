@@ -7,6 +7,7 @@ import { SpecializationRoutes } from '../modules/Specialization/specialization.r
 import { DepartmentRoutes } from '../modules/Department/department.route';
 import { StaffRoutes } from '../modules/Staff/staff.route';
 import { StaffRoleRoutes } from '../modules/StaffRole/staffRole.route';
+import { TestRoutes } from '../modules/Test/test.route';
 
 const router = express.Router();
 
@@ -20,23 +21,25 @@ const moduleRoutes = [
     route: DoctorRoutes,
   },
   {
-
-    path: "/specializations",
-    route: SpecializationRoutes
+    path: '/specializations',
+    route: SpecializationRoutes,
   },
   {
-    path: "/departments",
-    route: DepartmentRoutes
-
+    path: '/departments',
+    route: DepartmentRoutes,
   },
   {
-    path: "/staffs",
-    route: StaffRoutes
+    path: '/staffs',
+    route: StaffRoutes,
   },
   {
-    path: "/staff-roles",
-    route: StaffRoleRoutes
-  }
+    path: '/staff-roles',
+    route: StaffRoleRoutes,
+  },
+  {
+    path: '/tests',
+    route: TestRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
