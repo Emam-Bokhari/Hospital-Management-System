@@ -36,6 +36,12 @@ const getTestById = async (id: string) => {
 
 const updateTestById = async (id: string, payload: Partial<TTest>) => {
 
+    const test = await Test.findOne({ testName: { $regex: new RegExp(`^${payload.testName}$`, "i") } }).select("testName").lean();
+
+    if (test) {
+        throw new HttpError(400, "The test is already exist, Please choose deferent test name")
+    }
+
     const updatedTest = await Test.findOneAndUpdate({ _id: id, isDeleted: false }, payload, { new: true, runValidators: true });
 
     if (!updatedTest) {
