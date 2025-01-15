@@ -20,6 +20,17 @@ const createAppointmentBooking = async (payload: TAppointmentBooking) => {
     return createdAppointmentBooking;
 }
 
+const getAllAppointmentBookings = async () => {
+    const appointmentBookings = await AppointmentBooking.find();
+
+    if (appointmentBookings.length === 0) {
+        throw new HttpError(404, 'No appointment bookings were found in the database');
+    }
+
+    return appointmentBookings;
+}
+
 export const AppointmentBookingServices = {
     createAppointmentBooking,
+    getAllAppointmentBookings,
 }
