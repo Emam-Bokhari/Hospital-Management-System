@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TTest } from "./test.interface";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters";
 
 const testSchema = new Schema<TTest>({
     testName: {
@@ -67,5 +68,12 @@ const testSchema = new Schema<TTest>({
         versionKey: false,
     }
 )
+
+// query middleware for soft delete by utils
+testSchema.pre("find", excludeDeletedQuery)
+testSchema.pre("findOne", excludeDeletedQuery)
+
+// aggregate middleware for soft delete by utils
+testSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const Test = model("Test", testSchema);
