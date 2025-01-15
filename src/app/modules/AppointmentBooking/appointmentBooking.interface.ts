@@ -1,6 +1,6 @@
 import { Types } from "mongoose"
 
-type TAddress = {
+export type TAddress = {
     division: string;
     district: string;
     subDistrict: string;
@@ -35,8 +35,8 @@ export type TAppointmentBooking = {
     dateOfAppointment: Date;
     timeSlot: string;
     status?: ["pending", "confirmed", "completed", "cancelled"];
-    prescriptionFiles: string[];
-    testReportFiles: string[];
-    additionalNotes: string;
+    prescriptionFiles?: string[];
+    testReportFiles?: string[];
+    additionalNotes?: string;
     paymentId: Types.ObjectId;
 }
