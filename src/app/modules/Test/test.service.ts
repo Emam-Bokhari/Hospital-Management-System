@@ -22,7 +22,7 @@ const createTest = async (payload: TTest) => {
 };
 
 const getAllTests = async () => {
-  const tests = await Test.find();
+  const tests = await Test.find().populate("createdBy");
 
   if (tests.length === 0) {
     throw new HttpError(404, 'No tests were found in the database');
@@ -31,7 +31,7 @@ const getAllTests = async () => {
 };
 
 const getTestById = async (id: string) => {
-  const test = await Test.findById(id);
+  const test = await Test.findById(id).populate("createdBy");
 
   if (!test) {
     throw new HttpError(404, `No test found with ID:${id}`);
