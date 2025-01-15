@@ -45,7 +45,7 @@ const getAppointmentBookingById = async (id: string) => {
 }
 
 
-const updateAppointmentBookingStatusById = async (id: string, status: string, userId: string) => {
+const updateAppointmentBookingStatusById = async (id: string, status: string) => {
 
     // validating the status
     const validStatuses = ["pending", "confirmed", "completed", "cancelled"];
@@ -62,9 +62,9 @@ const updateAppointmentBookingStatusById = async (id: string, status: string, us
     }
 
     // check if the doctor is authenticate
-    if (appointmentBooking.doctor.toString() !== userId) {
-        throw new HttpError(403, "You are not authorized to update this appointment")
-    };
+    // if (appointmentBooking.doctor.toString() !== userId) {
+    //     throw new HttpError(403, "You are not authorized to update this appointment")
+    // };
 
     // if the status is confirmed
     // if (status === "confirmed") {

@@ -37,9 +37,24 @@ const getAppointmentBookingController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateAppointmentBookingStatusController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    // const {status}=req.body;
+    const updatedPayload = req.body;
+
+    const updatedAppointmentBookingStatus = await AppointmentBookingServices.updateAppointmentBookingStatusById(id, updatedPayload)
+
+    sendResponse(res, {
+        success: true,
+        message: "Appointment booking status updated successfully",
+        statusCode: 200,
+        data: updatedAppointmentBookingStatus,
+    })
+})
 
 export const AppointmentBookingControllers = {
     createAppointmentBookingController,
     getAllAppointmentBookingsController,
     getAppointmentBookingController,
+    updateAppointmentBookingStatusController,
 }
