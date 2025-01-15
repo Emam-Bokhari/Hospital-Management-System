@@ -1,6 +1,9 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
-import { excludeDeletedAggregation, excludeDeletedQuery } from '../../utils/queryFilters';
+import {
+  excludeDeletedAggregation,
+  excludeDeletedQuery,
+} from '../../utils/queryFilters';
 
 const userSchema = new Schema<TUser>(
   {
@@ -54,10 +57,10 @@ const userSchema = new Schema<TUser>(
 );
 
 // query middleware for soft delete by utils
-userSchema.pre("find", excludeDeletedQuery);
-userSchema.pre("findOne", excludeDeletedQuery)
+userSchema.pre('find', excludeDeletedQuery);
+userSchema.pre('findOne', excludeDeletedQuery);
 
 // aggregate middleware for soft delete by utils
-userSchema.pre("aggregate", excludeDeletedAggregation)
+userSchema.pre('aggregate', excludeDeletedAggregation);
 
 export const User = model<TUser>('User', userSchema);

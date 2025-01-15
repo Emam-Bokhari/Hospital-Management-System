@@ -14,7 +14,10 @@ import {
   validateOffDays,
   validateTimeRange,
 } from './doctor.utils';
-import { excludeDeletedAggregation, excludeDeletedQuery } from '../../utils/queryFilters';
+import {
+  excludeDeletedAggregation,
+  excludeDeletedQuery,
+} from '../../utils/queryFilters';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {
@@ -326,11 +329,11 @@ const doctorSchema = new Schema<TDoctor>(
 );
 
 // query middleware for soft delete by utils
-doctorSchema.pre("find", excludeDeletedQuery)
-doctorSchema.pre("findOne", excludeDeletedQuery)
+doctorSchema.pre('find', excludeDeletedQuery);
+doctorSchema.pre('findOne', excludeDeletedQuery);
 
 // aggregate middleware for soft delete by utils
-doctorSchema.pre("aggregate", excludeDeletedAggregation)
+doctorSchema.pre('aggregate', excludeDeletedAggregation);
 
 // check previous work place if start date before end date
 previousWorkPlaceSchema.pre('save', async function (next) {

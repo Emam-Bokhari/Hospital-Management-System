@@ -21,27 +21,25 @@ const moduleRoutes = [
     route: DoctorRoutes,
   },
   {
-
-    path: "/specializations",
-    route: SpecializationRoutes
+    path: '/specializations',
+    route: SpecializationRoutes,
   },
   {
-    path: "/departments",
-    route: DepartmentRoutes
-
+    path: '/departments',
+    route: DepartmentRoutes,
   },
   {
-    path: "/staffs",
-    route: StaffRoutes
+    path: '/staffs',
+    route: StaffRoutes,
   },
   {
-    path: "/staff-roles",
-    route: StaffRoleRoutes
+    path: '/staff-roles',
+    route: StaffRoleRoutes,
   },
   {
-    path: "/tests",
-    route: TestRoutes
-  }
+    path: '/tests',
+    route: TestRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

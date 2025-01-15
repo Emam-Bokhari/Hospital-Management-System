@@ -1,18 +1,30 @@
-import express from "express";
-import { DepartmentControllers } from "./department.controller";
-import { validateRequestSchema } from "../../middlewares/validateRequestSchema";
-import { DepartmentValidationSchema } from "./department.validation";
+import express from 'express';
+import { DepartmentControllers } from './department.controller';
+import { validateRequestSchema } from '../../middlewares/validateRequestSchema';
+import { DepartmentValidationSchema } from './department.validation';
 
 const router = express.Router();
 
-router.post("/", validateRequestSchema(DepartmentValidationSchema.createDepartmentValidationSchema), DepartmentControllers.createDepartmentController);
+router.post(
+  '/',
+  validateRequestSchema(
+    DepartmentValidationSchema.createDepartmentValidationSchema,
+  ),
+  DepartmentControllers.createDepartmentController,
+);
 
-router.get("/", DepartmentControllers.getAllDepartmentsController);
+router.get('/', DepartmentControllers.getAllDepartmentsController);
 
-router.get("/:id", DepartmentControllers.getDepartmentController);
+router.get('/:id', DepartmentControllers.getDepartmentController);
 
-router.patch("/:id", validateRequestSchema(DepartmentValidationSchema.updateDepartmentValidationSchema), DepartmentControllers.updateDepartmentController)
+router.patch(
+  '/:id',
+  validateRequestSchema(
+    DepartmentValidationSchema.updateDepartmentValidationSchema,
+  ),
+  DepartmentControllers.updateDepartmentController,
+);
 
-router.delete("/:id", DepartmentControllers.deleteDepartmentController)
+router.delete('/:id', DepartmentControllers.deleteDepartmentController);
 
 export const DepartmentRoutes = router;

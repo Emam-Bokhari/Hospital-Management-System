@@ -1,35 +1,38 @@
-import { model, Schema } from "mongoose"
-import { TStaffRole } from "./staffRole.interface"
-import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters"
+import { model, Schema } from 'mongoose';
+import { TStaffRole } from './staffRole.interface';
+import {
+  excludeDeletedAggregation,
+  excludeDeletedQuery,
+} from '../../utils/queryFilters';
 
-const staffRoleSchema = new Schema<TStaffRole>({
+const staffRoleSchema = new Schema<TStaffRole>(
+  {
     name: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
     },
     createdBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
     isDeleted: {
-        type: Boolean,
-        default: false,
-    }
-},
-    {
-        timestamps: true,
-        versionKey: false
-    }
-)
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  },
+);
 
 // query middleware for soft delete by utils
-staffRoleSchema.pre("find", excludeDeletedQuery);
-staffRoleSchema.pre("findOne", excludeDeletedQuery);
+staffRoleSchema.pre('find', excludeDeletedQuery);
+staffRoleSchema.pre('findOne', excludeDeletedQuery);
 
 // aggregate middleware for soft delete by utils
-staffRoleSchema.pre("aggregate", excludeDeletedAggregation);
+staffRoleSchema.pre('aggregate', excludeDeletedAggregation);
 
-
-export const StaffRole = model("StaffRole", staffRoleSchema)
+export const StaffRole = model('StaffRole', staffRoleSchema);

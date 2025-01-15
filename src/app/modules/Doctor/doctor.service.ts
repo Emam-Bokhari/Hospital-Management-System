@@ -7,26 +7,30 @@ import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
 
 const createDoctor = async (payload: TDoctor) => {
-
   const specializationId = payload.specialization;
 
   // check if specialization is exist
-  const specialization = await Specialization.findOne({ _id: specializationId }).select("_id");
+  const specialization = await Specialization.findOne({
+    _id: specializationId,
+  }).select('_id');
 
   if (!specialization) {
-    throw new HttpError(404, "No specialization found the provided ID")
+    throw new HttpError(404, 'No specialization found the provided ID');
   }
 
   // check if department is exists by specialization id
-  const department = await Department.findOne({ specialization: specializationId })
+  const department = await Department.findOne({
+    specialization: specializationId,
+  });
 
   if (!department) {
-    throw new HttpError(404, "No department found for the given specialization.")
+    throw new HttpError(
+      404,
+      'No department found for the given specialization.',
+    );
   }
 
-
   payload.department = department._id;
-
 
   const createdDoctor = await Doctor.create(payload);
 
@@ -34,7 +38,10 @@ const createDoctor = async (payload: TDoctor) => {
 };
 
 const getAllDoctors = async () => {
-  const doctors = await Doctor.find().populate("userId").populate("specialization").populate("department");
+  const doctors = await Doctor.find()
+    .populate('userId')
+    .populate('specialization')
+    .populate('department');
   if (doctors.length === 0) {
     throw new HttpError(404, 'No doctor were found in the database');
   }
@@ -42,7 +49,10 @@ const getAllDoctors = async () => {
 };
 
 const getDoctorById = async (id: string) => {
-  const doctor = await Doctor.findById(id).populate("userId").populate("specialization").populate("department");
+  const doctor = await Doctor.findById(id)
+    .populate('userId')
+    .populate('specialization')
+    .populate('department');
 
   if (!doctor) {
     throw new HttpError(404, `No doctor found with ID: ${id}`);
@@ -77,7 +87,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     throw new HttpError(404, `No doctor found with ID: ${id}`);
   }
 
-
   // Utility function to flatten nested fields,  update object fields
   if (contactInformation) {
     flattenAndUpdate(
@@ -101,23 +110,31 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   // Utility function to flatten nested fields, update array of object fields
   if (educationDetails && educationDetails.length > 0) {
-    updateArrayField("educationDetails", educationDetails, modifiedUpdatedData)
+    updateArrayField('educationDetails', educationDetails, modifiedUpdatedData);
   }
 
   if (awards && awards.length > 0) {
-    updateArrayField("awards", awards, modifiedUpdatedData)
+    updateArrayField('awards', awards, modifiedUpdatedData);
   }
 
   if (previousWorkPlace && previousWorkPlace.length > 0) {
-    updateArrayField("previousWorkPlace", previousWorkPlace, modifiedUpdatedData)
+    updateArrayField(
+      'previousWorkPlace',
+      previousWorkPlace,
+      modifiedUpdatedData,
+    );
   }
 
   if (workingHours && workingHours.length > 0) {
-    updateArrayField("workingHours", workingHours, modifiedUpdatedData)
+    updateArrayField('workingHours', workingHours, modifiedUpdatedData);
   }
 
   if (availableTimeSlots && availableTimeSlots.length > 0) {
-    updateArrayField("availableTimeSlots", availableTimeSlots, modifiedUpdatedData)
+    updateArrayField(
+      'availableTimeSlots',
+      availableTimeSlots,
+      modifiedUpdatedData,
+    );
   }
 
   // Utility function to flatten nested fields, update array fields
@@ -156,7 +173,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     modifiedUpdatedData,
     { new: true, runValidators: true },
   );
-
 
   return updatedDoctor;
 };

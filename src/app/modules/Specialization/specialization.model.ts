@@ -1,32 +1,36 @@
-import { model, Schema } from "mongoose";
-import { TSpecialization } from "./specialization.interface";
-import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/queryFilters";
+import { model, Schema } from 'mongoose';
+import { TSpecialization } from './specialization.interface';
+import {
+  excludeDeletedAggregation,
+  excludeDeletedQuery,
+} from '../../utils/queryFilters';
 
-export const specializationSchema = new Schema<TSpecialization>({
+export const specializationSchema = new Schema<TSpecialization>(
+  {
     name: {
-        type: String,
-        trim: true,
-        required: true,
+      type: String,
+      trim: true,
+      required: true,
     },
     createdBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
     isDeleted: {
-        type: Boolean,
-        default: false,
-    }
-},
-    {
-        timestamps: true,
-        versionKey: false
-    }
-)
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  },
+);
 // query middleware for soft delete by utils
-specializationSchema.pre("find", excludeDeletedQuery);
-specializationSchema.pre("findOne", excludeDeletedQuery)
+specializationSchema.pre('find', excludeDeletedQuery);
+specializationSchema.pre('findOne', excludeDeletedQuery);
 
 // aggregate middleware for soft delete by utils
-specializationSchema.pre("aggregate", excludeDeletedAggregation)
+specializationSchema.pre('aggregate', excludeDeletedAggregation);
 
-export const Specialization = model("Specialization", specializationSchema)
+export const Specialization = model('Specialization', specializationSchema);
