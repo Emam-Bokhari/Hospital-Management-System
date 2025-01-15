@@ -21,6 +21,8 @@ export type TBloodGroup =
     | 'O+'
     | 'O-';
 
+export type TStatus = ["pending", "confirmed", "completed", "cancelled"];
+
 export type TAppointmentBooking = {
     userId?: Types.ObjectId;
     firstName: string;
@@ -34,7 +36,7 @@ export type TAppointmentBooking = {
     doctor: Types.ObjectId;
     dateOfAppointment: Date;
     timeSlot: string;
-    status?: ["pending", "confirmed", "completed", "cancelled"];
+    status?: TStatus;
     prescriptionFiles?: string[];
     testReportFiles?: string[];
     additionalNotes?: string;

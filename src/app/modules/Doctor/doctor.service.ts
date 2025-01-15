@@ -137,7 +137,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     );
   }
 
-  // Utility function to flatten nested fields, update array fields
+  //  update array fields
   if (qualifications) {
     const currentQualifications = doctor?.qualifications || [];
 
