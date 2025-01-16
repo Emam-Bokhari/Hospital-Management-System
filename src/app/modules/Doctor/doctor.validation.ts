@@ -367,15 +367,27 @@ const createDoctorValidationSchema = z.object({
     workingHours: z
       .array(
         z.object({
-          startTime: z.string(),
-          endTime: z.string(),
+          startTime: z.string().regex(
+            /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/,
+            "Time slot must be in HH:mm 24-hour format"
+          ),
+          endTime: z.string().regex(
+            /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/,
+            "Time slot must be in HH:mm 24-hour format"
+          ),
         }),
       )
       .nonempty('Working hours must include at least one time range.'),
     availableTimeSlots: z.array(
       z.object({
-        startTime: z.string(),
-        endTime: z.string(),
+        startTime: z.string().regex(
+          /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/,
+          "Time slot must be in HH:mm 24-hour format"
+        ),
+        endTime: z.string().regex(
+          /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/,
+          "Time slot must be in HH:mm 24-hour format"
+        ),
       }),
     ),
     offDays: z

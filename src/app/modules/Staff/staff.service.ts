@@ -8,7 +8,7 @@ const createStaff = async (payload: TStaff) => {
   // check if staff role is exists
   const staffRole = await StaffRole.findOne({ _id: payload.staffRole }).select(
     '_id',
-  );
+  ).lean();
 
   if (!staffRole) {
     throw new HttpError(404, 'No Staff role found the provided ID');

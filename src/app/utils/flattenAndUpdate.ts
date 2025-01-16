@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const flattenAndUpdate = (
   fieldName: string,
   data: any,
