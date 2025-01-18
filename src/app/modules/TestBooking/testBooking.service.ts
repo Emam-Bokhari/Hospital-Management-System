@@ -24,7 +24,18 @@ const getAllTestBookings = async () => {
     }
 }
 
+const getTestBookingById = async (id: string) => {
+    const testBooking = await TestBooking.findById(id);
+
+    if (!testBooking) {
+        throw new HttpError(404, `No test booking found with ID: ${id}`)
+    }
+
+    return testBooking;
+}
+
 export const TestBookingServices = {
     createTestBooking,
     getAllTestBookings,
+    getTestBookingById,
 }
