@@ -1,11 +1,11 @@
 import { Types } from "mongoose"
 
-type TContactInformation = {
+export type TContactInformation = {
     phone: string;
     email?: string;
 }
 
-type TAddress = {
+export type TAddress = {
     division: string;
     district: string;
     subDistrict: string;
@@ -19,9 +19,10 @@ export type TTestBooking = {
     firstName: string;
     lastName: string;
     age: number;
-    gender: ["male" | "female"];
+    weight?: number;
+    gender: "male" | "female";
     contactInformation: TContactInformation;
     address: TAddress;
-    medicalHistory: string[];
-    symptoms: string[];
+    medicalHistory?: string[];
+    symptoms?: string[];
 }
