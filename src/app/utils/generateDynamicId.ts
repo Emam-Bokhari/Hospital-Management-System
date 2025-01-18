@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpError } from '../errors/HttpError';
+import moment from 'moment-timezone';
 
 export const generateDynamicId = async (model: any, prefix: string) => {
   try {
@@ -14,8 +15,8 @@ export const generateDynamicId = async (model: any, prefix: string) => {
     const lastUniquePart = lastRecord?.id?.slice(13);
 
     // get current date in YYYYMMDD format
-    const today = new Date();
-    const dateFormatted = today.toISOString()?.split('T')[0].replace(/-/g, '');
+    const today = moment.tz("Asia/Dhaka");
+    const dateFormatted = today.format("YYYYMMDD");
 
     if (lastDatePart === dateFormatted) {
       const nextUniquePart = (parseInt(lastUniquePart, 10) + 1)

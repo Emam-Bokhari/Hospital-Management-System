@@ -2,6 +2,7 @@ import { HttpError } from '../../errors/HttpError';
 import { Test } from '../Test/test.model';
 import { TTestBooking } from './testBooking.interface';
 import { TestBooking } from './testBooking.model';
+import { generateTestBookingId } from './testBooking.utils';
 
 const createTestBooking = async (payload: TTestBooking) => {
   const test = await Test.findOne({ _id: payload.test });
@@ -19,7 +20,9 @@ const createTestBooking = async (payload: TTestBooking) => {
 
   // TODO: automatic set userId
 
-  // TODO: auto generate id
+  // generate test booking id
+  const testBookingId = await generateTestBookingId();
+  payload.id = testBookingId;
 
   // TODO: payment related validation
 
