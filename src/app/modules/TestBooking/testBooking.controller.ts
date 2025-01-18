@@ -16,6 +16,18 @@ const createTestBooking = asyncHandler(async (req, res) => {
     })
 });
 
+const getAllTestBookings = asyncHandler(async (req, res) => {
+    const testBookings = await TestBookingServices.getAllTestBookings();
+
+    sendResponse(res, {
+        success: true,
+        message: "Test bookings retrieved successfully",
+        statusCode: 200,
+        data: testBookings
+    })
+})
+
 export const TestBookingControllers = {
     createTestBooking,
+    getAllTestBookings,
 }
