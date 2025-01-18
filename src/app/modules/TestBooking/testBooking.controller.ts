@@ -2,7 +2,7 @@ import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
 import { TestBookingServices } from "./testBooking.service";
 
-const createTestBooking = asyncHandler(async (req, res) => {
+const createTestBookingController = asyncHandler(async (req, res) => {
 
     const testBookingPayload = req.body;
 
@@ -16,7 +16,7 @@ const createTestBooking = asyncHandler(async (req, res) => {
     })
 });
 
-const getAllTestBookings = asyncHandler(async (req, res) => {
+const getAllTestBookingsController = asyncHandler(async (req, res) => {
     const testBookings = await TestBookingServices.getAllTestBookings();
 
     sendResponse(res, {
@@ -27,7 +27,21 @@ const getAllTestBookings = asyncHandler(async (req, res) => {
     })
 })
 
+const testBookingController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const testBooking = await TestBookingServices.getTestBookingById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Test booking retrieved successfully",
+        statusCode: 200,
+        data: testBooking,
+    })
+})
+
+
 export const TestBookingControllers = {
-    createTestBooking,
-    getAllTestBookings,
+    createTestBookingController,
+    getAllTestBookingsController,
+    testBookingController,
 }
