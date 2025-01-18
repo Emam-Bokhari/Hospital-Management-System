@@ -68,7 +68,7 @@ const testSchema = new Schema<TTest>(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: 'User',
     },
     testAvailability: {
       type: Boolean,

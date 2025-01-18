@@ -11,7 +11,6 @@ const staffRoleSchema = new Schema<TStaffRole>(
       type: String,
       trim: true,
       required: true,
-      unique: true,
     },
     createdBy: {
       type: Schema.Types.ObjectId,

@@ -8,6 +8,7 @@ import { DepartmentRoutes } from '../modules/Department/department.route';
 import { StaffRoutes } from '../modules/Staff/staff.route';
 import { StaffRoleRoutes } from '../modules/StaffRole/staffRole.route';
 import { TestRoutes } from '../modules/Test/test.route';
+import { AppointmentBookingRoutes } from '../modules/AppointmentBooking/appointmentBooking.route';
 
 const router = express.Router();
 
@@ -39,6 +40,10 @@ const moduleRoutes = [
   {
     path: '/tests',
     route: TestRoutes,
+  },
+  {
+    path: '/appointment-bookings',
+    route: AppointmentBookingRoutes,
   },
 ];
 

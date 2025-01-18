@@ -71,7 +71,6 @@ export type TDoctor = {
     'Sunday',
   ];
   workingHours: { startTime: string; endTime: string }[];
-  availableTimeSlots: { startTime: string; endTime: string }[];
   offDays: [
     'Monday',
     'Tuesday',

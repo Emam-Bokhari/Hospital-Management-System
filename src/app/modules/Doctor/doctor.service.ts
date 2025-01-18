@@ -70,7 +70,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     awards,
     previousWorkPlace,
     workingHours,
-    availableTimeSlots,
     qualifications,
     offDays,
     workingDays,
@@ -129,15 +128,7 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     updateArrayField('workingHours', workingHours, modifiedUpdatedData);
   }
 
-  if (availableTimeSlots && availableTimeSlots.length > 0) {
-    updateArrayField(
-      'availableTimeSlots',
-      availableTimeSlots,
-      modifiedUpdatedData,
-    );
-  }
-
-  // Utility function to flatten nested fields, update array fields
+  //  update array fields
   if (qualifications) {
     const currentQualifications = doctor?.qualifications || [];
 
