@@ -39,9 +39,24 @@ const testBookingController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateTestBookingStatusController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    const updatedTestBookingStatus = await TestBookingServices.updateTestBookingStatusById(id, status);
+
+    sendResponse(res, {
+        success: true,
+        message: "Test booking status updated",
+        statusCode: 200,
+        data: updatedTestBookingStatus,
+    })
+})
+
 
 export const TestBookingControllers = {
     createTestBookingController,
     getAllTestBookingsController,
     testBookingController,
+    updateTestBookingStatusController,
 }
