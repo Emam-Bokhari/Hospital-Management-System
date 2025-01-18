@@ -50,5 +50,5 @@ export type TAppointmentBooking = {
   prescriptionFiles?: string[];
   testReportFiles?: string[];
   additionalNotes?: string;
-  payment: Types.ObjectId;
+  payment?: Types.ObjectId;
 };

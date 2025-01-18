@@ -95,7 +95,7 @@ export const createAppointmentBookingValidationSchema = z.object({
       .string()
       .max(500, 'Additional notes cannot exceed 500 characters')
       .optional(),
-    payment: z.string(),
+    payment: z.string().optional(),
   }),
 });
 

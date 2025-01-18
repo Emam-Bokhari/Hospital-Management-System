@@ -15,7 +15,7 @@ export type TTestBooking = {
     userId?: Types.ObjectId;
     id?: string;
     test: Types.ObjectId;
-    payment: Types.ObjectId;
+    payment?: Types.ObjectId;
     firstName: string;
     lastName: string;
     age: number;
@@ -25,4 +25,5 @@ export type TTestBooking = {
     address: TAddress;
     medicalHistory?: string[];
     symptoms?: string[];
+    status?: ['pending', 'confirmed', 'completed', 'cancelled'],
 }

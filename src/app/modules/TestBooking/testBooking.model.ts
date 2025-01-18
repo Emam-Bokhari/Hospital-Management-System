@@ -93,6 +93,13 @@ const testBookingSchema = new Schema<TTestBooking>({
     },
     symptoms: {
         type: [String]
+    },
+    status: {
+        type: String,
+        enum: {
+            values: ['pending', 'confirmed', 'completed', 'cancelled'],
+            message: "{VALUE} is not a valid status"
+        }
     }
 })
 
