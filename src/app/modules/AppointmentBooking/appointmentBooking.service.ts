@@ -3,7 +3,7 @@ import { HttpError } from "../../errors/HttpError";
 import { Doctor } from "../Doctor/doctor.model";
 import { TAppointmentBooking } from "./appointmentBooking.interface";
 import { AppointmentBooking } from "./appointmentBooking.model";
-import { convertDateToDay, convertTimeToMinutes, } from "./appointmentBooking.utils";
+import { convertDateToDay, convertTimeToMinutes, generateAppointmentBookingId, } from "./appointmentBooking.utils";
 
 const createAppointmentBooking = async (payload: TAppointmentBooking) => {
 
@@ -32,7 +32,7 @@ const createAppointmentBooking = async (payload: TAppointmentBooking) => {
 
         // Ensure doctor has working hours
         if (!doctor.workingHours || doctor.workingHours.length === 0) {
-            throw new HttpError(400, "Doctor does not have working hours set");
+            throw new HttpError(400, "Doctor does not have working hours");
         }
 
         // Loop through all working hours and check for any matching time slot
@@ -72,7 +72,10 @@ const createAppointmentBooking = async (payload: TAppointmentBooking) => {
     // TODO: check if payment is exist
 
 
-    // TODO: generate automatic appointment booking ID
+    // generate and add  appointment booking ID
+    const appointmentBookingId = await generateAppointmentBookingId();
+
+    payload.id = appointmentBookingId;
 
     const createdAppointmentBooking = await AppointmentBooking.create(payload);
 

@@ -27,6 +27,7 @@ export type TStatus = ["pending", "confirmed", "completed", "cancelled"];
 
 export type TAppointmentBooking = {
     userId?: Types.ObjectId;
+    id?: string;
     firstName: string;
     lastName: string;
     age: number;

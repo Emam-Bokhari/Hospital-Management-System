@@ -22,6 +22,7 @@ const contactInformationValidationSchema = z.object({
 export const createAppointmentBookingValidationSchema = z.object({
     body: z.object({
         userId: z.string(),
+        id: z.string().optional(),
         firstName: z
             .string()
             .trim()

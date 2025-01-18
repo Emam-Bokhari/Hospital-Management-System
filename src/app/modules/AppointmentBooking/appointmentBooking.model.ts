@@ -40,6 +40,10 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    id: {
+        type: String,
+        unique: true,
+    },
     firstName: {
         type: String,
         trim: true,

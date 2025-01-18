@@ -1,4 +1,6 @@
+import { generateDynamicId, } from "../../utils/generateDynamicId";
 import { TDays } from "./appointmentBooking.interface";
+import { AppointmentBooking } from "./appointmentBooking.model";
 
 export const convertTimeToMinutes = (time: string) => {
     const [hours, minutes] = time.split(":").map(Number);
@@ -11,4 +13,10 @@ export const convertDateToDay = (appointmentDate: Date): TDays => {
     }) as TDays;
 
     return appointmentDay
+}
+
+// generate appointment booking id
+export const generateAppointmentBookingId = async () => {
+    const appointmentBookingId = await generateDynamicId(AppointmentBooking, "APP");
+    return appointmentBookingId;
 }
