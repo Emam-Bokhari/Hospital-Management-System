@@ -21,6 +21,8 @@ export type TBloodGroup =
     | 'O+'
     | 'O-';
 
+export type TDays = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"
+
 export type TStatus = ["pending", "confirmed", "completed", "cancelled"];
 
 export type TAppointmentBooking = {
@@ -34,7 +36,7 @@ export type TAppointmentBooking = {
     address: TAddress;
     contactInformation: TContactInformation;
     doctor: Types.ObjectId;
-    dateOfAppointment: Date;
+    appointmentDate: Date;
     timeSlot: string;
     status?: TStatus;
     prescriptionFiles?: string[];

@@ -292,18 +292,6 @@ const doctorSchema = new Schema<TDoctor>(
         },
       },
     ],
-    availableTimeSlots: [
-      {
-        startTime: {
-          type: String,
-          required: true,
-        },
-        endTime: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
     offDays: {
       type: [String],
       enum: [
@@ -359,15 +347,6 @@ doctorSchema.pre('save', async function (next) {
         workingHour.startTime,
         workingHour.endTime,
         'Start time cannot be later than end time in working hours. ',
-      );
-    });
-
-    // validate available time slots
-    this.availableTimeSlots.forEach((availableTimeSlot) => {
-      validateTimeRange(
-        availableTimeSlot.startTime,
-        availableTimeSlot.endTime,
-        'Start time cannot be later than end time in available time slots.',
       );
     });
 

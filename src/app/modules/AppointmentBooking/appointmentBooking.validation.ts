@@ -49,7 +49,7 @@ export const createAppointmentBookingValidationSchema = z.object({
         address: addressValidationSchema,
         contactInformation: contactInformationValidationSchema,
         doctor: z.string(),
-        dateOfAppointment: z.string(),
+        appointmentDate: z.string(),
         timeSlot: z.string()
             .regex(
                 /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/,

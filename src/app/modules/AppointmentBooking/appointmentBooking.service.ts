@@ -1,23 +1,78 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpError } from "../../errors/HttpError";
 import { Doctor } from "../Doctor/doctor.model";
 import { TAppointmentBooking } from "./appointmentBooking.interface";
 import { AppointmentBooking } from "./appointmentBooking.model";
+import { convertDateToDay, convertTimeToMinutes, } from "./appointmentBooking.utils";
 
 const createAppointmentBooking = async (payload: TAppointmentBooking) => {
 
     // check if doctor is exist
-    const doctor = await Doctor.findOne({ _id: payload.doctor }).select("_id").lean();
+    const doctor = await Doctor.findOne({ _id: payload.doctor });
 
     if (!doctor) {
         throw new HttpError(404, "Doctor not found")
+    }
+
+    // check if appointment is within working hours
+    const isWithinWorkingHours = (startTime: string, endTime: string, timeSlot: string): boolean => {
+        const startMinutes = convertTimeToMinutes(startTime);
+        const endMinutes = convertTimeToMinutes(endTime)
+        const slotMinutes = convertTimeToMinutes(timeSlot);
+        return slotMinutes >= startMinutes && slotMinutes <= endMinutes
+    }
+
+
+    // validate doctor working hours and the selected time slot
+    const validateDoctorAvailability = (doctor: any, appointmentDay: string, timeSlot: string) => {
+        // Check if doctor is available on the selected day
+        if (!doctor.workingDays.includes(appointmentDay)) {
+            throw new HttpError(400, `Doctor is not available on ${appointmentDay}. Available days are: ${doctor.workingDays}`);
+        }
+
+        // Ensure doctor has working hours
+        if (!doctor.workingHours || doctor.workingHours.length === 0) {
+            throw new HttpError(400, "Doctor does not have working hours set");
+        }
+
+        // Loop through all working hours and check for any matching time slot
+        let isAvailable = false;
+        for (const workingHour of doctor.workingHours) {
+            const { startTime, endTime } = workingHour;
+
+            // Check if the selected time slot is within the working hours
+            if (isWithinWorkingHours(startTime, endTime, timeSlot)) {
+                isAvailable = true;
+                break;
+            }
+        }
+
+        if (!isAvailable) {
+            throw new HttpError(400, `Time slot ${timeSlot} is not within any of the doctor working hours`);
+        }
+    };
+
+
+    // get the appointment day
+    const appointmentDay = convertDateToDay(payload.appointmentDate);
+
+    // validate doctor availability for the appointment day and time slot
+    validateDoctorAvailability(doctor, appointmentDay, payload.timeSlot);
+
+    // check if existing appointment are the same time
+    const existingAppointment = await AppointmentBooking.findOne({
+        doctor: doctor._id, appointmentDate: payload.appointmentDate,
+        timeSlot: payload.timeSlot
+    })
+
+    if (existingAppointment) {
+        throw new HttpError(400, "This time slot is already booked for the doctor")
     }
 
     // TODO: check if payment is exist
 
 
     // TODO: generate automatic appointment booking ID
-
-    // TODO: check doctor time
 
     const createdAppointmentBooking = await AppointmentBooking.create(payload);
 

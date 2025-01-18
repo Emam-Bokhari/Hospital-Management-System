@@ -86,7 +86,7 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>({
         required: true,
         ref: "Doctor"
     },
-    dateOfAppointment: {
+    appointmentDate: {
         type: Date,
         required: true,
     },
