@@ -108,6 +108,7 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
         values: ['pending', 'confirmed', 'completed', 'cancelled'],
         message: '{VALUE} is not a valid status',
       },
+      default: 'pending',
     },
     prescriptionFiles: {
       type: [String],

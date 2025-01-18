@@ -43,7 +43,7 @@ const moduleRoutes = [
     route: TestRoutes,
   },
   {
-    path: "/test-bookings",
+    path: '/test-bookings',
     route: TestBookingRoutes,
   },
   {
