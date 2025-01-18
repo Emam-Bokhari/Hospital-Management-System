@@ -42,9 +42,9 @@ const moduleRoutes = [
     route: TestRoutes,
   },
   {
-    path: "/appointment-bookings",
+    path: '/appointment-bookings',
     route: AppointmentBookingRoutes,
-  }
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

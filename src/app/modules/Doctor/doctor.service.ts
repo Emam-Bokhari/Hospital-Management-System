@@ -70,7 +70,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
     awards,
     previousWorkPlace,
     workingHours,
-    availableTimeSlots,
     qualifications,
     offDays,
     workingDays,
@@ -127,14 +126,6 @@ const updateDoctorById = async (id: string, payload: Partial<TDoctor>) => {
 
   if (workingHours && workingHours.length > 0) {
     updateArrayField('workingHours', workingHours, modifiedUpdatedData);
-  }
-
-  if (availableTimeSlots && availableTimeSlots.length > 0) {
-    updateArrayField(
-      'availableTimeSlots',
-      availableTimeSlots,
-      modifiedUpdatedData,
-    );
   }
 
   //  update array fields
