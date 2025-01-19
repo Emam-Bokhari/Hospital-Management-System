@@ -3,13 +3,14 @@ import { TTest, TTestAvailabilityUpdate } from './test.interface';
 import { Test } from './test.model';
 
 const createTest = async (payload: TTest) => {
-  const test = await Test.findOne({
+  // check if test name is already exists
+  const existingTest = await Test.findOne({
     testName: { $regex: new RegExp(`^${payload.testName.trim()}$`, 'i') },
   })
     .select('testName')
     .lean();
 
-  if (test) {
+  if (existingTest) {
     throw new HttpError(
       400,
       ` Test name with the name '${payload.testName}' already exists. Please choose a different name.`,
@@ -22,6 +23,7 @@ const createTest = async (payload: TTest) => {
 };
 
 const getAllTests = async () => {
+
   const tests = await Test.find().populate('createdBy');
 
   if (tests.length === 0) {
@@ -31,6 +33,7 @@ const getAllTests = async () => {
 };
 
 const getTestById = async (id: string) => {
+
   const test = await Test.findById(id).populate('createdBy');
 
   if (!test) {
@@ -41,6 +44,7 @@ const getTestById = async (id: string) => {
 };
 
 const updateTestById = async (id: string, payload: Partial<TTest>) => {
+
   const test = await Test.findOne({
     testName: { $regex: new RegExp(`^${payload.testName}$`, 'i') },
   })
@@ -55,6 +59,7 @@ const updateTestById = async (id: string, payload: Partial<TTest>) => {
   }
 
   const updatedTest = await Test.findOneAndUpdate(
+
     { _id: id, isDeleted: false },
     payload,
     { new: true, runValidators: true },
@@ -68,6 +73,7 @@ const updateTestById = async (id: string, payload: Partial<TTest>) => {
 };
 
 const deleteTestById = async (id: string) => {
+
   const deletedTest = await Test.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
@@ -83,6 +89,7 @@ const updateTestAvailabilityById = async (
   id: string,
   payload: TTestAvailabilityUpdate,
 ) => {
+
   if (payload.testAvailability === undefined) {
     throw new HttpError(400, 'Test availability status is required');
   }
