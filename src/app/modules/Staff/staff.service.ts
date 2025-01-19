@@ -29,12 +29,15 @@ const getAllStaffs = async () => {
 };
 
 const getStaffById = async (id: string) => {
+
   const staff = await Staff.findById(id)
     .populate('staffRole')
     .populate('createdBy');
+
   if (!staff) {
     throw new HttpError(404, `No staff  found with ID:${id}`);
   }
+
   return staff;
 };
 

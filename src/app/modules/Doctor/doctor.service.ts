@@ -7,20 +7,19 @@ import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
 
 const createDoctor = async (payload: TDoctor) => {
-  const specializationId = payload.specialization;
 
-  // check if specialization is exist
+  // check if specialization  exists
   const specialization = await Specialization.findOne({
-    _id: specializationId,
+    _id: payload.specialization,
   }).select('_id');
 
   if (!specialization) {
     throw new HttpError(404, 'No specialization found the provided ID');
   }
 
-  // check if department is exists by specialization id
+  // Check if a department exists for the given specialization
   const department = await Department.findOne({
-    specialization: specializationId,
+    specialization: payload.specialization,
   });
 
   if (!department) {
@@ -38,17 +37,21 @@ const createDoctor = async (payload: TDoctor) => {
 };
 
 const getAllDoctors = async () => {
+
   const doctors = await Doctor.find()
     .populate('userId')
     .populate('specialization')
     .populate('department');
+
   if (doctors.length === 0) {
     throw new HttpError(404, 'No doctor were found in the database');
   }
+
   return doctors;
 };
 
 const getDoctorById = async (id: string) => {
+
   const doctor = await Doctor.findById(id)
     .populate('userId')
     .populate('specialization')

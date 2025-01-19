@@ -3,9 +3,10 @@ import { TStaffRole } from './staffRole.interface';
 import { StaffRole } from './staffRole.model';
 
 const createStaffRole = async (payload: TStaffRole) => {
-  const staffRole = await StaffRole.findOne({ name: { $regex: new RegExp(`^${payload.name.trim()}$`, "i") } });
+  // check if staff role name is already exists
+  const existingStaffRole = await StaffRole.findOne({ name: { $regex: new RegExp(`^${payload.name.trim()}$`, "i") } });
 
-  if (staffRole) {
+  if (existingStaffRole) {
     throw new HttpError(400, "The staff role is already exist, Please choose different staff role name")
   }
 
@@ -15,6 +16,7 @@ const createStaffRole = async (payload: TStaffRole) => {
 };
 
 const getAllStaffRoles = async () => {
+
   const staffRoles = await StaffRole.find().populate('createdBy');
 
   if (staffRoles.length === 0) {
@@ -25,6 +27,7 @@ const getAllStaffRoles = async () => {
 };
 
 const getStaffRoleById = async (id: string) => {
+
   const staff = await StaffRole.findById(id).populate('createdBy');
 
   if (!staff) {
@@ -38,6 +41,7 @@ const updateStaffRoleById = async (
   id: string,
   payload: Partial<TStaffRole>,
 ) => {
+
   const updatedStaffRole = await StaffRole.findOneAndUpdate(
     { _id: id, isDeleted: false },
     payload,
@@ -52,6 +56,7 @@ const updateStaffRoleById = async (
 };
 
 const deleteStaffRoleById = async (id: string) => {
+
   const deletedStaffRole = await StaffRole.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
@@ -61,6 +66,7 @@ const deleteStaffRoleById = async (id: string) => {
   if (!deletedStaffRole) {
     throw new HttpError(404, `No staff role found with ID:${id}`);
   }
+
 };
 
 export const StaffRoleServices = {

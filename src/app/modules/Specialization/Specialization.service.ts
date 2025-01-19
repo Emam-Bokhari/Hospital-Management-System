@@ -30,6 +30,7 @@ const getAllSpecializations = async () => {
 };
 
 const getSpecializationById = async (id: string) => {
+
   const specialization = await Specialization.findById(id);
 
   if (!specialization) {
@@ -42,6 +43,7 @@ const updateSpecializationById = async (
   id: string,
   payload: TSpecialization,
 ) => {
+
   const existingSpecialization = await Specialization.findOne({
     _id: id,
     name: payload.name,
