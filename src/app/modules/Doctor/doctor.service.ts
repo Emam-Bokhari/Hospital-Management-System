@@ -73,8 +73,27 @@ const getDoctorById = async (id: string) => {
 
   const doctor = await Doctor.findById(id)
     .populate('userId')
-    .populate('specialization')
-    .populate('department');
+    .populate({ path: 'specialization', select: "name", populate: { path: "createdBy", select: "firstName lastName email" } })
+    .populate([
+      {
+        path: "department",
+        select: "departmentName",
+        populate: [
+          {
+            path: "createdBy",
+            select: "firstName lastName email"
+          },
+          {
+            path: "specialization",
+            select: "name",
+            populate: {
+              path: "createdBy",
+              select: "firstName lastName email"
+            }
+          }
+        ]
+      }
+    ])
 
   if (!doctor) {
     throw new HttpError(404, `No doctor found with ID: ${id}`);

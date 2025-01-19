@@ -46,8 +46,8 @@ const getAllDepartments = async () => {
 const getDepartmentById = async (id: string) => {
 
   const department = await Department.findById(id)
-    .populate({ path: 'specialization', populate: { path: 'createdBy' } })
-    .populate('createdBy');
+    .populate({ path: 'specialization', select: "name", populate: { path: 'createdBy', select: "firstName lastName email" } })
+    .populate({ path: 'createdBy', select: "firstName lastName email" });
 
   if (!department) {
     throw new HttpError(404, `No department found with ID: ${id}`);
