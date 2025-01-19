@@ -12,6 +12,7 @@ const createUser = async (payload: TUser) => {
 };
 
 const getAllUsers = async () => {
+
   const users = await User.find();
 
   if (users.length === 0) {
@@ -22,6 +23,7 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (id: string) => {
+
   const user = await User.findById(id);
 
   if (!user) {
@@ -32,6 +34,7 @@ const getUserById = async (id: string) => {
 };
 
 const updateUserById = async (id: string, payload: Partial<TUser>) => {
+
   const updatedUser = await User.findOneAndUpdate(
     { _id: id, isDeleted: false },
     payload,
@@ -49,6 +52,7 @@ const updateUserById = async (id: string, payload: Partial<TUser>) => {
 };
 
 const deleteUserById = async (id: string) => {
+
   const session = await mongoose.startSession();
 
   try {

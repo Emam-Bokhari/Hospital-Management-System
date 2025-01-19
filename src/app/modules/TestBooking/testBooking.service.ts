@@ -32,6 +32,7 @@ const createTestBooking = async (payload: TTestBooking) => {
 };
 
 const getAllTestBookings = async () => {
+
   const testBookings = await TestBooking.find()
     .populate('userId')
     .populate({ path: 'test', populate: { path: 'createdBy' } });
@@ -44,6 +45,7 @@ const getAllTestBookings = async () => {
 };
 
 const getTestBookingById = async (id: string) => {
+
   const testBooking = await TestBooking.findById(id)
     .populate('userId')
     .populate({ path: 'test', populate: { path: 'createdBy' } });
@@ -56,6 +58,7 @@ const getTestBookingById = async (id: string) => {
 };
 
 const updateTestBookingStatusById = async (id: string, status: string) => {
+
   const validStatuses = ['pending', 'confirmed', 'completed', 'cancelled'];
 
   if (!validStatuses.includes(status)) {
