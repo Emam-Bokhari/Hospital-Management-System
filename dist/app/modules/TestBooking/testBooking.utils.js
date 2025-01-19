@@ -9,18 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateRequestSchema = void 0;
-const validateRequestSchema = (schema) => {
-    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            yield schema.parseAsync({
-                body: req.body,
-            });
-            return next();
-        }
-        catch (err) {
-            next(err);
-        }
-    });
-};
-exports.validateRequestSchema = validateRequestSchema;
+exports.generateTestBookingId = void 0;
+const generateDynamicId_1 = require("../../utils/generateDynamicId");
+const testBooking_model_1 = require("./testBooking.model");
+const generateTestBookingId = () => __awaiter(void 0, void 0, void 0, function* () {
+    const testBookingId = yield (0, generateDynamicId_1.generateDynamicId)(testBooking_model_1.TestBooking, "TST");
+    return testBookingId;
+});
+exports.generateTestBookingId = generateTestBookingId;

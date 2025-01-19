@@ -5,8 +5,8 @@ import { Specialization } from './specialization.model';
 const createSpecialization = async (payload: TSpecialization) => {
   // check if specialization name is already exists
   const existingSpecialization = await Specialization.findOne({
-    name: payload.name,
-  });
+    name: { $regex: new RegExp(`^${payload.name.trim()},"i`) },
+  }).select("name").lean();
 
   if (existingSpecialization) {
     throw new HttpError(

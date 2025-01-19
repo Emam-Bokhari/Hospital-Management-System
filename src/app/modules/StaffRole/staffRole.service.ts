@@ -3,6 +3,12 @@ import { TStaffRole } from './staffRole.interface';
 import { StaffRole } from './staffRole.model';
 
 const createStaffRole = async (payload: TStaffRole) => {
+  const staffRole = await StaffRole.findOne({ name: { $regex: new RegExp(`^${payload.name.trim()}$`, "i") } });
+
+  if (staffRole) {
+    throw new HttpError(400, "The staff role is already exist, Please choose different staff role name")
+  }
+
   const createdStaffRole = await StaffRole.create(payload);
 
   return createdStaffRole;

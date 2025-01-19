@@ -4,7 +4,7 @@ import { Test } from './test.model';
 
 const createTest = async (payload: TTest) => {
   const test = await Test.findOne({
-    testName: { $regex: new RegExp(`^${payload.testName}$`, 'i') },
+    testName: { $regex: new RegExp(`^${payload.testName.trim()}$`, 'i') },
   })
     .select('testName')
     .lean();
@@ -12,7 +12,7 @@ const createTest = async (payload: TTest) => {
   if (test) {
     throw new HttpError(
       400,
-      'The test is already exist, Please choose deferent test name',
+      ` Test name with the name '${payload.testName}' already exists. Please choose a different name.`,
     );
   }
 

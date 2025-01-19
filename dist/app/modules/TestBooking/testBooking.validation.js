@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppointmentBookingValidationSchema = exports.createAppointmentBookingValidationSchema = void 0;
+exports.TestBookingValidationSchema = void 0;
 const zod_1 = require("zod");
 const addressValidationSchema = zod_1.z.object({
     division: zod_1.z
@@ -27,10 +27,12 @@ const contactInformationValidationSchema = zod_1.z.object({
         .max(100, 'Email cannot exceed 100 characters')
         .optional(),
 });
-exports.createAppointmentBookingValidationSchema = zod_1.z.object({
+const createTestBookingValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         userId: zod_1.z.string().optional(),
         id: zod_1.z.string().optional(),
+        test: zod_1.z.string(),
+        payment: zod_1.z.string().optional(),
         firstName: zod_1.z
             .string()
             .trim()
@@ -54,29 +56,14 @@ exports.createAppointmentBookingValidationSchema = zod_1.z.object({
             .min(3, 'Weight must be at least 5 kg')
             .max(300, 'Weight cannot exceed 300 kg')
             .optional(),
-        bloodGroup: zod_1.z
-            .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-            .optional(),
-        gender: zod_1.z.enum(['male', 'female']),
-        address: addressValidationSchema,
+        gender: zod_1.z.enum(["male", "female"]),
         contactInformation: contactInformationValidationSchema,
-        doctor: zod_1.z.string(),
-        appointmentDate: zod_1.z.string(),
-        timeSlot: zod_1.z
-            .string()
-            .regex(/^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/, 'Time slot must be in HH:mm 24-hour format'),
-        status: zod_1.z
-            .enum(['pending', 'confirmed', 'completed', 'cancelled']).default("pending")
-            .optional(),
-        prescriptionFiles: zod_1.z.array(zod_1.z.string()).optional(),
-        testReportFiles: zod_1.z.array(zod_1.z.string()).optional(),
-        additionalNotes: zod_1.z
-            .string()
-            .max(500, 'Additional notes cannot exceed 500 characters')
-            .optional(),
-        payment: zod_1.z.string().optional(),
-    }),
+        address: addressValidationSchema,
+        medicalHistory: zod_1.z.array(zod_1.z.string()).optional(),
+        symptoms: zod_1.z.array(zod_1.z.string()).optional(),
+        status: zod_1.z.enum(['pending', 'confirmed', 'completed', 'cancelled']).default("pending")
+    })
 });
-exports.AppointmentBookingValidationSchema = {
-    createAppointmentBookingValidationSchema: exports.createAppointmentBookingValidationSchema,
+exports.TestBookingValidationSchema = {
+    createTestBookingValidationSchema,
 };

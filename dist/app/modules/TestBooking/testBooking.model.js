@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppointmentBooking = void 0;
+exports.TestBooking = void 0;
 const mongoose_1 = require("mongoose");
 const addressSchema = new mongoose_1.Schema({
     division: {
@@ -33,7 +33,7 @@ const contactInformationSchema = new mongoose_1.Schema({
         trim: true,
     },
 });
-const appointmentBookingSchema = new mongoose_1.Schema({
+const testBookingSchema = new mongoose_1.Schema({
     userId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'User',
@@ -41,6 +41,15 @@ const appointmentBookingSchema = new mongoose_1.Schema({
     id: {
         type: String,
         unique: true,
+    },
+    test: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Test',
+    },
+    payment: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        // ref:"Payment",
     },
     firstName: {
         type: String,
@@ -61,13 +70,6 @@ const appointmentBookingSchema = new mongoose_1.Schema({
         type: Number,
         trim: true,
     },
-    bloodGroup: {
-        type: String,
-        enum: {
-            values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-            message: '{VALUE} is not a valid blood group',
-        },
-    },
     gender: {
         type: String,
         enum: {
@@ -83,18 +85,11 @@ const appointmentBookingSchema = new mongoose_1.Schema({
         type: contactInformationSchema,
         required: true,
     },
-    doctor: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Doctor',
+    medicalHistory: {
+        type: [String],
     },
-    appointmentDate: {
-        type: Date,
-        required: true,
-    },
-    timeSlot: {
-        type: String,
-        required: true,
+    symptoms: {
+        type: [String],
     },
     status: {
         type: String,
@@ -104,24 +99,8 @@ const appointmentBookingSchema = new mongoose_1.Schema({
         },
         default: 'pending',
     },
-    prescriptionFiles: {
-        type: [String],
-        trim: true,
-    },
-    testReportFiles: {
-        type: [String],
-        trim: true,
-    },
-    additionalNotes: {
-        type: String,
-        trim: true,
-    },
-    payment: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        // ref:"Payment"
-    },
 }, {
     timestamps: true,
     versionKey: false,
 });
-exports.AppointmentBooking = (0, mongoose_1.model)('AppointmentBooking', appointmentBookingSchema);
+exports.TestBooking = (0, mongoose_1.model)('TestBooking', testBookingSchema);
