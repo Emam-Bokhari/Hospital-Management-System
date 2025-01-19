@@ -28,8 +28,7 @@ const contactInformationValidationSchema = z.object({
   phone: z
     .string()
     .trim()
-    .regex(/^\+\d{1,4}\d{7,15}$/, { message: 'Invalid phone number format!' })
-    .optional(),
+    .regex(/^\+\d{1,4}\d{7,15}$/, { message: 'Invalid phone number format!' }),
   email: z
     .string()
     .email('Invalid email format')
@@ -39,7 +38,7 @@ const contactInformationValidationSchema = z.object({
 
 export const createAppointmentBookingValidationSchema = z.object({
   body: z.object({
-    userId: z.string(),
+    userId: z.string().optional(),
     id: z.string().optional(),
     firstName: z
       .string()
@@ -49,8 +48,7 @@ export const createAppointmentBookingValidationSchema = z.object({
       .regex(
         /^[a-zA-Z\-'\s]+$/,
         'First name can only contain letters, spaces, hyphens, or apostrophes',
-      )
-      .optional(),
+      ),
     lastName: z
       .string()
       .trim()
@@ -59,8 +57,7 @@ export const createAppointmentBookingValidationSchema = z.object({
       .regex(
         /^[a-zA-Z\-'\s]+$/,
         'Last name can only contain letters, spaces, hyphens, or apostrophes',
-      )
-      .optional(),
+      ),
     age: z
       .number()
       .int()
@@ -95,7 +92,7 @@ export const createAppointmentBookingValidationSchema = z.object({
       .string()
       .max(500, 'Additional notes cannot exceed 500 characters')
       .optional(),
-    payment: z.string(),
+    payment: z.string().optional(),
   }),
 });
 

@@ -1,9 +1,9 @@
 import { model, Schema } from 'mongoose';
 import {
   TAddress,
-  TAppointmentBooking,
   TContactInformation,
-} from './appointmentBooking.interface';
+  TTestBooking,
+} from './testBooking.interface';
 
 const addressSchema = new Schema<TAddress>({
   division: {
@@ -38,7 +38,7 @@ const contactInformationSchema = new Schema<TContactInformation>({
   },
 });
 
-const appointmentBookingSchema = new Schema<TAppointmentBooking>(
+const testBookingSchema = new Schema<TTestBooking>(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -46,7 +46,16 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
     },
     id: {
       type: String,
-      unique: true,
+      // unique:true,
+    },
+    test: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Test',
+    },
+    payment: {
+      type: Schema.Types.ObjectId,
+      // ref:"Payment",
     },
     firstName: {
       type: String,
@@ -67,13 +76,6 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
       type: Number,
       trim: true,
     },
-    bloodGroup: {
-      type: String,
-      enum: {
-        values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-        message: '{VALUE} is not a valid blood group',
-      },
-    },
     gender: {
       type: String,
       enum: {
@@ -89,18 +91,11 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
       type: contactInformationSchema,
       required: true,
     },
-    doctor: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'Doctor',
+    medicalHistory: {
+      type: [String],
     },
-    appointmentDate: {
-      type: Date,
-      required: true,
-    },
-    timeSlot: {
-      type: String,
-      required: true,
+    symptoms: {
+      type: [String],
     },
     status: {
       type: String,
@@ -110,22 +105,6 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
       },
       default: 'pending',
     },
-    prescriptionFiles: {
-      type: [String],
-      trim: true,
-    },
-    testReportFiles: {
-      type: [String],
-      trim: true,
-    },
-    additionalNotes: {
-      type: String,
-      trim: true,
-    },
-    payment: {
-      type: Schema.Types.ObjectId,
-      // ref:"Payment"
-    },
   },
   {
     timestamps: true,
@@ -133,7 +112,4 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
   },
 );
 
-export const AppointmentBooking = model<TAppointmentBooking>(
-  'AppointmentBooking',
-  appointmentBookingSchema,
-);
+export const TestBooking = model('TestBooking', testBookingSchema);
