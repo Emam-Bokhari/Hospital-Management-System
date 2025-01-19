@@ -8,7 +8,7 @@ import { HttpError } from '../../errors/HttpError';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
-} from '../../utils/queryFilters';
+} from '../../utils/modelSpecific/queryFilters';
 
 const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
   symptom: {

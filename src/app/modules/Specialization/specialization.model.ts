@@ -3,7 +3,7 @@ import { TSpecialization } from './specialization.interface';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
-} from '../../utils/queryFilters';
+} from '../../utils/modelSpecific/queryFilters';
 
 export const specializationSchema = new Schema<TSpecialization>(
   {

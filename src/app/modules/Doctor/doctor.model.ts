@@ -17,7 +17,7 @@ import {
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
-} from '../../utils/queryFilters';
+} from '../../utils/modelSpecific/queryFilters';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {

@@ -1,6 +1,6 @@
 import { UserServices } from './user.service';
-import { sendResponse } from '../../utils/sendResponse';
-import { asyncHandler } from '../../utils/asyncHandler';
+import { sendResponse } from '../../utils/global/sendResponse';
+import { asyncHandler } from '../../utils/global/asyncHandler';
 
 const createUserController = asyncHandler(async (req, res) => {
   const userPayload = req.body;

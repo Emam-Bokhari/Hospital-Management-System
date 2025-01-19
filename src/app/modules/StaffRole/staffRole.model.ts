@@ -3,7 +3,7 @@ import { TStaffRole } from './staffRole.interface';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
-} from '../../utils/queryFilters';
+} from '../../utils/modelSpecific/queryFilters';
 
 const staffRoleSchema = new Schema<TStaffRole>(
   {

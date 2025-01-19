@@ -1,5 +1,5 @@
-import { asyncHandler } from '../../utils/asyncHandler';
-import { sendResponse } from '../../utils/sendResponse';
+import { asyncHandler } from '../../utils/global/asyncHandler';
+import { sendResponse } from '../../utils/global/sendResponse';
 import { SpecializationServices } from './Specialization.service';
 
 const createSpecializationController = asyncHandler(async (req, res) => {

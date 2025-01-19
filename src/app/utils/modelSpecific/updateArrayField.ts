@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { flattenAndUpdate } from './flattenAndUpdate';
+import { flattenAndUpdate } from './modelSpecific/flattenAndUpdate';
 
 export const updateArrayField = (
   field: string,

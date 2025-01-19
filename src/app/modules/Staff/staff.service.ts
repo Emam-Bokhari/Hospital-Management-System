@@ -1,5 +1,5 @@
 import { HttpError } from '../../errors/HttpError';
-import { flattenAndUpdate } from '../../utils/flattenAndUpdate';
+import { flattenAndUpdate } from '../../utils/modelSpecific/flattenAndUpdate';
 import { StaffRole } from '../StaffRole/staffRole.model';
 import { TStaff } from './staff.interface';
 import { Staff } from './staff.model';

@@ -3,7 +3,7 @@ import { TTest } from './test.interface';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
-} from '../../utils/queryFilters';
+} from '../../utils/modelSpecific/queryFilters';
 
 const testSchema = new Schema<TTest>(
   {

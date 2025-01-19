@@ -1,5 +1,5 @@
 import { HttpError } from '../../errors/HttpError';
-import { flattenAndUpdate } from '../../utils/flattenAndUpdate';
+import { flattenAndUpdate } from '../../utils/modelSpecific/flattenAndUpdate';
 import { updateArrayField } from '../../utils/updateArrayField';
 import { Department } from '../Department/department.model';
 import { Specialization } from '../Specialization/specialization.model';

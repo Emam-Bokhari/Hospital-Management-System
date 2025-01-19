@@ -3,7 +3,7 @@ import { TUser } from './user.interface';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
-} from '../../utils/queryFilters';
+} from '../../utils/modelSpecific/queryFilters';
 
 const userSchema = new Schema<TUser>(
   {
