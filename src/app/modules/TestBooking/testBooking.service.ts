@@ -35,7 +35,7 @@ const getAllTestBookings = async () => {
 
   const testBookings = await TestBooking.find()
     .populate('userId')
-    .populate({ path: 'test', populate: { path: 'createdBy' } });
+    .populate({ path: 'test', select: "testName testCategory price", populate: { path: 'createdBy', select: "firstName lastName email" } });
 
   if (testBookings.length === 0) {
     throw new HttpError(404, 'No test bookings were found in the database');
@@ -48,7 +48,7 @@ const getTestBookingById = async (id: string) => {
 
   const testBooking = await TestBooking.findById(id)
     .populate('userId')
-    .populate({ path: 'test', populate: { path: 'createdBy' } });
+    .populate({ path: 'test', select: "testName testCategory price", populate: { path: 'createdBy', select: "firstName lastName email" } });
 
   if (!testBooking) {
     throw new HttpError(404, `No test booking found with ID: ${id}`);
