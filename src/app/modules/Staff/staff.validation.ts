@@ -83,68 +83,46 @@ const createAddressValidationSchema = z.object({
     permanent: z.string()
         .trim()
         .min(5, 'Permanent address is required and must contain at least 5 characters')
-        .max(100, 'Permanent address cannot exceed 100 characters')
-        .regex(
-            /^[a-zA-Z\-'\s]+$/,
-            'Permanent address can only contain letters, spaces, hyphens, or apostrophes',
-        ),
+        .max(100, 'Permanent address cannot exceed 100 characters'),
     current: z.string()
         .trim()
         .min(5, 'Current address is required and must contain at least 5 characters')
         .max(100, 'Current address cannot exceed 100 characters')
-        .regex(
-            /^[a-zA-Z\-'\s]+$/,
-            'Current address can only contain letters, spaces, hyphens, or apostrophes',
-        )
 })
 
 const updateAddressValidationSchema = z.object({
     permanent: z.string()
         .trim()
         .min(5, 'Permanent address is required and must contain at least 5 characters')
-        .max(100, 'Permanent address cannot exceed 100 characters')
-        .regex(
-            /^[a-zA-Z\-'\s]+$/,
-            'Permanent address can only contain letters, spaces, hyphens, or apostrophes',
-        ).optional(),
+        .max(100, 'Permanent address cannot exceed 100 characters').optional(),
     current: z.string()
         .trim()
         .min(5, 'Current address is required and must contain at least 5 characters')
-        .max(100, 'Current address cannot exceed 100 characters')
-        .regex(
-            /^[a-zA-Z\-'\s]+$/,
-            'Current address can only contain letters, spaces, hyphens, or apostrophes',
-        ).optional()
+        .max(100, 'Current address cannot exceed 100 characters').optional()
 })
 
 const createNidValidationSchema = z.object({
-    number: z.number({ invalid_type_error: 'NID number must be a numeric value.' })
-        .positive({ message: 'NID number must be a positive value.' })
-        .int({ message: 'NID number must be an integer.' })
-        .min(1000000000, { message: 'NID number must be at least 10 digits long.' })
-        .max(9999999999, { message: 'NID number must not exceed 10 digits.' }),
+    number: z.string().trim().regex(/^\d{10}$/, {
+        message: 'NID number must be exactly 10 digits.',
+    }),
     scannedCopy: z.string()
         .nonempty({ message: 'Scanned copy is required.' })
         .url({ message: 'Scanned copy must be a valid URL.' }),
 })
 
 const updateNidValidationSchema = z.object({
-    number: z.number({ invalid_type_error: 'NID number must be a numeric value.' })
-        .positive({ message: 'NID number must be a positive value.' })
-        .int({ message: 'NID number must be an integer.' })
-        .min(1000000000, { message: 'NID number must be at least 10 digits long.' })
-        .max(9999999999, { message: 'NID number must not exceed 10 digits.' }).optional(),
+    number: z.string().trim().regex(/^\d{10}$/, {
+        message: 'NID number must be exactly 10 digits.',
+    }).optional(),
     scannedCopy: z.string()
         .nonempty({ message: 'Scanned copy is required.' })
         .url({ message: 'Scanned copy must be a valid URL.' }).optional(),
 });
 
 const createBirthCertificateValidationSchema = z.object({
-    number: z
-        .number({ invalid_type_error: 'Birth certificate number must be a numeric value.' })
-        .positive({ message: 'Birth certificate number must be a positive value.' })
-        .int({ message: 'Birth certificate number must be an integer.' })
-        .refine((num) => num.toString().length === 17, {
+    number: z.string()
+        .trim()
+        .regex(/^\d{17}$/, {
             message: 'Birth certificate number must be exactly 17 digits.',
         }),
     scannedCopy: z
@@ -154,11 +132,9 @@ const createBirthCertificateValidationSchema = z.object({
 });
 
 const updateBirthCertificateValidationSchema = z.object({
-    number: z
-        .number({ invalid_type_error: 'Birth certificate number must be a numeric value.' })
-        .positive({ message: 'Birth certificate number must be a positive value.' })
-        .int({ message: 'Birth certificate number must be an integer.' })
-        .refine((num) => num.toString().length === 17, {
+    number: z.string()
+        .trim()
+        .regex(/^\d{17}$/, {
             message: 'Birth certificate number must be exactly 17 digits.',
         }).optional(),
     scannedCopy: z
@@ -187,11 +163,9 @@ const createGuardianValidationSchema = z.object({
         .email('Invalid email format')
         .max(100, 'Email cannot exceed 100 characters')
         .optional(),
-    nidNumber: z.number({ invalid_type_error: 'NID number must be a numeric value.' })
-        .positive({ message: 'NID number must be a positive value.' })
-        .int({ message: 'NID number must be an integer.' })
-        .min(1000000000, { message: 'NID number must be at least 10 digits long.' })
-        .max(9999999999, { message: 'NID number must not exceed 10 digits.' }),
+    nidNumber: z.string().trim().regex(/^\d{10}$/, {
+        message: 'NID number must be exactly 10 digits.',
+    }),
     nidScannedCopy: z.string()
         .nonempty({ message: 'NID Scanned copy is required.' })
         .url({ message: 'NID Scanned copy must be a valid URL.' }),
@@ -226,11 +200,9 @@ const updateGuardianValidationSchema = z.object({
         .email('Invalid email format')
         .max(100, 'Email cannot exceed 100 characters')
         .optional(),
-    nidNumber: z.number({ invalid_type_error: 'NID number must be a numeric value.' })
-        .positive({ message: 'NID number must be a positive value.' })
-        .int({ message: 'NID number must be an integer.' })
-        .min(1000000000, { message: 'NID number must be at least 10 digits long.' })
-        .max(9999999999, { message: 'NID number must not exceed 10 digits.' }).optional(),
+    nidNumber: z.string().trim().regex(/^\d{10}$/, {
+        message: 'NID number must be exactly 10 digits.',
+    }).optional(),
     nidScannedCopy: z.string()
         .nonempty({ message: 'NID Scanned copy is required.' })
         .url({ message: 'NID Scanned copy must be a valid URL.' }).optional(),
@@ -479,7 +451,7 @@ const updateStaffValidationSchema = z.object({
         nid: updateNidValidationSchema.optional(),
         birthCertificate: updateBirthCertificateValidationSchema.optional(),
         guardian: updateGuardianValidationSchema.optional(),
-        staffRole: z.string(),
+        staffRole: z.string().optional(),
         employmentType: z.enum(["fullTime", "partTime", "contractual"]).optional(),
         employmentID: z.string().optional(),
         dateOfJoining: z.string().length(10)
