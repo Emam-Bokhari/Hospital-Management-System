@@ -19,7 +19,14 @@ const createStaff = async (payload: TStaff) => {
 };
 
 const getAllStaffs = async () => {
-  const staffs = await Staff.find().populate('staffRole').populate('createdBy');
+  const staffs = await Staff.find()
+    .populate([
+      {
+        path: 'staffRole', select: "name",
+        populate: { path: "createdBy", select: "firstName lastName email" }
+      }
+    ])
+    .populate({ path: 'createdBy', select: "firstName lastName email" });
 
   if (staffs.length === 0) {
     throw new HttpError(404, 'No staffs were found in the database');
