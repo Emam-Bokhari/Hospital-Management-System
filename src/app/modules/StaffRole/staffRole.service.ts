@@ -17,7 +17,7 @@ const createStaffRole = async (payload: TStaffRole) => {
 
 const getAllStaffRoles = async () => {
 
-  const staffRoles = await StaffRole.find().populate('createdBy');
+  const staffRoles = await StaffRole.find().populate({ path: 'createdBy', select: "firstName lastName email" });
 
   if (staffRoles.length === 0) {
     throw new HttpError(404, 'No staff roles were found in the database');
@@ -28,7 +28,7 @@ const getAllStaffRoles = async () => {
 
 const getStaffRoleById = async (id: string) => {
 
-  const staff = await StaffRole.findById(id).populate('createdBy');
+  const staff = await StaffRole.findById(id).populate({ path: 'createdBy', select: "firstName lastName email" });
 
   if (!staff) {
     throw new HttpError(404, `No staff role  found with ID:${id}`);
