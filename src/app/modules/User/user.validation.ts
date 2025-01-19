@@ -92,10 +92,9 @@ const updateUserValidationSchema = z.object({
         'admin',
         'super-admin',
       ])
-      .default('user')
-      .optional(),
-    status: z.enum(['active', 'suspend']).default('active').optional(),
-    isDeleted: z.boolean().default(false).optional(),
+      .default('user'),
+    status: z.enum(['active', 'suspend']).default('active'),
+    isDeleted: z.boolean().default(false),
   }),
 });
 

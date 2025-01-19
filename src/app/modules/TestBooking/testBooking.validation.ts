@@ -75,9 +75,9 @@ const createTestBookingValidationSchema = z.object({
         gender: z.enum(["male", "female"]),
         contactInformation: contactInformationValidationSchema,
         address: addressValidationSchema,
-        medicalHistory: z.array(z.string()),
-        symptoms: z.array(z.string()),
-        status: z.enum(['pending', 'confirmed', 'completed', 'cancelled'])
+        medicalHistory: z.array(z.string()).optional(),
+        symptoms: z.array(z.string()).optional(),
+        status: z.enum(['pending', 'confirmed', 'completed', 'cancelled']).default("pending")
     })
 })
 

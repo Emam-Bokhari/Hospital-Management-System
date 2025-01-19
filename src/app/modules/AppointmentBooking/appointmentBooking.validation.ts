@@ -84,7 +84,7 @@ export const createAppointmentBookingValidationSchema = z.object({
         'Time slot must be in HH:mm 24-hour format',
       ),
     status: z
-      .enum(['pending', 'confirmed', 'completed', 'cancelled'])
+      .enum(['pending', 'confirmed', 'completed', 'cancelled']).default("pending")
       .optional(),
     prescriptionFiles: z.array(z.string()).optional(),
     testReportFiles: z.array(z.string()).optional(),

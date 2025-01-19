@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 
 export type TContactInformation = {
   phone: string;
-  email: string;
+  email?: string;
 };
 
 export type TEmergencyContact = {

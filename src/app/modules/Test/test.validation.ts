@@ -7,10 +7,6 @@ const createTestValidationSchema = z.object({
       .trim()
       .min(3, 'Test name must be contain at least 03 characters')
       .max(100, 'Test name can not exceed 100 characters')
-      .regex(
-        /^[a-zA-Z0-9\s]+$/,
-        'Test name can only contain letters, numbers, and spaces.',
-      )
       .nonempty('Test name is required.'),
     testDescription: z
       .string()
@@ -77,10 +73,6 @@ const updateTestValidationSchema = z.object({
       .trim()
       .min(3, 'Test name must be contain at least 03 characters')
       .max(100, 'Test name can not exceed 100 characters')
-      .regex(
-        /^[a-zA-Z0-9\s]+$/,
-        'Test name can only contain letters, numbers, and spaces.',
-      )
       .optional(),
     testDescription: z
       .string()

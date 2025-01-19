@@ -46,7 +46,7 @@ const testBookingSchema = new Schema<TTestBooking>(
     },
     id: {
       type: String,
-      // unique:true,
+      unique: true,
     },
     test: {
       type: Schema.Types.ObjectId,

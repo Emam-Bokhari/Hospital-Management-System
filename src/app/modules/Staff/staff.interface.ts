@@ -12,7 +12,7 @@ export type TBloodGroup =
 
 export type TContactInformation = {
   phone: string;
-  email: string;
+  email?: string;
 };
 
 export type TAddress = {

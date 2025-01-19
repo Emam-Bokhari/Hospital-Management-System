@@ -56,6 +56,7 @@ const emergencyContactSchema = new Schema<TEmergencyContact>({
   },
   email: {
     type: String,
+    trim: true,
   },
   relationship: {
     type: String,
@@ -333,7 +334,6 @@ previousWorkPlaceSchema.pre('save', async function (next) {
     );
     next();
   } catch (err: any) {
-    this.invalidate('endDate', err.message);
     next(err);
   }
 });
@@ -352,8 +352,6 @@ doctorSchema.pre('save', async function (next) {
 
     next();
   } catch (err: any) {
-    this.invalidate('workingDays', err.message);
-    this.invalidate('availableTimeSlots', err.message);
     next(err);
   }
 });
@@ -368,7 +366,6 @@ doctorSchema.pre('save', async function (next) {
     );
     next();
   } catch (err: any) {
-    this.invalidate('offDays', err.message);
     next(err);
   }
 });
