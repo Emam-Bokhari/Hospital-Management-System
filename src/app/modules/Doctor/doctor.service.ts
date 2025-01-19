@@ -40,8 +40,27 @@ const getAllDoctors = async () => {
 
   const doctors = await Doctor.find()
     .populate('userId')
-    .populate('specialization')
-    .populate('department');
+    .populate({ path: 'specialization', select: "name", populate: { path: "createdBy", select: "firstName lastName email" } })
+    .populate([
+      {
+        path: "department",
+        select: "departmentName",
+        populate: [
+          {
+            path: "createdBy",
+            select: "firstName lastName email"
+          },
+          {
+            path: "specialization",
+            select: "name",
+            populate: {
+              path: "createdBy",
+              select: "firstName lastName email"
+            }
+          }
+        ]
+      }
+    ])
 
   if (doctors.length === 0) {
     throw new HttpError(404, 'No doctor were found in the database');
