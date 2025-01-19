@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const createSymptomsAddressed = z.object({
+const createSymptomsAddressedValidationSchema = z.object({
   symptom: z
     .string()
     .trim()
@@ -13,7 +13,7 @@ const createSymptomsAddressed = z.object({
     .max(1000, 'Description can not exceed 1000 characters'),
 });
 
-const updateSymptomsAddressed = z.object({
+const updateSymptomsAddressedValidationSchema = z.object({
   symptom: z
     .string()
     .trim()
@@ -28,7 +28,7 @@ const updateSymptomsAddressed = z.object({
     .optional(),
 });
 
-const createPossibleCauses = z.object({
+const createPossibleCausesValidationSchema = z.object({
   cause: z
     .string()
     .trim()
@@ -41,7 +41,7 @@ const createPossibleCauses = z.object({
     .max(1000, 'Description can not exceed 1000 characters'),
 });
 
-const updatePossibleCauses = z.object({
+const updatePossibleCausesValidationSchema = z.object({
   cause: z
     .string()
     .trim()
@@ -73,8 +73,8 @@ const createDepartmentValidationSchema = z.object({
         'Description is required and must contain at least 20 characters',
       )
       .max(1000, 'Description can not exceed 1000 characters'),
-    symptomsAddressed: z.array(createSymptomsAddressed),
-    possibleCauses: z.array(createPossibleCauses),
+    symptomsAddressed: z.array(createSymptomsAddressedValidationSchema),
+    possibleCauses: z.array(createPossibleCausesValidationSchema),
     status: z.enum(['active', 'inActive']).default('active'),
     createdBy: z.string().optional(),
     isDeleted: z.boolean().default(false),
@@ -100,8 +100,8 @@ const updateDepartmentValidationSchema = z.object({
       )
       .max(1000, 'Description can not exceed 1000 characters')
       .optional(),
-    symptomsAddressed: z.array(updateSymptomsAddressed).optional(),
-    possibleCauses: z.array(updatePossibleCauses).optional(),
+    symptomsAddressed: z.array(updateSymptomsAddressedValidationSchema).optional(),
+    possibleCauses: z.array(updatePossibleCausesValidationSchema).optional(),
     status: z.enum(['active', 'inActive']).default('active'),
     createdBy: z.string().optional(),
     isDeleted: z.boolean().default(false),

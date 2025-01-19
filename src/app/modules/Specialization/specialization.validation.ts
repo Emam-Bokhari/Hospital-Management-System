@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const SpecializationValidationSchema = z.object({
+export const createSpecializationValidationSchema = z.object({
   body: z.object({
     name: z
       .string()
@@ -14,3 +14,7 @@ export const SpecializationValidationSchema = z.object({
     isDeleted: z.boolean().default(false),
   }),
 });
+
+export const SpecializationValidationSchema = {
+  createSpecializationValidationSchema,
+}

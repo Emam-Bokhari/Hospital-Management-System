@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const StaffRoleValidationSchema = z.object({
+export const createStaffRoleValidationSchema = z.object({
   body: z.object({
     name: z
       .string()
@@ -14,3 +14,8 @@ export const StaffRoleValidationSchema = z.object({
     isDeleted: z.boolean().default(false),
   }),
 });
+
+
+export const StaffRoleValidationSchema = {
+  createStaffRoleValidationSchema,
+}
