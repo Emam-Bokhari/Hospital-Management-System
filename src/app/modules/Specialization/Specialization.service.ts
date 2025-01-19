@@ -21,7 +21,7 @@ const createSpecialization = async (payload: TSpecialization) => {
 };
 
 const getAllSpecializations = async () => {
-  const specializations = await Specialization.find();
+  const specializations = await Specialization.find().populate({ path: "createdBy", select: "firstName lastName email" });
 
   if (specializations.length === 0) {
     throw new HttpError(404, 'No specialization were found in the database');
@@ -31,7 +31,7 @@ const getAllSpecializations = async () => {
 
 const getSpecializationById = async (id: string) => {
 
-  const specialization = await Specialization.findById(id);
+  const specialization = await Specialization.findById(id).populate({ path: "createdBy", select: "firstName lastName email" });;
 
   if (!specialization) {
     throw new HttpError(404, `No specialization found with ID: ${id}`);
