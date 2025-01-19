@@ -1,4 +1,4 @@
-import { generateDynamicId } from '../../utils/generateDynamicId';
+import { generateDynamicId } from '../../utils/modelSpecific/generateDynamicId';
 import { TDays } from './appointmentBooking.interface';
 import { AppointmentBooking } from './appointmentBooking.model';
 

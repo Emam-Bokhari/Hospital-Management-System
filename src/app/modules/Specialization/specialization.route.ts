@@ -3,11 +3,12 @@ import { SpecializationControllers } from './specialization.controller';
 import { validateRequestSchema } from '../../middlewares/validateRequestSchema';
 import { SpecializationValidationSchema } from './specialization.validation';
 
+
 const router = express.Router();
 
 router.post(
   '/',
-  validateRequestSchema(SpecializationValidationSchema),
+  validateRequestSchema(SpecializationValidationSchema.createSpecializationValidationSchema),
   SpecializationControllers.createSpecializationController,
 );
 
@@ -17,7 +18,7 @@ router.get('/:id', SpecializationControllers.getSpecializationController);
 
 router.patch(
   '/:id',
-  validateRequestSchema(SpecializationValidationSchema),
+  validateRequestSchema(SpecializationValidationSchema.createSpecializationValidationSchema),
   SpecializationControllers.updateSpecializationController,
 );
 

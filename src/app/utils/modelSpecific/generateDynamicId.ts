@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpError } from '../errors/HttpError';
 import moment from 'moment-timezone';
+import { HttpError } from '../../errors/HttpError';
 
 export const generateDynamicId = async (model: any, prefix: string) => {
   try {

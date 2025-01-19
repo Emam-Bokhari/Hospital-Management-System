@@ -1,5 +1,5 @@
 import { HttpError } from '../../errors/HttpError';
-import { updateArrayField } from '../../utils/updateArrayField';
+import { updateArrayField } from '../../utils/modelSpecific/updateArrayField';
 import { Specialization } from '../Specialization/specialization.model';
 import { TDepartment } from './department.interface';
 import { Department } from './department.model';

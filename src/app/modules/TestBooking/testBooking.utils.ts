@@ -1,4 +1,5 @@
-import { generateDynamicId } from "../../utils/generateDynamicId"
+
+import { generateDynamicId } from "../../utils/modelSpecific/generateDynamicId";
 import { TestBooking } from "./testBooking.model"
 
 export const generateTestBookingId = async () => {
