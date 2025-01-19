@@ -98,7 +98,9 @@ const createAppointmentBooking = async (payload: TAppointmentBooking) => {
 };
 
 const getAllAppointmentBookings = async () => {
-  const appointmentBookings = await AppointmentBooking.find();
+  const appointmentBookings = await AppointmentBooking.find()
+    .populate({ path: "userId" })
+    .populate({ path: "doctor", select: "firstName lastName", populate: ({ path: "specialization", select: "name" }) });
 
   if (appointmentBookings.length === 0) {
     throw new HttpError(
@@ -111,7 +113,8 @@ const getAllAppointmentBookings = async () => {
 };
 
 const getAppointmentBookingById = async (id: string) => {
-  const appointmentBooking = await AppointmentBooking.findById(id);
+  const appointmentBooking = await AppointmentBooking.findById(id).populate({ path: "userId" })
+    .populate({ path: "doctor", select: "firstName lastName", populate: ({ path: "specialization", select: "name" }) });;
 
   if (!appointmentBooking) {
     throw new HttpError(404, `No appointment booking found with ID: ${id}`);
