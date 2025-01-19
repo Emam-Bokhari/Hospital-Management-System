@@ -15,11 +15,11 @@ const createDepartment = async (payload: TDepartment) => {
   }
 
   // check if department is already exist the same specialization
-  const department = await Department.findOne({
+  const existingDepartment = await Department.findOne({
     specialization: payload.specialization,
   });
 
-  if (department) {
+  if (existingDepartment) {
     throw new HttpError(
       400,
       'A department with the same specialization already exists.',
@@ -31,6 +31,7 @@ const createDepartment = async (payload: TDepartment) => {
 };
 
 const getAllDepartments = async () => {
+
   const departments = await Department.find()
     .populate({ path: 'specialization', populate: { path: 'createdBy' } })
     .populate('createdBy');
@@ -38,16 +39,20 @@ const getAllDepartments = async () => {
   if (departments.length === 0) {
     throw new HttpError(404, 'No department were found in the database');
   }
+
   return departments;
 };
 
 const getDepartmentById = async (id: string) => {
+
   const department = await Department.findById(id)
     .populate({ path: 'specialization', populate: { path: 'createdBy' } })
     .populate('createdBy');
+
   if (!department) {
     throw new HttpError(404, `No department found with ID: ${id}`);
   }
+
   return department;
 };
 
@@ -56,6 +61,7 @@ const updateDepartmentById = async (
   payload: Partial<TDepartment>,
 ) => {
   const department = await Department.findById(id);
+
   if (!department) {
     throw new HttpError(404, `No department found with ID: ${id}`);
   }
@@ -90,6 +96,7 @@ const updateDepartmentById = async (
 };
 
 const deleteDepartmentById = async (id: string) => {
+
   const deletedDepartment = await Department.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
@@ -99,6 +106,7 @@ const deleteDepartmentById = async (id: string) => {
   if (!deletedDepartment) {
     throw new HttpError(404, `No department found with ID: ${id}`);
   }
+
   return deletedDepartment;
 };
 
