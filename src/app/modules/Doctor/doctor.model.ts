@@ -12,12 +12,12 @@ import {
 import {
   validateDateRange,
   validateOffDays,
-  validateTimeRange,
 } from './doctor.utils';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
 } from '../../utils/modelSpecific/queryFilters';
+import { validateTimeRange } from '../../utils/modelSpecific/validateTimeRange';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { model, Schema } from 'mongoose';
 import {
   TAddress,
@@ -16,6 +17,7 @@ import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
 } from '../../utils/modelSpecific/queryFilters';
+import { validateTimeRange } from '../../utils/modelSpecific/validateTimeRange';
 
 const contactInformationSchema = new Schema<TContactInformation>({
   phone: {
@@ -347,6 +349,16 @@ const staffSchema = new Schema<TStaff>(
     versionKey: false,
   },
 );
+
+
+// check if start time before end time
+staffSchema.pre("save", async function (next) {
+  try {
+    validateTimeRange(this.workSchedule.startTime, this.workSchedule.endTime, "Start time cannot be later than end time in working schedule")
+  } catch (err: any) {
+    next(err)
+  }
+})
 
 // query middleware for soft delete by utils
 staffSchema.pre('find', excludeDeletedQuery);
