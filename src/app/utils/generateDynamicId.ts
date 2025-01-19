@@ -5,7 +5,8 @@ import moment from 'moment-timezone';
 export const generateDynamicId = async (model: any, prefix: string) => {
   try {
     const lastRecord = await model
-      .findOne({}, { id: 1, _id: 0 })
+      .findOne({})
+      .select("id")
       .sort({ createdAt: -1 })
       .lean();
 

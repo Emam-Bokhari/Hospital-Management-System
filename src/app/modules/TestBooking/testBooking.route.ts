@@ -1,9 +1,11 @@
 import express from 'express';
 import { TestBookingControllers } from './testBooking.controller';
+import { validateRequestSchema } from '../../middlewares/validateRequestSchema';
+import { TestBookingValidationSchema } from './testBooking.validation';
 
 const router = express.Router();
 
-router.post('/', TestBookingControllers.createTestBookingController);
+router.post('/', validateRequestSchema(TestBookingValidationSchema.createTestBookingValidationSchema), TestBookingControllers.createTestBookingController);
 
 router.get('/', TestBookingControllers.getAllTestBookingsController);
 
