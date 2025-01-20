@@ -51,6 +51,22 @@ const updateBedById = async (id: string, payload: Partial<TBed>) => {
 
 }
 
+const updateBedAvailabilityStatusById = async (id: string, availabilityStatus: string) => {
+    const validateAvailabilityStatuses = ["available", "occupied", "maintenance"]
+
+    if (!validateAvailabilityStatuses.includes(availabilityStatus)) {
+        throw new HttpError(400, `Invalid status: ${availabilityStatus}`)
+    }
+
+    const updatedBedAvailabilityStatus = await Bed.findOneAndUpdate({ _id: id, isDeleted: false }, { availabilityStatus }, { new: true, runValidators: true });
+
+    if (!updatedBedAvailabilityStatus) {
+        throw new HttpError(404, `No bed found with Id: ${id}`)
+    };
+
+    return updatedBedAvailabilityStatus;
+}
+
 const deleteBedById = async (id: string) => {
     const deletedBed = await Bed.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true })
     if (!deletedBed) {
@@ -64,5 +80,6 @@ export const BedServices = {
     getAllBeds,
     getBedById,
     updateBedById,
+    updateBedAvailabilityStatusById,
     deleteBedById,
 }
