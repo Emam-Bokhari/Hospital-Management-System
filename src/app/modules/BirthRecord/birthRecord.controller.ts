@@ -37,8 +37,22 @@ const getBirthRecordController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateBirthRecordController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedBirthRecord = await BirthRecordServices.updateBirthRecordById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Birth record updated successfully",
+        statusCode: 200,
+        data: updatedBirthRecord,
+    })
+})
+
 export const BirthRecordControllers = {
     createBirthRecordController,
     getAllBirthRecordsController,
     getBirthRecordController,
+    updateBirthRecordController,
 }
