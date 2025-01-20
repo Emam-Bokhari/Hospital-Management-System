@@ -36,8 +36,22 @@ const getDeathRecordController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateDeathRecordController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedDeathRecord = await DeathRecordServices.updateDeathRecordById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Death record updated successfully",
+        statusCode: 200,
+        data: updatedDeathRecord
+    })
+})
+
 export const DeathRecordControllers = {
     createDeathRecordController,
     getAllDeathRecordsController,
     getDeathRecordController,
+    updateDeathRecordController,
 }
