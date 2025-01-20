@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StaffRole = void 0;
 const mongoose_1 = require("mongoose");
-const queryFilters_1 = require("../../utils/queryFilters");
+const queryFilters_1 = require("../../utils/modelSpecific/queryFilters");
 const staffRoleSchema = new mongoose_1.Schema({
     name: {
         type: String,

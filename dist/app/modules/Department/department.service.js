@@ -22,7 +22,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DepartmentServices = void 0;
 const HttpError_1 = require("../../errors/HttpError");
-const updateArrayField_1 = require("../../utils/updateArrayField");
+const updateArrayField_1 = require("../../utils/modelSpecific/updateArrayField");
 const specialization_model_1 = require("../Specialization/specialization.model");
 const department_model_1 = require("./department.model");
 const createDepartment = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,10 +34,10 @@ const createDepartment = (payload) => __awaiter(void 0, void 0, void 0, function
         throw new HttpError_1.HttpError(404, 'No specialization found the provided ID');
     }
     // check if department is already exist the same specialization
-    const department = yield department_model_1.Department.findOne({
+    const existingDepartment = yield department_model_1.Department.findOne({
         specialization: payload.specialization,
     });
-    if (department) {
+    if (existingDepartment) {
         throw new HttpError_1.HttpError(400, 'A department with the same specialization already exists.');
     }
     const createdDepartment = yield department_model_1.Department.create(payload);
@@ -45,8 +45,8 @@ const createDepartment = (payload) => __awaiter(void 0, void 0, void 0, function
 });
 const getAllDepartments = () => __awaiter(void 0, void 0, void 0, function* () {
     const departments = yield department_model_1.Department.find()
-        .populate({ path: 'specialization', populate: { path: 'createdBy' } })
-        .populate('createdBy');
+        .populate({ path: 'specialization', select: "name", populate: { path: 'createdBy', select: "firstName lastName email" } })
+        .populate({ path: 'createdBy', select: "firstName lastName email" });
     if (departments.length === 0) {
         throw new HttpError_1.HttpError(404, 'No department were found in the database');
     }
@@ -54,8 +54,8 @@ const getAllDepartments = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getDepartmentById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const department = yield department_model_1.Department.findById(id)
-        .populate({ path: 'specialization', populate: { path: 'createdBy' } })
-        .populate('createdBy');
+        .populate({ path: 'specialization', select: "name", populate: { path: 'createdBy', select: "firstName lastName email" } })
+        .populate({ path: 'createdBy', select: "firstName lastName email" });
     if (!department) {
         throw new HttpError_1.HttpError(404, `No department found with ID: ${id}`);
     }

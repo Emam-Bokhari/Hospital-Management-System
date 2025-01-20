@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StaffRoleValidationSchema = void 0;
+exports.StaffRoleValidationSchema = exports.createStaffRoleValidationSchema = void 0;
 const zod_1 = require("zod");
-exports.StaffRoleValidationSchema = zod_1.z.object({
+exports.createStaffRoleValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z
             .string()
@@ -13,3 +13,6 @@ exports.StaffRoleValidationSchema = zod_1.z.object({
         isDeleted: zod_1.z.boolean().default(false),
     }),
 });
+exports.StaffRoleValidationSchema = {
+    createStaffRoleValidationSchema: exports.createStaffRoleValidationSchema,
+};

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const mongoose_1 = require("mongoose");
-const queryFilters_1 = require("../../utils/queryFilters");
+const queryFilters_1 = require("../../utils/modelSpecific/queryFilters");
 const userSchema = new mongoose_1.Schema({
     firstName: {
         type: String,

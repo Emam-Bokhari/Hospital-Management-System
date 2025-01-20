@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DepartmentValidationSchema = void 0;
 const zod_1 = require("zod");
-const createSymptomsAddressed = zod_1.z.object({
+const createSymptomsAddressedValidationSchema = zod_1.z.object({
     symptom: zod_1.z
         .string()
         .trim()
@@ -14,7 +14,7 @@ const createSymptomsAddressed = zod_1.z.object({
         .min(20, 'Description is required and must contain at least 20 characters')
         .max(1000, 'Description can not exceed 1000 characters'),
 });
-const updateSymptomsAddressed = zod_1.z.object({
+const updateSymptomsAddressedValidationSchema = zod_1.z.object({
     symptom: zod_1.z
         .string()
         .trim()
@@ -28,7 +28,7 @@ const updateSymptomsAddressed = zod_1.z.object({
         .max(1000, 'Description can not exceed 1000 characters')
         .optional(),
 });
-const createPossibleCauses = zod_1.z.object({
+const createPossibleCausesValidationSchema = zod_1.z.object({
     cause: zod_1.z
         .string()
         .trim()
@@ -40,7 +40,7 @@ const createPossibleCauses = zod_1.z.object({
         .min(20, 'Description is required and must contain at least 20 characters')
         .max(1000, 'Description can not exceed 1000 characters'),
 });
-const updatePossibleCauses = zod_1.z.object({
+const updatePossibleCausesValidationSchema = zod_1.z.object({
     cause: zod_1.z
         .string()
         .trim()
@@ -68,8 +68,8 @@ const createDepartmentValidationSchema = zod_1.z.object({
             .trim()
             .min(20, 'Description is required and must contain at least 20 characters')
             .max(1000, 'Description can not exceed 1000 characters'),
-        symptomsAddressed: zod_1.z.array(createSymptomsAddressed),
-        possibleCauses: zod_1.z.array(createPossibleCauses),
+        symptomsAddressed: zod_1.z.array(createSymptomsAddressedValidationSchema),
+        possibleCauses: zod_1.z.array(createPossibleCausesValidationSchema),
         status: zod_1.z.enum(['active', 'inActive']).default('active'),
         createdBy: zod_1.z.string().optional(),
         isDeleted: zod_1.z.boolean().default(false),
@@ -91,8 +91,8 @@ const updateDepartmentValidationSchema = zod_1.z.object({
             .min(20, 'Description is required and must contain at least 20 characters')
             .max(1000, 'Description can not exceed 1000 characters')
             .optional(),
-        symptomsAddressed: zod_1.z.array(updateSymptomsAddressed).optional(),
-        possibleCauses: zod_1.z.array(updatePossibleCauses).optional(),
+        symptomsAddressed: zod_1.z.array(updateSymptomsAddressedValidationSchema).optional(),
+        possibleCauses: zod_1.z.array(updatePossibleCausesValidationSchema).optional(),
         status: zod_1.z.enum(['active', 'inActive']).default('active'),
         createdBy: zod_1.z.string().optional(),
         isDeleted: zod_1.z.boolean().default(false),
