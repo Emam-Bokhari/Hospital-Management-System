@@ -11,6 +11,8 @@ router.get("/:id", BedControllers.getBedController);
 
 router.patch("/:id", BedControllers.updateBedController);
 
+router.patch("/:id/status", BedControllers.updateBedAvailabilityStatusController)
+
 router.delete("/:id", BedControllers.deleteBedController);
 
 export const BedRoutes = router;
