@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TBed } from "./bed.interface";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/modelSpecific/queryFilters";
 
 const bedSchema = new Schema<TBed>({
     bedType: {
@@ -51,5 +52,12 @@ const bedSchema = new Schema<TBed>({
         versionKey: false,
     }
 );
+
+// query middleware for soft delete by utils
+bedSchema.pre("find", excludeDeletedQuery);
+bedSchema.pre("findOne", excludeDeletedQuery);
+
+// aggregate middleware for soft delete by utils
+bedSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const Bed = model<TBed>("Bed", bedSchema);
