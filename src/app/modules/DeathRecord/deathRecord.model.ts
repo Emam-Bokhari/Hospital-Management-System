@@ -69,6 +69,7 @@ export const deathRecordSchema = new Schema<TDeathRecord>(
         values: ['male', 'female'],
         message: '{VALUE} is not a valid',
       },
+      required: true,
     },
     age: {
       type: Number,
