@@ -50,9 +50,22 @@ const updateBirthRecordController = asyncHandler(async (req, res) => {
     })
 })
 
+const deleteBirthRecordController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const deletedBirthRecord = await BirthRecordServices.deleteBirthRecordById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: "Birth record deleted successfully",
+        statusCode: 200,
+        data: deletedBirthRecord,
+    })
+})
+
 export const BirthRecordControllers = {
     createBirthRecordController,
     getAllBirthRecordsController,
     getBirthRecordController,
     updateBirthRecordController,
+    deleteBirthRecordController,
 }
