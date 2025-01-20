@@ -36,8 +36,22 @@ const getBedController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateBedController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const updatedPayload = req.body;
+    const updatedBed = await BedServices.updateBedById(id, updatedPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "Bed updated successfully",
+        statusCode: 200,
+        data: updatedBed
+    })
+})
+
 export const BedControllers = {
     createBedController,
     getAllBedsController,
     getBedController,
+    updateBedController,
 }
