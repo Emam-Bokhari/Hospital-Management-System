@@ -7,7 +7,6 @@ import { TDoctor } from './doctor.interface';
 import { Doctor } from './doctor.model';
 
 const createDoctor = async (payload: TDoctor) => {
-
   // check if specialization  exists
   const specialization = await Specialization.findOne({
     _id: payload.specialization,
@@ -37,30 +36,33 @@ const createDoctor = async (payload: TDoctor) => {
 };
 
 const getAllDoctors = async () => {
-
   const doctors = await Doctor.find()
     .populate('userId')
-    .populate({ path: 'specialization', select: "name", populate: { path: "createdBy", select: "firstName lastName email" } })
+    .populate({
+      path: 'specialization',
+      select: 'name',
+      populate: { path: 'createdBy', select: 'firstName lastName email' },
+    })
     .populate([
       {
-        path: "department",
-        select: "departmentName",
+        path: 'department',
+        select: 'departmentName',
         populate: [
           {
-            path: "createdBy",
-            select: "firstName lastName email"
+            path: 'createdBy',
+            select: 'firstName lastName email',
           },
           {
-            path: "specialization",
-            select: "name",
+            path: 'specialization',
+            select: 'name',
             populate: {
-              path: "createdBy",
-              select: "firstName lastName email"
-            }
-          }
-        ]
-      }
-    ])
+              path: 'createdBy',
+              select: 'firstName lastName email',
+            },
+          },
+        ],
+      },
+    ]);
 
   if (doctors.length === 0) {
     throw new HttpError(404, 'No doctor were found in the database');
@@ -70,30 +72,33 @@ const getAllDoctors = async () => {
 };
 
 const getDoctorById = async (id: string) => {
-
   const doctor = await Doctor.findById(id)
     .populate('userId')
-    .populate({ path: 'specialization', select: "name", populate: { path: "createdBy", select: "firstName lastName email" } })
+    .populate({
+      path: 'specialization',
+      select: 'name',
+      populate: { path: 'createdBy', select: 'firstName lastName email' },
+    })
     .populate([
       {
-        path: "department",
-        select: "departmentName",
+        path: 'department',
+        select: 'departmentName',
         populate: [
           {
-            path: "createdBy",
-            select: "firstName lastName email"
+            path: 'createdBy',
+            select: 'firstName lastName email',
           },
           {
-            path: "specialization",
-            select: "name",
+            path: 'specialization',
+            select: 'name',
             populate: {
-              path: "createdBy",
-              select: "firstName lastName email"
-            }
-          }
-        ]
-      }
-    ])
+              path: 'createdBy',
+              select: 'firstName lastName email',
+            },
+          },
+        ],
+      },
+    ]);
 
   if (!doctor) {
     throw new HttpError(404, `No doctor found with ID: ${id}`);

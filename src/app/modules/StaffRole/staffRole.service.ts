@@ -4,10 +4,15 @@ import { StaffRole } from './staffRole.model';
 
 const createStaffRole = async (payload: TStaffRole) => {
   // check if staff role name is already exists
-  const existingStaffRole = await StaffRole.findOne({ name: { $regex: new RegExp(`^${payload.name.trim()}$`, "i") } });
+  const existingStaffRole = await StaffRole.findOne({
+    name: { $regex: new RegExp(`^${payload.name.trim()}$`, 'i') },
+  });
 
   if (existingStaffRole) {
-    throw new HttpError(400, "The staff role is already exist, Please choose different staff role name")
+    throw new HttpError(
+      400,
+      'The staff role is already exist, Please choose different staff role name',
+    );
   }
 
   const createdStaffRole = await StaffRole.create(payload);
@@ -16,8 +21,10 @@ const createStaffRole = async (payload: TStaffRole) => {
 };
 
 const getAllStaffRoles = async () => {
-
-  const staffRoles = await StaffRole.find().populate({ path: 'createdBy', select: "firstName lastName email" });
+  const staffRoles = await StaffRole.find().populate({
+    path: 'createdBy',
+    select: 'firstName lastName email',
+  });
 
   if (staffRoles.length === 0) {
     throw new HttpError(404, 'No staff roles were found in the database');
@@ -27,8 +34,10 @@ const getAllStaffRoles = async () => {
 };
 
 const getStaffRoleById = async (id: string) => {
-
-  const staff = await StaffRole.findById(id).populate({ path: 'createdBy', select: "firstName lastName email" });
+  const staff = await StaffRole.findById(id).populate({
+    path: 'createdBy',
+    select: 'firstName lastName email',
+  });
 
   if (!staff) {
     throw new HttpError(404, `No staff role  found with ID:${id}`);
@@ -41,7 +50,6 @@ const updateStaffRoleById = async (
   id: string,
   payload: Partial<TStaffRole>,
 ) => {
-
   const updatedStaffRole = await StaffRole.findOneAndUpdate(
     { _id: id, isDeleted: false },
     payload,
@@ -56,7 +64,6 @@ const updateStaffRoleById = async (
 };
 
 const deleteStaffRoleById = async (id: string) => {
-
   const deletedStaffRole = await StaffRole.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
@@ -66,7 +73,6 @@ const deleteStaffRoleById = async (id: string) => {
   if (!deletedStaffRole) {
     throw new HttpError(404, `No staff role found with ID:${id}`);
   }
-
 };
 
 export const StaffRoleServices = {

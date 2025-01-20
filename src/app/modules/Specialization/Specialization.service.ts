@@ -6,7 +6,9 @@ const createSpecialization = async (payload: TSpecialization) => {
   // check if specialization name is already exists
   const existingSpecialization = await Specialization.findOne({
     name: { $regex: new RegExp(`^${payload.name.trim()},"i`) },
-  }).select("name").lean();
+  })
+    .select('name')
+    .lean();
 
   if (existingSpecialization) {
     throw new HttpError(
@@ -21,7 +23,10 @@ const createSpecialization = async (payload: TSpecialization) => {
 };
 
 const getAllSpecializations = async () => {
-  const specializations = await Specialization.find().populate({ path: "createdBy", select: "firstName lastName email" });
+  const specializations = await Specialization.find().populate({
+    path: 'createdBy',
+    select: 'firstName lastName email',
+  });
 
   if (specializations.length === 0) {
     throw new HttpError(404, 'No specialization were found in the database');
@@ -30,8 +35,10 @@ const getAllSpecializations = async () => {
 };
 
 const getSpecializationById = async (id: string) => {
-
-  const specialization = await Specialization.findById(id).populate({ path: "createdBy", select: "firstName lastName email" });;
+  const specialization = await Specialization.findById(id).populate({
+    path: 'createdBy',
+    select: 'firstName lastName email',
+  });
 
   if (!specialization) {
     throw new HttpError(404, `No specialization found with ID: ${id}`);
@@ -43,7 +50,6 @@ const updateSpecializationById = async (
   id: string,
   payload: TSpecialization,
 ) => {
-
   const existingSpecialization = await Specialization.findOne({
     _id: id,
     name: payload.name,

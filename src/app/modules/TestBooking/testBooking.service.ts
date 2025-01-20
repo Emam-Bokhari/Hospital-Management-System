@@ -32,10 +32,13 @@ const createTestBooking = async (payload: TTestBooking) => {
 };
 
 const getAllTestBookings = async () => {
-
   const testBookings = await TestBooking.find()
     .populate('userId')
-    .populate({ path: 'test', select: "testName testCategory price", populate: { path: 'createdBy', select: "firstName lastName email" } });
+    .populate({
+      path: 'test',
+      select: 'testName testCategory price',
+      populate: { path: 'createdBy', select: 'firstName lastName email' },
+    });
 
   if (testBookings.length === 0) {
     throw new HttpError(404, 'No test bookings were found in the database');
@@ -45,10 +48,13 @@ const getAllTestBookings = async () => {
 };
 
 const getTestBookingById = async (id: string) => {
-
   const testBooking = await TestBooking.findById(id)
     .populate('userId')
-    .populate({ path: 'test', select: "testName testCategory price", populate: { path: 'createdBy', select: "firstName lastName email" } });
+    .populate({
+      path: 'test',
+      select: 'testName testCategory price',
+      populate: { path: 'createdBy', select: 'firstName lastName email' },
+    });
 
   if (!testBooking) {
     throw new HttpError(404, `No test booking found with ID: ${id}`);
@@ -58,7 +64,6 @@ const getTestBookingById = async (id: string) => {
 };
 
 const updateTestBookingStatusById = async (id: string, status: string) => {
-
   const validStatuses = ['pending', 'confirmed', 'completed', 'cancelled'];
 
   if (!validStatuses.includes(status)) {

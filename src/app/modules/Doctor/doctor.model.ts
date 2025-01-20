@@ -9,10 +9,7 @@ import {
   TMedicalPracticeInformation,
   TPreviousWorkPlace,
 } from './doctor.interface';
-import {
-  validateDateRange,
-  validateOffDays,
-} from './doctor.utils';
+import { validateDateRange, validateOffDays } from './doctor.utils';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,

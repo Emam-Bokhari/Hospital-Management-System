@@ -350,15 +350,18 @@ const staffSchema = new Schema<TStaff>(
   },
 );
 
-
 // check if start time before end time
-staffSchema.pre("save", async function (next) {
+staffSchema.pre('save', async function (next) {
   try {
-    validateTimeRange(this.workSchedule.startTime, this.workSchedule.endTime, "Start time cannot be later than end time in working schedule")
+    validateTimeRange(
+      this.workSchedule.startTime,
+      this.workSchedule.endTime,
+      'Start time cannot be later than end time in working schedule',
+    );
   } catch (err: any) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // query middleware for soft delete by utils
 staffSchema.pre('find', excludeDeletedQuery);

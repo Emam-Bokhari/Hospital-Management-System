@@ -3,12 +3,13 @@ import { StaffRoleControllers } from './staffRole.controller';
 import { validateRequestSchema } from '../../middlewares/validateRequestSchema';
 import { StaffRoleValidationSchema } from './staffRole.validation';
 
-
 const router = express.Router();
 
 router.post(
   '/',
-  validateRequestSchema(StaffRoleValidationSchema.createStaffRoleValidationSchema),
+  validateRequestSchema(
+    StaffRoleValidationSchema.createStaffRoleValidationSchema,
+  ),
   StaffRoleControllers.createStaffRoleController,
 );
 
@@ -18,7 +19,9 @@ router.get('/:id', StaffRoleControllers.getStaffRoleController);
 
 router.patch(
   '/:id',
-  validateRequestSchema(StaffRoleValidationSchema.createStaffRoleValidationSchema),
+  validateRequestSchema(
+    StaffRoleValidationSchema.createStaffRoleValidationSchema,
+  ),
   StaffRoleControllers.updateStaffRoleController,
 );
 

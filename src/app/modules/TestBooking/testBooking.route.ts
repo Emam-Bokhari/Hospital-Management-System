@@ -5,7 +5,13 @@ import { TestBookingValidationSchema } from './testBooking.validation';
 
 const router = express.Router();
 
-router.post('/', validateRequestSchema(TestBookingValidationSchema.createTestBookingValidationSchema), TestBookingControllers.createTestBookingController);
+router.post(
+  '/',
+  validateRequestSchema(
+    TestBookingValidationSchema.createTestBookingValidationSchema,
+  ),
+  TestBookingControllers.createTestBookingController,
+);
 
 router.get('/', TestBookingControllers.getAllTestBookingsController);
 

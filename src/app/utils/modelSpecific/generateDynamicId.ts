@@ -6,7 +6,7 @@ export const generateDynamicId = async (model: any, prefix: string) => {
   try {
     const lastRecord = await model
       .findOne({})
-      .select("id")
+      .select('id')
       .sort({ createdAt: -1 })
       .lean();
 
@@ -16,8 +16,8 @@ export const generateDynamicId = async (model: any, prefix: string) => {
     const lastUniquePart = lastRecord?.id?.slice(13);
 
     // get current date in YYYYMMDD format
-    const today = moment.tz("Asia/Dhaka");
-    const dateFormatted = today.format("YYYYMMDD");
+    const today = moment.tz('Asia/Dhaka');
+    const dateFormatted = today.format('YYYYMMDD');
 
     if (lastDatePart === dateFormatted) {
       const nextUniquePart = (parseInt(lastUniquePart, 10) + 1)

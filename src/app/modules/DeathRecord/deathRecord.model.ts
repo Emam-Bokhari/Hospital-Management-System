@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { TAddress, TBirthRecord, TGuardian } from './birthRecord.interface';
+import { TAddress, TDeathRecord, TGuardian } from './deathRecord.interface';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
@@ -57,7 +57,7 @@ const addressSchema = new Schema<TAddress>({
   },
 });
 
-export const birthRecordSchema = new Schema<TBirthRecord>(
+export const deathRecordSchema = new Schema<TDeathRecord>(
   {
     guardian: {
       type: guardianSchema,
@@ -70,26 +70,30 @@ export const birthRecordSchema = new Schema<TBirthRecord>(
         message: '{VALUE} is not a valid',
       },
     },
-    birthDate: {
+    age: {
+      type: Number,
+      trim: true,
+      required: true,
+    },
+    deathDate: {
       type: Date,
       required: true,
     },
-    placeOfBirth: {
+    deathTime: {
+      type: String,
+    },
+    placeOfDeath: {
       type: String,
       trim: true,
       required: true,
     },
-    birthTime: {
+    causeOfDeath: {
       type: String,
-    },
-    birthWeight: {
-      type: Number,
       trim: true,
       required: true,
     },
-    birthLength: {
-      type: Number,
-      trim: true,
+    deathCertificateNo: {
+      type: String,
     },
     address: {
       type: addressSchema,
@@ -126,13 +130,13 @@ export const birthRecordSchema = new Schema<TBirthRecord>(
 );
 
 // query middleware for soft delete by utils
-birthRecordSchema.pre('find', excludeDeletedQuery);
-birthRecordSchema.pre('findOne', excludeDeletedQuery);
+deathRecordSchema.pre('find', excludeDeletedQuery);
+deathRecordSchema.pre('findOne', excludeDeletedQuery);
 
 // aggregate middleware for soft delete by utils
-birthRecordSchema.pre('aggregate', excludeDeletedAggregation);
+deathRecordSchema.pre('aggregate', excludeDeletedAggregation);
 
-export const BirthRecord = model<TBirthRecord>(
-  'BirthRecord',
-  birthRecordSchema,
+export const DeathRecord = model<TDeathRecord>(
+  'DeathRecord',
+  deathRecordSchema,
 );

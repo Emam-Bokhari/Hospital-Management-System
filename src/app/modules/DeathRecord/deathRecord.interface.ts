@@ -17,14 +17,15 @@ export type TAddress = {
   postalCode?: string;
 };
 
-export type TBirthRecord = {
+export type TDeathRecord = {
   guardian: TGuardian;
   gender: 'male' | 'female';
-  birthDate: Date;
-  placeOfBirth: string;
-  birthTime?: string;
-  birthWeight: number;
-  birthLength?: number;
+  age: number;
+  deathDate: Date;
+  deathTime?: string;
+  placeOfDeath: string;
+  causeOfDeath: string;
+  deathCertificateNo?: string;
   address: TAddress;
   nationality: string;
   religion: string;

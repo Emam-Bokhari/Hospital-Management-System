@@ -23,8 +23,10 @@ const createTest = async (payload: TTest) => {
 };
 
 const getAllTests = async () => {
-
-  const tests = await Test.find().populate({ path: "createdBy", select: "firstName lastName email" });
+  const tests = await Test.find().populate({
+    path: 'createdBy',
+    select: 'firstName lastName email',
+  });
 
   if (tests.length === 0) {
     throw new HttpError(404, 'No tests were found in the database');
@@ -33,8 +35,10 @@ const getAllTests = async () => {
 };
 
 const getTestById = async (id: string) => {
-
-  const test = await Test.findById(id).populate({ path: "createdBy", select: "firstName lastName email" });
+  const test = await Test.findById(id).populate({
+    path: 'createdBy',
+    select: 'firstName lastName email',
+  });
 
   if (!test) {
     throw new HttpError(404, `No test found with ID:${id}`);
@@ -44,7 +48,6 @@ const getTestById = async (id: string) => {
 };
 
 const updateTestById = async (id: string, payload: Partial<TTest>) => {
-
   const test = await Test.findOne({
     testName: { $regex: new RegExp(`^${payload.testName}$`, 'i') },
   })
@@ -59,7 +62,6 @@ const updateTestById = async (id: string, payload: Partial<TTest>) => {
   }
 
   const updatedTest = await Test.findOneAndUpdate(
-
     { _id: id, isDeleted: false },
     payload,
     { new: true, runValidators: true },
@@ -73,7 +75,6 @@ const updateTestById = async (id: string, payload: Partial<TTest>) => {
 };
 
 const deleteTestById = async (id: string) => {
-
   const deletedTest = await Test.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
@@ -89,7 +90,6 @@ const updateTestAvailabilityById = async (
   id: string,
   payload: TTestAvailabilityUpdate,
 ) => {
-
   if (payload.testAvailability === undefined) {
     throw new HttpError(400, 'Test availability status is required');
   }

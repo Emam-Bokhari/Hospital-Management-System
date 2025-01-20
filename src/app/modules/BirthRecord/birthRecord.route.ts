@@ -1,16 +1,16 @@
-import express from "express";
-import { BirthRecordControllers } from "./birthRecord.controller";
+import express from 'express';
+import { BirthRecordControllers } from './birthRecord.controller';
 
 const router = express.Router();
 
-router.post("/", BirthRecordControllers.createBirthRecordController);
+router.post('/', BirthRecordControllers.createBirthRecordController);
 
-router.get("/", BirthRecordControllers.getAllBirthRecordsController);
+router.get('/', BirthRecordControllers.getAllBirthRecordsController);
 
-router.get("/:id", BirthRecordControllers.getBirthRecordController);
+router.get('/:id', BirthRecordControllers.getBirthRecordController);
 
-router.patch("/:id", BirthRecordControllers.updateBirthRecordController);
+router.patch('/:id', BirthRecordControllers.updateBirthRecordController);
 
-router.delete("/:id", BirthRecordControllers.deleteBirthRecordController);
+router.delete('/:id', BirthRecordControllers.deleteBirthRecordController);
 
 export const BirthRecordRoutes = router;
