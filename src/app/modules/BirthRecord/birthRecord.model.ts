@@ -69,6 +69,7 @@ export const birthRecordSchema = new Schema<TBirthRecord>(
         values: ['male', 'female'],
         message: '{VALUE} is not a valid',
       },
+      required: true,
     },
     birthDate: {
       type: Date,
