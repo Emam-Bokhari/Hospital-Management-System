@@ -26,7 +26,18 @@ const getAllBirthRecords = async () => {
     return birthRecords;
 }
 
+const getBirthRecordById = async (id: string) => {
+    const birthRecord = await BirthRecord.findById(id);
+
+    if (!birthRecord) {
+        throw new HttpError(404, `No department found with ID: ${id}`)
+    }
+
+    return birthRecord;
+}
+
 export const BirthRecordServices = {
     createBirthRecord,
     getAllBirthRecords,
+    getBirthRecordById,
 }
