@@ -64,9 +64,21 @@ const updateBirthRecordById = async (id: string, payload: Partial<TBirthRecord>)
 
 }
 
+const deleteBirthRecordById = async (id: string) => {
+
+    const deletedBirthRecord = await BirthRecord.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true })
+
+    if (!deletedBirthRecord) {
+        throw new HttpError(404, `No birth record found with ID: ${id}`)
+    }
+
+    return deletedBirthRecord;
+}
+
 export const BirthRecordServices = {
     createBirthRecord,
     getAllBirthRecords,
     getBirthRecordById,
     updateBirthRecordById,
+    deleteBirthRecordById,
 }
