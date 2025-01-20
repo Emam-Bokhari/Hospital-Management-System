@@ -8,7 +8,7 @@ const createBed = async (payload: TBed) => {
 };
 
 const getAllBeds = async () => {
-    const beds = await Bed.find();
+    const beds = await Bed.find().populate({ path: "createdBy", select: "firstName lastName email role" });
 
     if (beds.length === 0) {
         throw new HttpError(404, "No bed were found in the database")
@@ -18,7 +18,7 @@ const getAllBeds = async () => {
 }
 
 const getBedById = async (id: string) => {
-    const bed = await Bed.findById(id);
+    const bed = await Bed.findById(id).populate({ path: "createdBy", select: "firstName lastName email role" });;
 
     if (!bed) {
         throw new HttpError(404, `No bed found with ID: ${id}`)
