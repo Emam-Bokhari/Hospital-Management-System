@@ -20,7 +20,7 @@ const createDeathRecord = async (payload: TDeathRecord) => {
 
 const getAllDeathRecords = async () => {
 
-    const deathRecords = await DeathRecord.find();
+    const deathRecords = await DeathRecord.find().populate({ path: "createdBy", select: "firstName lastName email role" });
 
     if (deathRecords.length === 0) {
         throw new HttpError(404, "No death record were found in the database")
@@ -30,7 +30,7 @@ const getAllDeathRecords = async () => {
 }
 
 const getDeathRecordById = async (id: string) => {
-    const deathRecord = await DeathRecord.findById(id);
+    const deathRecord = await DeathRecord.findById(id).populate({ path: "createdBy", select: "firstName lastName email role" });;
     if (!deathRecord) {
         throw new HttpError(404, `No death record found with ID: ${id}`);
     }
