@@ -27,8 +27,33 @@ const getBedById = async (id: string) => {
     return bed;
 }
 
+const updateBedById = async (id: string, payload: Partial<TBed>) => {
+
+    const { facilities, ...remainingBedData } = payload;
+
+    const modifiedUpdatedData: Record<string, unknown> = {
+        ...remainingBedData,
+    }
+
+    //  update array fields
+    if (facilities) {
+        modifiedUpdatedData.facilities = { $each: facilities };
+    }
+
+    const updatedBed = await Bed.updateOne({ _id: id }, { $set: modifiedUpdatedData }, { new: true, runValidators: true })
+
+    if (!updatedBed) {
+        throw new HttpError(404, `No bed found with ID: ${id}`)
+    };
+
+    return updatedBed;
+
+
+}
+
 export const BedServices = {
     createBed,
     getAllBeds,
     getBedById,
+    updateBedById,
 }
