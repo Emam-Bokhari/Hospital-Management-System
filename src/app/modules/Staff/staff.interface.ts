@@ -28,12 +28,12 @@ export type TEmergencyContact = {
 };
 
 export type TNid = {
-  number: number;
+  number: string;
   scannedCopy: string;
 };
 
 export type TBirthCertificate = {
-  number: number;
+  number: string;
   scannedCopy: string;
 };
 
@@ -42,9 +42,9 @@ export type TGuardian = {
   relationship: string;
   phone: string;
   email?: string;
-  nidNumber: number;
+  nidNumber: string;
   nidScannedCopy: string;
-  birthCertificateNumber?: number;
+  birthCertificateNumber?: string;
   birthCertificateScannedCopy?: string;
 };
 

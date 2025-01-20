@@ -5,7 +5,7 @@ export type TGuardian = {
     relationship: string;
     phone: string;
     email?: string;
-    nidNumber?: number;
+    nidNumber?: string;
     nidScannedCopy?: string;
 }
 
@@ -29,4 +29,6 @@ export type TBirthRecord = {
     nationality: string;
     religion: string;
     doctor: Types.ObjectId;
+    createdBy: Types.ObjectId;
+    isDeleted: boolean;
 }
