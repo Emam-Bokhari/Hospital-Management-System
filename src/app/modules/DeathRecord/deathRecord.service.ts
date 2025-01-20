@@ -28,7 +28,17 @@ const getAllDeathRecords = async () => {
     return deathRecords;
 }
 
+const getDeathRecordById = async (id: string) => {
+    const deathRecord = await DeathRecord.findById(id);
+    if (!deathRecord) {
+        throw new HttpError(404, `No death record found with ID: ${id}`);
+    }
+
+    return deathRecord;
+}
+
 export const DeathRecordServices = {
     createDeathRecord,
     getAllDeathRecords,
+    getDeathRecordById,
 }
