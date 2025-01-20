@@ -49,9 +49,21 @@ const updateDeathRecordController = asyncHandler(async (req, res) => {
     })
 })
 
+const deleteDeathRecordController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const deletedDeathRecord = await DeathRecordServices.deleteDeathRecordById(id);
+    sendResponse(res, {
+        success: true,
+        message: "Death record deleted successfully",
+        statusCode: 200,
+        data: deletedDeathRecord,
+    })
+})
+
 export const DeathRecordControllers = {
     createDeathRecordController,
     getAllDeathRecordsController,
     getDeathRecordController,
     updateDeathRecordController,
+    deleteDeathRecordController,
 }
