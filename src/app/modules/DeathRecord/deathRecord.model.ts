@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TAddress, TDeathRecord, TGuardian } from "./deathRecord.interface";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/modelSpecific/queryFilters";
 
 const guardianSchema = new Schema<TGuardian>({
     name: {
@@ -123,6 +124,13 @@ export const deathRecordSchema = new Schema<TDeathRecord>({
         versionKey: false,
     }
 )
+
+// query middleware for soft delete by utils
+deathRecordSchema.pre("find", excludeDeletedQuery);
+deathRecordSchema.pre("findOne", excludeDeletedQuery);
+
+// aggregate middleware for soft delete by utils
+deathRecordSchema.pre("aggregate", excludeDeletedAggregation)
 
 
 export const DeathRecord = model<TDeathRecord>("DeathRecord", deathRecordSchema)
