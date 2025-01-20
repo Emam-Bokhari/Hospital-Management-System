@@ -14,6 +14,18 @@ const createBirthRecordController = asyncHandler(async (req, res) => {
     })
 });
 
+const getAllBirthRecordsController = asyncHandler(async (req, res) => {
+    const birthRecords = await BirthRecordServices.getAllBirthRecords();
+
+    sendResponse(res, {
+        success: true,
+        message: "Birth records retrieved successfully",
+        statusCode: 200,
+        data: birthRecords,
+    })
+})
+
 export const BirthRecordControllers = {
     createBirthRecordController,
+    getAllBirthRecordsController,
 }
