@@ -64,9 +64,20 @@ const updateDeathRecordById = async (id: string, payload: Partial<TDeathRecord>)
     return updatedDeathRecord;
 }
 
+const deleteDeathRecordById = async (id: string) => {
+    const deletedDeathRecord = await DeathRecord.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true });
+
+    if (!deletedDeathRecord) {
+        throw new HttpError(404, `No death record found with ID: ${id}`);
+    }
+
+    return deletedDeathRecord;
+}
+
 export const DeathRecordServices = {
     createDeathRecord,
     getAllDeathRecords,
     getDeathRecordById,
     updateDeathRecordById,
+    deleteDeathRecordById,
 }
