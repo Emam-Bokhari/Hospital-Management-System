@@ -79,7 +79,7 @@ const addressSchema = new Schema<TAddress>({
 
 const nidSchema = new Schema<TNid>({
   number: {
-    type: Number,
+    type: String,
     trim: true,
   },
   scannedCopy: {
@@ -90,7 +90,7 @@ const nidSchema = new Schema<TNid>({
 
 const birthCertificateSchema = new Schema<TBirthCertificate>({
   number: {
-    type: Number,
+    type: String,
     trim: true,
     required: true,
   },
@@ -122,7 +122,7 @@ const guardianSchema = new Schema<TGuardian>({
     trim: true,
   },
   nidNumber: {
-    type: Number,
+    type: String,
     trim: true,
     required: true,
   },
