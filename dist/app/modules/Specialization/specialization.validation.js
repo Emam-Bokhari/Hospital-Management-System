@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpecializationValidationSchema = void 0;
+exports.SpecializationValidationSchema = exports.createSpecializationValidationSchema = void 0;
 const zod_1 = require("zod");
-exports.SpecializationValidationSchema = zod_1.z.object({
+exports.createSpecializationValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z
             .string()
@@ -13,3 +13,6 @@ exports.SpecializationValidationSchema = zod_1.z.object({
         isDeleted: zod_1.z.boolean().default(false),
     }),
 });
+exports.SpecializationValidationSchema = {
+    createSpecializationValidationSchema: exports.createSpecializationValidationSchema,
+};

@@ -13,18 +13,23 @@ exports.StaffRoleServices = void 0;
 const HttpError_1 = require("../../errors/HttpError");
 const staffRole_model_1 = require("./staffRole.model");
 const createStaffRole = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // check if staff role name is already exists
+    const existingStaffRole = yield staffRole_model_1.StaffRole.findOne({ name: { $regex: new RegExp(`^${payload.name.trim()}$`, "i") } });
+    if (existingStaffRole) {
+        throw new HttpError_1.HttpError(400, "The staff role is already exist, Please choose different staff role name");
+    }
     const createdStaffRole = yield staffRole_model_1.StaffRole.create(payload);
     return createdStaffRole;
 });
 const getAllStaffRoles = () => __awaiter(void 0, void 0, void 0, function* () {
-    const staffRoles = yield staffRole_model_1.StaffRole.find().populate('createdBy');
+    const staffRoles = yield staffRole_model_1.StaffRole.find().populate({ path: 'createdBy', select: "firstName lastName email" });
     if (staffRoles.length === 0) {
         throw new HttpError_1.HttpError(404, 'No staff roles were found in the database');
     }
     return staffRoles;
 });
 const getStaffRoleById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const staff = yield staffRole_model_1.StaffRole.findById(id).populate('createdBy');
+    const staff = yield staffRole_model_1.StaffRole.findById(id).populate({ path: 'createdBy', select: "firstName lastName email" });
     if (!staff) {
         throw new HttpError_1.HttpError(404, `No staff role  found with ID:${id}`);
     }

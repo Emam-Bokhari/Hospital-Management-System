@@ -33,7 +33,7 @@ const createTestBooking = (payload) => __awaiter(void 0, void 0, void 0, functio
 const getAllTestBookings = () => __awaiter(void 0, void 0, void 0, function* () {
     const testBookings = yield testBooking_model_1.TestBooking.find()
         .populate('userId')
-        .populate({ path: 'test', populate: { path: 'createdBy' } });
+        .populate({ path: 'test', select: "testName testCategory price", populate: { path: 'createdBy', select: "firstName lastName email" } });
     if (testBookings.length === 0) {
         throw new HttpError_1.HttpError(404, 'No test bookings were found in the database');
     }
@@ -42,7 +42,7 @@ const getAllTestBookings = () => __awaiter(void 0, void 0, void 0, function* () 
 const getTestBookingById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const testBooking = yield testBooking_model_1.TestBooking.findById(id)
         .populate('userId')
-        .populate({ path: 'test', populate: { path: 'createdBy' } });
+        .populate({ path: 'test', select: "testName testCategory price", populate: { path: 'createdBy', select: "firstName lastName email" } });
     if (!testBooking) {
         throw new HttpError_1.HttpError(404, `No test booking found with ID: ${id}`);
     }

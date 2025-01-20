@@ -22,7 +22,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StaffServices = void 0;
 const HttpError_1 = require("../../errors/HttpError");
-const flattenAndUpdate_1 = require("../../utils/flattenAndUpdate");
+const flattenAndUpdate_1 = require("../../utils/modelSpecific/flattenAndUpdate");
 const staffRole_model_1 = require("../StaffRole/staffRole.model");
 const staff_model_1 = require("./staff.model");
 const createStaff = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,7 +37,14 @@ const createStaff = (payload) => __awaiter(void 0, void 0, void 0, function* () 
     return createdStaff;
 });
 const getAllStaffs = () => __awaiter(void 0, void 0, void 0, function* () {
-    const staffs = yield staff_model_1.Staff.find().populate('staffRole').populate('createdBy');
+    const staffs = yield staff_model_1.Staff.find()
+        .populate([
+        {
+            path: 'staffRole', select: "name",
+            populate: { path: "createdBy", select: "firstName lastName email" }
+        }
+    ])
+        .populate({ path: 'createdBy', select: "firstName lastName email" });
     if (staffs.length === 0) {
         throw new HttpError_1.HttpError(404, 'No staffs were found in the database');
     }
@@ -45,8 +52,13 @@ const getAllStaffs = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getStaffById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const staff = yield staff_model_1.Staff.findById(id)
-        .populate('staffRole')
-        .populate('createdBy');
+        .populate([
+        {
+            path: 'staffRole', select: "name",
+            populate: { path: "createdBy", select: "firstName lastName email" }
+        }
+    ])
+        .populate({ path: 'createdBy', select: "firstName lastName email" });
     if (!staff) {
         throw new HttpError_1.HttpError(404, `No staff  found with ID:${id}`);
     }

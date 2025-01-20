@@ -13,26 +13,27 @@ exports.TestServices = void 0;
 const HttpError_1 = require("../../errors/HttpError");
 const test_model_1 = require("./test.model");
 const createTest = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const test = yield test_model_1.Test.findOne({
-        testName: { $regex: new RegExp(`^${payload.testName}$`, 'i') },
+    // check if test name is already exists
+    const existingTest = yield test_model_1.Test.findOne({
+        testName: { $regex: new RegExp(`^${payload.testName.trim()}$`, 'i') },
     })
         .select('testName')
         .lean();
-    if (test) {
-        throw new HttpError_1.HttpError(400, 'The test is already exist, Please choose deferent test name');
+    if (existingTest) {
+        throw new HttpError_1.HttpError(400, ` Test name with the name '${payload.testName}' already exists. Please choose a different name.`);
     }
     const createdTest = yield test_model_1.Test.create(payload);
     return createdTest;
 });
 const getAllTests = () => __awaiter(void 0, void 0, void 0, function* () {
-    const tests = yield test_model_1.Test.find().populate('createdBy');
+    const tests = yield test_model_1.Test.find().populate({ path: "createdBy", select: "firstName lastName email" });
     if (tests.length === 0) {
         throw new HttpError_1.HttpError(404, 'No tests were found in the database');
     }
     return tests;
 });
 const getTestById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const test = yield test_model_1.Test.findById(id).populate('createdBy');
+    const test = yield test_model_1.Test.findById(id).populate({ path: "createdBy", select: "firstName lastName email" });
     if (!test) {
         throw new HttpError_1.HttpError(404, `No test found with ID:${id}`);
     }

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Specialization = exports.specializationSchema = void 0;
 const mongoose_1 = require("mongoose");
-const queryFilters_1 = require("../../utils/queryFilters");
+const queryFilters_1 = require("../../utils/modelSpecific/queryFilters");
 exports.specializationSchema = new mongoose_1.Schema({
     name: {
         type: String,

@@ -15,8 +15,8 @@ const specialization_model_1 = require("./specialization.model");
 const createSpecialization = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // check if specialization name is already exists
     const existingSpecialization = yield specialization_model_1.Specialization.findOne({
-        name: payload.name,
-    });
+        name: { $regex: new RegExp(`^${payload.name.trim()},"i`) },
+    }).select("name").lean();
     if (existingSpecialization) {
         throw new HttpError_1.HttpError(400, `Specialization with the name '${payload.name}' already exists. Please choose a different name.`);
     }
@@ -24,14 +24,15 @@ const createSpecialization = (payload) => __awaiter(void 0, void 0, void 0, func
     return createdSpecialization;
 });
 const getAllSpecializations = () => __awaiter(void 0, void 0, void 0, function* () {
-    const specializations = yield specialization_model_1.Specialization.find();
+    const specializations = yield specialization_model_1.Specialization.find().populate({ path: "createdBy", select: "firstName lastName email" });
     if (specializations.length === 0) {
         throw new HttpError_1.HttpError(404, 'No specialization were found in the database');
     }
     return specializations;
 });
 const getSpecializationById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const specialization = yield specialization_model_1.Specialization.findById(id);
+    const specialization = yield specialization_model_1.Specialization.findById(id).populate({ path: "createdBy", select: "firstName lastName email" });
+    ;
     if (!specialization) {
         throw new HttpError_1.HttpError(404, `No specialization found with ID: ${id}`);
     }

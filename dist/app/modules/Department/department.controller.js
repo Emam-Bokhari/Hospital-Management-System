@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DepartmentControllers = void 0;
-const asyncHandler_1 = require("../../utils/asyncHandler");
-const sendResponse_1 = require("../../utils/sendResponse");
+const asyncHandler_1 = require("../../utils/global/asyncHandler");
+const sendResponse_1 = require("../../utils/global/sendResponse");
 const department_service_1 = require("./department.service");
 const createDepartmentController = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const departmentPayload = req.body;

@@ -13,7 +13,8 @@ exports.Doctor = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const mongoose_1 = require("mongoose");
 const doctor_utils_1 = require("./doctor.utils");
-const queryFilters_1 = require("../../utils/queryFilters");
+const queryFilters_1 = require("../../utils/modelSpecific/queryFilters");
+const validateTimeRange_1 = require("../../utils/modelSpecific/validateTimeRange");
 const contactInformationSchema = new mongoose_1.Schema({
     phone: {
         type: String,
@@ -324,7 +325,7 @@ doctorSchema.pre('save', function (next) {
         try {
             // validate working hours
             this.workingHours.forEach((workingHour) => {
-                (0, doctor_utils_1.validateTimeRange)(workingHour.startTime, workingHour.endTime, 'Start time cannot be later than end time in working hours. ');
+                (0, validateTimeRange_1.validateTimeRange)(workingHour.startTime, workingHour.endTime, 'Start time cannot be later than end time in working hours. ');
             });
             next();
         }

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateAppointmentBookingId = exports.convertDateToDay = exports.convertTimeToMinutes = void 0;
-const generateDynamicId_1 = require("../../utils/generateDynamicId");
+const generateDynamicId_1 = require("../../utils/modelSpecific/generateDynamicId");
 const appointmentBooking_model_1 = require("./appointmentBooking.model");
 const convertTimeToMinutes = (time) => {
     const [hours, minutes] = time.split(':').map(Number);

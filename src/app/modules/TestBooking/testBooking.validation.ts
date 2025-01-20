@@ -69,7 +69,7 @@ const createTestBookingValidationSchema = z.object({
         weight: z
             .number()
             .int('Weight must be an integer')
-            .min(3, 'Weight must be at least 5 kg')
+            .min(3, 'Weight must be at least 3 kg')
             .max(300, 'Weight cannot exceed 300 kg')
             .optional(),
         gender: z.enum(["male", "female"]),

@@ -22,23 +22,22 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorServices = void 0;
 const HttpError_1 = require("../../errors/HttpError");
-const flattenAndUpdate_1 = require("../../utils/flattenAndUpdate");
-const updateArrayField_1 = require("../../utils/updateArrayField");
+const flattenAndUpdate_1 = require("../../utils/modelSpecific/flattenAndUpdate");
+const updateArrayField_1 = require("../../utils/modelSpecific/updateArrayField");
 const department_model_1 = require("../Department/department.model");
 const specialization_model_1 = require("../Specialization/specialization.model");
 const doctor_model_1 = require("./doctor.model");
 const createDoctor = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const specializationId = payload.specialization;
-    // check if specialization is exist
+    // check if specialization  exists
     const specialization = yield specialization_model_1.Specialization.findOne({
-        _id: specializationId,
+        _id: payload.specialization,
     }).select('_id');
     if (!specialization) {
         throw new HttpError_1.HttpError(404, 'No specialization found the provided ID');
     }
-    // check if department is exists by specialization id
+    // Check if a department exists for the given specialization
     const department = yield department_model_1.Department.findOne({
-        specialization: specializationId,
+        specialization: payload.specialization,
     });
     if (!department) {
         throw new HttpError_1.HttpError(404, 'No department found for the given specialization.');
@@ -50,8 +49,27 @@ const createDoctor = (payload) => __awaiter(void 0, void 0, void 0, function* ()
 const getAllDoctors = () => __awaiter(void 0, void 0, void 0, function* () {
     const doctors = yield doctor_model_1.Doctor.find()
         .populate('userId')
-        .populate('specialization')
-        .populate('department');
+        .populate({ path: 'specialization', select: "name", populate: { path: "createdBy", select: "firstName lastName email" } })
+        .populate([
+        {
+            path: "department",
+            select: "departmentName",
+            populate: [
+                {
+                    path: "createdBy",
+                    select: "firstName lastName email"
+                },
+                {
+                    path: "specialization",
+                    select: "name",
+                    populate: {
+                        path: "createdBy",
+                        select: "firstName lastName email"
+                    }
+                }
+            ]
+        }
+    ]);
     if (doctors.length === 0) {
         throw new HttpError_1.HttpError(404, 'No doctor were found in the database');
     }
@@ -60,8 +78,27 @@ const getAllDoctors = () => __awaiter(void 0, void 0, void 0, function* () {
 const getDoctorById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const doctor = yield doctor_model_1.Doctor.findById(id)
         .populate('userId')
-        .populate('specialization')
-        .populate('department');
+        .populate({ path: 'specialization', select: "name", populate: { path: "createdBy", select: "firstName lastName email" } })
+        .populate([
+        {
+            path: "department",
+            select: "departmentName",
+            populate: [
+                {
+                    path: "createdBy",
+                    select: "firstName lastName email"
+                },
+                {
+                    path: "specialization",
+                    select: "name",
+                    populate: {
+                        path: "createdBy",
+                        select: "firstName lastName email"
+                    }
+                }
+            ]
+        }
+    ]);
     if (!doctor) {
         throw new HttpError_1.HttpError(404, `No doctor found with ID: ${id}`);
     }

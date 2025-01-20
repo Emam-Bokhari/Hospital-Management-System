@@ -73,14 +73,18 @@ const createAppointmentBooking = (payload) => __awaiter(void 0, void 0, void 0, 
     return createdAppointmentBooking;
 });
 const getAllAppointmentBookings = () => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentBookings = yield appointmentBooking_model_1.AppointmentBooking.find();
+    const appointmentBookings = yield appointmentBooking_model_1.AppointmentBooking.find()
+        .populate({ path: "userId" })
+        .populate({ path: "doctor", select: "firstName lastName", populate: ({ path: "specialization", select: "name" }) });
     if (appointmentBookings.length === 0) {
         throw new HttpError_1.HttpError(404, 'No appointment bookings were found in the database');
     }
     return appointmentBookings;
 });
 const getAppointmentBookingById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentBooking = yield appointmentBooking_model_1.AppointmentBooking.findById(id);
+    const appointmentBooking = yield appointmentBooking_model_1.AppointmentBooking.findById(id).populate({ path: "userId" })
+        .populate({ path: "doctor", select: "firstName lastName", populate: ({ path: "specialization", select: "name" }) });
+    ;
     if (!appointmentBooking) {
         throw new HttpError_1.HttpError(404, `No appointment booking found with ID: ${id}`);
     }
