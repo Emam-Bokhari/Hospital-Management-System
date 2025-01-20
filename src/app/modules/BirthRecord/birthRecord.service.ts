@@ -16,6 +16,17 @@ const createBirthRecord = async (payload: TBirthRecord) => {
     return createdBirthRecord;
 }
 
+const getAllBirthRecords = async () => {
+    const birthRecords = await BirthRecord.find();
+
+    if (birthRecords.length === 0) {
+        throw new HttpError(404, "No birth record were found in the database'")
+    }
+
+    return birthRecords;
+}
+
 export const BirthRecordServices = {
     createBirthRecord,
+    getAllBirthRecords,
 }
