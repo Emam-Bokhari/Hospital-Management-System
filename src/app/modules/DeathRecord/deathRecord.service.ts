@@ -1,4 +1,5 @@
 import { HttpError } from "../../errors/HttpError";
+import { flattenAndUpdate } from "../../utils/modelSpecific/flattenAndUpdate";
 import { Doctor } from "../Doctor/doctor.model";
 import { TDeathRecord } from "./deathRecord.interface";
 import { DeathRecord } from "./deathRecord.model";
@@ -37,8 +38,35 @@ const getDeathRecordById = async (id: string) => {
     return deathRecord;
 }
 
+const updateDeathRecordById = async (id: string, payload: Partial<TDeathRecord>) => {
+
+    const { guardian, address, ...remainingBirthRecordData } = payload;
+
+    const modifiedUpdatedData: Record<string, unknown> = {
+        ...remainingBirthRecordData,
+    }
+
+    // utility function for update nested fields, update object fields
+    if (guardian) {
+        flattenAndUpdate("guardian", guardian, modifiedUpdatedData)
+    }
+
+    if (address) {
+        flattenAndUpdate("address", address, modifiedUpdatedData)
+    }
+
+    const updatedDeathRecord = await DeathRecord.findOneAndUpdate({ _id: id, isDeleted: false }, modifiedUpdatedData, { new: true, runValidators: true })
+
+    if (!updatedDeathRecord) {
+        throw new HttpError(404, `No death record found with ID: ${id}`);
+    }
+
+    return updatedDeathRecord;
+}
+
 export const DeathRecordServices = {
     createDeathRecord,
     getAllDeathRecords,
     getDeathRecordById,
+    updateDeathRecordById,
 }
