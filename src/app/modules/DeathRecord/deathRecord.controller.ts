@@ -14,6 +14,18 @@ const createDeathRecordController = asyncHandler(async (req, res) => {
     })
 });
 
+const getAllDeathRecordsController = asyncHandler(async (req, res) => {
+    const deathRecords = await DeathRecordServices.getAllDeathRecords();
+
+    sendResponse(res, {
+        success: true,
+        message: "Death records retrieved successfully",
+        statusCode: 200,
+        data: deathRecords,
+    })
+})
+
 export const DeathRecordControllers = {
     createDeathRecordController,
+    getAllDeathRecordsController,
 }
