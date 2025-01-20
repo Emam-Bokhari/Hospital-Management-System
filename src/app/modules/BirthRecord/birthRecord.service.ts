@@ -8,7 +8,7 @@ const createBirthRecord = async (payload: TBirthRecord) => {
     const createdBirthRecord = await BirthRecord.create(payload);
 
     // check if doctor is exists
-    const doctor = await Doctor.findOne({ _id: payload.doctor })
+    const doctor = await Doctor.findOne({ _id: payload.doctor }).select("_id").lean()
 
     if (!doctor) {
         throw new HttpError(404, "Doctor not found")
@@ -18,7 +18,7 @@ const createBirthRecord = async (payload: TBirthRecord) => {
 }
 
 const getAllBirthRecords = async () => {
-    const birthRecords = await BirthRecord.find();
+    const birthRecords = await BirthRecord.find().populate({ path: "createdBy", select: "firstName lastName email role" });
 
     if (birthRecords.length === 0) {
         throw new HttpError(404, "No birth record were found in the database'")
@@ -28,7 +28,7 @@ const getAllBirthRecords = async () => {
 }
 
 const getBirthRecordById = async (id: string) => {
-    const birthRecord = await BirthRecord.findById(id);
+    const birthRecord = await BirthRecord.findById(id).populate({ path: "createdBy", select: "firstName lastName email role" });;
 
     if (!birthRecord) {
         throw new HttpError(404, `No department found with ID: ${id}`)
