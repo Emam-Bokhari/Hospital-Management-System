@@ -40,7 +40,7 @@ const updateBedById = async (id: string, payload: Partial<TBed>) => {
         modifiedUpdatedData.facilities = { $each: facilities };
     }
 
-    const updatedBed = await Bed.updateOne({ _id: id }, { $set: modifiedUpdatedData }, { new: true, runValidators: true })
+    const updatedBed = await Bed.updateOne({ _id: id, isDeleted: false }, { $set: modifiedUpdatedData }, { new: true, runValidators: true })
 
     if (!updatedBed) {
         throw new HttpError(404, `No bed found with ID: ${id}`)
@@ -51,9 +51,18 @@ const updateBedById = async (id: string, payload: Partial<TBed>) => {
 
 }
 
+const deleteBedById = async (id: string) => {
+    const deletedBed = await Bed.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true })
+    if (!deletedBed) {
+        throw new HttpError(404, `No bed found with ID: ${id}`)
+    }
+    return deletedBed;
+}
+
 export const BedServices = {
     createBed,
     getAllBeds,
     getBedById,
     updateBedById,
+    deleteBedById,
 }
