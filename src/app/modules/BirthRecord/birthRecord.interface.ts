@@ -29,6 +29,6 @@ export type TBirthRecord = {
     nationality: string;
     religion: string;
     doctor: Types.ObjectId;
-    createdBy: Types.ObjectId;
-    isDeleted: boolean;
+    createdBy?: Types.ObjectId;
+    isDeleted?: boolean;
 }
