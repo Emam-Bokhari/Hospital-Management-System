@@ -25,7 +25,19 @@ const getAllBedsController = asyncHandler(async (req, res) => {
     })
 })
 
+const getBedController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const bed = await BedServices.getBedById(id);
+    sendResponse(res, {
+        success: true,
+        message: "Bed retrieved successfully",
+        statusCode: 200,
+        data: bed,
+    })
+})
+
 export const BedControllers = {
     createBedController,
     getAllBedsController,
+    getBedController,
 }
