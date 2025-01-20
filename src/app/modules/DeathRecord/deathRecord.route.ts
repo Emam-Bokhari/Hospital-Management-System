@@ -1,16 +1,16 @@
-import express from "express";
-import { DeathRecordControllers } from "./deathRecord.controller";
+import express from 'express';
+import { DeathRecordControllers } from './deathRecord.controller';
 
 const router = express.Router();
 
-router.post("/", DeathRecordControllers.createDeathRecordController);
+router.post('/', DeathRecordControllers.createDeathRecordController);
 
-router.get("/", DeathRecordControllers.getAllDeathRecordsController);
+router.get('/', DeathRecordControllers.getAllDeathRecordsController);
 
-router.get("/:id", DeathRecordControllers.getDeathRecordController);
+router.get('/:id', DeathRecordControllers.getDeathRecordController);
 
-router.patch("/:id", DeathRecordControllers.updateDeathRecordController);
+router.patch('/:id', DeathRecordControllers.updateDeathRecordController);
 
-router.delete("/:id", DeathRecordControllers.deleteDeathRecordController);
+router.delete('/:id', DeathRecordControllers.deleteDeathRecordController);
 
 export const DeathRecordRoutes = router;

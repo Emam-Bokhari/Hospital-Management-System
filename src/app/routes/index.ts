@@ -53,13 +53,13 @@ const moduleRoutes = [
     route: AppointmentBookingRoutes,
   },
   {
-    path: "/birth-records",
-    route: BirthRecordRoutes
+    path: '/birth-records',
+    route: BirthRecordRoutes,
   },
   {
-    path: "/death-records",
+    path: '/death-records',
     route: DeathRecordRoutes,
-  }
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

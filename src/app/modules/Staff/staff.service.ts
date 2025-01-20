@@ -22,11 +22,12 @@ const getAllStaffs = async () => {
   const staffs = await Staff.find()
     .populate([
       {
-        path: 'staffRole', select: "name",
-        populate: { path: "createdBy", select: "firstName lastName email" }
-      }
+        path: 'staffRole',
+        select: 'name',
+        populate: { path: 'createdBy', select: 'firstName lastName email' },
+      },
     ])
-    .populate({ path: 'createdBy', select: "firstName lastName email" });
+    .populate({ path: 'createdBy', select: 'firstName lastName email' });
 
   if (staffs.length === 0) {
     throw new HttpError(404, 'No staffs were found in the database');
@@ -36,15 +37,15 @@ const getAllStaffs = async () => {
 };
 
 const getStaffById = async (id: string) => {
-
   const staff = await Staff.findById(id)
     .populate([
       {
-        path: 'staffRole', select: "name",
-        populate: { path: "createdBy", select: "firstName lastName email" }
-      }
+        path: 'staffRole',
+        select: 'name',
+        populate: { path: 'createdBy', select: 'firstName lastName email' },
+      },
     ])
-    .populate({ path: 'createdBy', select: "firstName lastName email" });
+    .populate({ path: 'createdBy', select: 'firstName lastName email' });
 
   if (!staff) {
     throw new HttpError(404, `No staff  found with ID:${id}`);

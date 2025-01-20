@@ -8,7 +8,8 @@ const createContactInformationValidationSchema = z.object({
   email: z
     .string()
     .email('Invalid email format')
-    .max(100, 'Email cannot exceed 100 characters').optional(),
+    .max(100, 'Email cannot exceed 100 characters')
+    .optional(),
 });
 
 const updateContactInformationValidationSchema = z.object({

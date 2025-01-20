@@ -17,4 +17,4 @@ export const createSpecializationValidationSchema = z.object({
 
 export const SpecializationValidationSchema = {
   createSpecializationValidationSchema,
-}
+};

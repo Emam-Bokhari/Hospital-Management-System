@@ -100,7 +100,9 @@ const updateDepartmentValidationSchema = z.object({
       )
       .max(1000, 'Description can not exceed 1000 characters')
       .optional(),
-    symptomsAddressed: z.array(updateSymptomsAddressedValidationSchema).optional(),
+    symptomsAddressed: z
+      .array(updateSymptomsAddressedValidationSchema)
+      .optional(),
     possibleCauses: z.array(updatePossibleCausesValidationSchema).optional(),
     status: z.enum(['active', 'inActive']).default('active'),
     createdBy: z.string().optional(),

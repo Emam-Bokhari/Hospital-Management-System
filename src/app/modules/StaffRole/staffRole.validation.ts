@@ -15,7 +15,6 @@ export const createStaffRoleValidationSchema = z.object({
   }),
 });
 
-
 export const StaffRoleValidationSchema = {
   createStaffRoleValidationSchema,
-}
+};
