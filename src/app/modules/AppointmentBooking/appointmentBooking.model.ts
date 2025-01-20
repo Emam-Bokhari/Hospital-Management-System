@@ -78,7 +78,7 @@ const appointmentBookingSchema = new Schema<TAppointmentBooking>(
       type: String,
       enum: {
         values: ['male', 'female'],
-        message: '{VALUE} is not a va;od gender',
+        message: '{VALUE} is not a valid gender',
       },
     },
     address: {

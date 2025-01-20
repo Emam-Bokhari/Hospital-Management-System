@@ -348,11 +348,9 @@ const createEducationDetailsValidationSchema = z.object({
     .trim()
     .min(2, 'Institution is required and must contain at least 2 characters')
     .max(150, 'Institution cannot exceed 150 characters'),
-  yearOfGraduation: z
-    .string()
-    .regex(/^\d{4}$/, {
-      message: 'Year of graduation must be a 4-digit year.',
-    }),
+  yearOfGraduation: z.string().regex(/^\d{4}$/, {
+    message: 'Year of graduation must be a 4-digit year.',
+  }),
 });
 
 const updateEducationDetailsValidationSchema = z.object({

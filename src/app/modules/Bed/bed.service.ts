@@ -1,85 +1,111 @@
-import { HttpError } from "../../errors/HttpError";
-import { TBed } from "./bed.interface";
-import { Bed } from "./bed.model";
+import { HttpError } from '../../errors/HttpError';
+import { TBed } from './bed.interface';
+import { Bed } from './bed.model';
 
 const createBed = async (payload: TBed) => {
-    const createdBed = await Bed.create(payload);
-    return createdBed;
+  const createdBed = await Bed.create(payload);
+  return createdBed;
 };
 
 const getAllBeds = async () => {
-    const beds = await Bed.find().populate({ path: "createdBy", select: "firstName lastName email role" });
+  const beds = await Bed.find().populate({
+    path: 'createdBy',
+    select: 'firstName lastName email role',
+  });
 
-    if (beds.length === 0) {
-        throw new HttpError(404, "No bed were found in the database")
-    }
+  if (beds.length === 0) {
+    throw new HttpError(404, 'No bed were found in the database');
+  }
 
-    return beds;
-}
+  return beds;
+};
 
 const getBedById = async (id: string) => {
-    const bed = await Bed.findById(id).populate({ path: "createdBy", select: "firstName lastName email role" });;
+  const bed = await Bed.findById(id).populate({
+    path: 'createdBy',
+    select: 'firstName lastName email role',
+  });
 
-    if (!bed) {
-        throw new HttpError(404, `No bed found with ID: ${id}`)
-    };
+  if (!bed) {
+    throw new HttpError(404, `No bed found with ID: ${id}`);
+  }
 
-    return bed;
-}
+  return bed;
+};
 
 const updateBedById = async (id: string, payload: Partial<TBed>) => {
+  const bed = await Bed.findById(id);
 
-    const { facilities, ...remainingBedData } = payload;
+  if (!bed) {
+    throw new HttpError(404, `No bed found with ID: ${id}`);
+  }
 
-    const modifiedUpdatedData: Record<string, unknown> = {
-        ...remainingBedData,
+  const { facilities, ...remainingBedData } = payload;
+
+  const modifiedUpdatedData: Record<string, unknown> = {
+    ...remainingBedData,
+  };
+
+  //  update array fields
+  if (facilities) {
+    const currentFacilities = bed?.facilities || [];
+
+    if (facilities.length > 0) {
+      modifiedUpdatedData.facilities = Array.from(
+        new Set([...currentFacilities, ...facilities]),
+      );
     }
+  }
 
-    //  update array fields
-    if (facilities) {
-        modifiedUpdatedData.facilities = { $each: facilities };
-    }
+  const updatedBed = await Bed.findOneAndUpdate(
+    { _id: id, isDeleted: false },
+    modifiedUpdatedData,
+    { new: true, runValidators: true },
+  );
 
-    const updatedBed = await Bed.updateOne({ _id: id, isDeleted: false }, { $set: modifiedUpdatedData }, { new: true, runValidators: true })
+  return updatedBed;
+};
 
-    if (!updatedBed) {
-        throw new HttpError(404, `No bed found with ID: ${id}`)
-    };
+const updateBedAvailabilityStatusById = async (
+  id: string,
+  availabilityStatus: string,
+) => {
+  const validateAvailabilityStatuses = ['available', 'occupied', 'maintenance'];
 
-    return updatedBed;
+  if (!validateAvailabilityStatuses.includes(availabilityStatus)) {
+    throw new HttpError(400, `Invalid status: ${availabilityStatus}`);
+  }
 
+  const updatedBedAvailabilityStatus = await Bed.findOneAndUpdate(
+    { _id: id, isDeleted: false },
+    { availabilityStatus },
+    { new: true, runValidators: true },
+  );
 
-}
+  if (!updatedBedAvailabilityStatus) {
+    throw new HttpError(404, `No bed found with Id: ${id}`);
+  }
 
-const updateBedAvailabilityStatusById = async (id: string, availabilityStatus: string) => {
-    const validateAvailabilityStatuses = ["available", "occupied", "maintenance"]
-
-    if (!validateAvailabilityStatuses.includes(availabilityStatus)) {
-        throw new HttpError(400, `Invalid status: ${availabilityStatus}`)
-    }
-
-    const updatedBedAvailabilityStatus = await Bed.findOneAndUpdate({ _id: id, isDeleted: false }, { availabilityStatus }, { new: true, runValidators: true });
-
-    if (!updatedBedAvailabilityStatus) {
-        throw new HttpError(404, `No bed found with Id: ${id}`)
-    };
-
-    return updatedBedAvailabilityStatus;
-}
+  return updatedBedAvailabilityStatus;
+};
 
 const deleteBedById = async (id: string) => {
-    const deletedBed = await Bed.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true })
-    if (!deletedBed) {
-        throw new HttpError(404, `No bed found with ID: ${id}`)
-    }
-    return deletedBed;
-}
+  const deletedBed = await Bed.findOneAndUpdate(
+    { _id: id, isDeleted: false },
+    { isDeleted: true },
+    { new: true },
+  );
+  if (!deletedBed) {
+    throw new HttpError(404, `No bed found with ID: ${id}`);
+  }
+  return deletedBed;
+};
 
 export const BedServices = {
-    createBed,
-    getAllBeds,
-    getBedById,
-    updateBedById,
-    updateBedAvailabilityStatusById,
-    deleteBedById,
-}
+  createBed,
+  getAllBeds,
+  getBedById,
+  updateBedById,
+  updateBedAvailabilityStatusById,
+  deleteBedById,
+};
