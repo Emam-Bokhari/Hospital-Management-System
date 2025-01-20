@@ -17,6 +17,18 @@ const createDeathRecord = async (payload: TDeathRecord) => {
     return createdDeathRecord;
 }
 
+const getAllDeathRecords = async () => {
+
+    const deathRecords = await DeathRecord.find();
+
+    if (deathRecords.length === 0) {
+        throw new HttpError(404, "No death record were found in the database")
+    }
+
+    return deathRecords;
+}
+
 export const DeathRecordServices = {
     createDeathRecord,
+    getAllDeathRecords,
 }
