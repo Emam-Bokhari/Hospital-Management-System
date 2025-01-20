@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TAddress, TBirthRecord, TGuardian } from "./birthRecord.interface";
+import { excludeDeletedAggregation, excludeDeletedQuery } from "../../utils/modelSpecific/queryFilters";
 
 const guardianSchema = new Schema<TGuardian>({
     name: {
@@ -119,5 +120,12 @@ export const birthRecordSchema = new Schema<TBirthRecord>({
         versionKey: false,
     }
 )
+
+// query middleware for soft delete by utils
+birthRecordSchema.pre("find", excludeDeletedQuery);
+birthRecordSchema.pre("findOne", excludeDeletedQuery);
+
+// aggregate middleware for soft delete by utils
+birthRecordSchema.pre("aggregate", excludeDeletedAggregation)
 
 export const BirthRecord = model<TBirthRecord>("BirthRecord", birthRecordSchema)
