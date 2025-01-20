@@ -1,4 +1,5 @@
 import { HttpError } from "../../errors/HttpError";
+import { flattenAndUpdate } from "../../utils/modelSpecific/flattenAndUpdate";
 import { Doctor } from "../Doctor/doctor.model";
 import { TBirthRecord } from "./birthRecord.interface";
 import { BirthRecord } from "./birthRecord.model";
@@ -36,8 +37,36 @@ const getBirthRecordById = async (id: string) => {
     return birthRecord;
 }
 
+const updateBirthRecordById = async (id: string, payload: Partial<TBirthRecord>) => {
+
+    const { guardian, address, ...remainingBirthRecordData } = payload;
+
+    const modifiedUpdatedData: Record<string, unknown> = {
+        ...remainingBirthRecordData,
+    }
+
+    // utility function for update nested fields, update object fields
+    if (guardian) {
+        flattenAndUpdate("guardian", guardian, modifiedUpdatedData)
+    }
+
+    if (address) {
+        flattenAndUpdate("address", address, modifiedUpdatedData)
+    }
+
+    const updatedBirthRecord = await BirthRecord.findOneAndUpdate({ _id: id, isDeleted: false }, modifiedUpdatedData, { new: true, runValidators: true, })
+
+    if (!updatedBirthRecord) {
+        throw new HttpError(404, `No birth record found with ID: ${id}`)
+    }
+
+    return updatedBirthRecord;
+
+}
+
 export const BirthRecordServices = {
     createBirthRecord,
     getAllBirthRecords,
     getBirthRecordById,
+    updateBirthRecordById,
 }
