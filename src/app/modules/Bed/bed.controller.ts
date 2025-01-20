@@ -49,6 +49,19 @@ const updateBedController = asyncHandler(async (req, res) => {
     })
 })
 
+const updateBedAvailabilityStatusController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const { availabilityStatus } = req.body;
+    const updatedBedAvailabilityStatus = await BedServices.updateBedAvailabilityStatusById(id, availabilityStatus);
+
+    sendResponse(res, {
+        success: true,
+        message: "Bed availability status updated successfully",
+        statusCode: 200,
+        data: updatedBedAvailabilityStatus,
+    })
+})
+
 const deleteBedController = asyncHandler(async (req, res) => {
     const id = req.params.id;
     const deletedBed = await BedServices.deleteBedById(id);
@@ -66,5 +79,6 @@ export const BedControllers = {
     getAllBedsController,
     getBedController,
     updateBedController,
+    updateBedAvailabilityStatusController,
     deleteBedController,
 }
