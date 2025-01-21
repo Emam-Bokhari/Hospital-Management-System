@@ -95,6 +95,7 @@ export const deathRecordSchema = new Schema<TDeathRecord>(
     },
     deathCertificateNo: {
       type: String,
+      unique: true,
     },
     address: {
       type: addressSchema,

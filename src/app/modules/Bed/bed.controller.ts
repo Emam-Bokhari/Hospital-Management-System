@@ -65,13 +65,13 @@ const updateBedAvailabilityStatusController = asyncHandler(async (req, res) => {
 
 const deleteBedController = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const deletedBed = await BedServices.deleteBedById(id);
+  await BedServices.deleteBedById(id);
 
   sendResponse(res, {
     success: true,
     message: 'Bed deleted successfully',
     statusCode: 200,
-    data: deletedBed,
+    data: {},
   });
 });
 

@@ -3,6 +3,7 @@ import { flattenAndUpdate } from '../../utils/modelSpecific/flattenAndUpdate';
 import { Doctor } from '../Doctor/doctor.model';
 import { TDeathRecord } from './deathRecord.interface';
 import { DeathRecord } from './deathRecord.model';
+import { generateDeathCertificateNo } from './deathRecord.utils';
 
 const createDeathRecord = async (payload: TDeathRecord) => {
   // check if doctor is exists
@@ -11,6 +12,10 @@ const createDeathRecord = async (payload: TDeathRecord) => {
   if (!doctor) {
     throw new HttpError(404, 'No doctor found');
   }
+
+  const deathCertificateNo = await generateDeathCertificateNo();
+
+  payload.deathCertificateNo = deathCertificateNo;
 
   const createdDeathRecord = await DeathRecord.create(payload);
 
