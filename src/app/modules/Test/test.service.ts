@@ -25,7 +25,7 @@ const createTest = async (payload: TTest) => {
 const getAllTests = async () => {
   const tests = await Test.find().populate({
     path: 'createdBy',
-    select: 'firstName lastName email',
+    select: 'firstName lastName email role',
   });
 
   if (tests.length === 0) {
@@ -37,7 +37,7 @@ const getAllTests = async () => {
 const getTestById = async (id: string) => {
   const test = await Test.findById(id).populate({
     path: 'createdBy',
-    select: 'firstName lastName email',
+    select: 'firstName lastName email role',
   });
 
   if (!test) {

@@ -23,7 +23,7 @@ const createStaffRole = async (payload: TStaffRole) => {
 const getAllStaffRoles = async () => {
   const staffRoles = await StaffRole.find().populate({
     path: 'createdBy',
-    select: 'firstName lastName email',
+    select: 'firstName lastName email role',
   });
 
   if (staffRoles.length === 0) {
@@ -36,7 +36,7 @@ const getAllStaffRoles = async () => {
 const getStaffRoleById = async (id: string) => {
   const staff = await StaffRole.findById(id).populate({
     path: 'createdBy',
-    select: 'firstName lastName email',
+    select: 'firstName lastName email role',
   });
 
   if (!staff) {

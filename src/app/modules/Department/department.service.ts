@@ -35,9 +35,9 @@ const getAllDepartments = async () => {
     .populate({
       path: 'specialization',
       select: 'name',
-      populate: { path: 'createdBy', select: 'firstName lastName email' },
+      populate: { path: 'createdBy', select: 'firstName lastName email role' },
     })
-    .populate({ path: 'createdBy', select: 'firstName lastName email' });
+    .populate({ path: 'createdBy', select: 'firstName lastName email role' });
 
   if (departments.length === 0) {
     throw new HttpError(404, 'No department were found in the database');
@@ -51,9 +51,9 @@ const getDepartmentById = async (id: string) => {
     .populate({
       path: 'specialization',
       select: 'name',
-      populate: { path: 'createdBy', select: 'firstName lastName email' },
+      populate: { path: 'createdBy', select: 'firstName lastName email role' },
     })
-    .populate({ path: 'createdBy', select: 'firstName lastName email' });
+    .populate({ path: 'createdBy', select: 'firstName lastName email role' });
 
   if (!department) {
     throw new HttpError(404, `No department found with ID: ${id}`);

@@ -41,7 +41,7 @@ const getAllDoctors = async () => {
     .populate({
       path: 'specialization',
       select: 'name',
-      populate: { path: 'createdBy', select: 'firstName lastName email' },
+      populate: { path: 'createdBy', select: 'firstName lastName email role' },
     })
     .populate([
       {
@@ -50,14 +50,14 @@ const getAllDoctors = async () => {
         populate: [
           {
             path: 'createdBy',
-            select: 'firstName lastName email',
+            select: 'firstName lastName email role',
           },
           {
             path: 'specialization',
             select: 'name',
             populate: {
               path: 'createdBy',
-              select: 'firstName lastName email',
+              select: 'firstName lastName email role',
             },
           },
         ],
@@ -77,7 +77,7 @@ const getDoctorById = async (id: string) => {
     .populate({
       path: 'specialization',
       select: 'name',
-      populate: { path: 'createdBy', select: 'firstName lastName email' },
+      populate: { path: 'createdBy', select: 'firstName lastName email role' },
     })
     .populate([
       {
@@ -86,14 +86,14 @@ const getDoctorById = async (id: string) => {
         populate: [
           {
             path: 'createdBy',
-            select: 'firstName lastName email',
+            select: 'firstName lastName email role',
           },
           {
             path: 'specialization',
             select: 'name',
             populate: {
               path: 'createdBy',
-              select: 'firstName lastName email',
+              select: 'firstName lastName email role',
             },
           },
         ],

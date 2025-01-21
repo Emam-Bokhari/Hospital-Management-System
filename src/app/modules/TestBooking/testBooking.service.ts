@@ -37,7 +37,7 @@ const getAllTestBookings = async () => {
     .populate({
       path: 'test',
       select: 'testName testCategory price',
-      populate: { path: 'createdBy', select: 'firstName lastName email' },
+      populate: { path: 'createdBy', select: 'firstName lastName email role' },
     });
 
   if (testBookings.length === 0) {
@@ -53,7 +53,7 @@ const getTestBookingById = async (id: string) => {
     .populate({
       path: 'test',
       select: 'testName testCategory price',
-      populate: { path: 'createdBy', select: 'firstName lastName email' },
+      populate: { path: 'createdBy', select: 'firstName lastName email role' },
     });
 
   if (!testBooking) {

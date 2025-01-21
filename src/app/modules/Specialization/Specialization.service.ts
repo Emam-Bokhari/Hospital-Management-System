@@ -25,7 +25,7 @@ const createSpecialization = async (payload: TSpecialization) => {
 const getAllSpecializations = async () => {
   const specializations = await Specialization.find().populate({
     path: 'createdBy',
-    select: 'firstName lastName email',
+    select: 'firstName lastName email role',
   });
 
   if (specializations.length === 0) {
@@ -37,7 +37,7 @@ const getAllSpecializations = async () => {
 const getSpecializationById = async (id: string) => {
   const specialization = await Specialization.findById(id).populate({
     path: 'createdBy',
-    select: 'firstName lastName email',
+    select: 'firstName lastName email role',
   });
 
   if (!specialization) {
