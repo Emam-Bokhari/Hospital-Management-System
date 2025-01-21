@@ -134,7 +134,6 @@ const createNidValidationSchema = z.object({
   scannedCopy: z
     .string()
     .nonempty({ message: 'Scanned copy is required.' })
-    .url({ message: 'Scanned copy must be a valid URL.' }),
 });
 
 const updateNidValidationSchema = z.object({
@@ -148,7 +147,6 @@ const updateNidValidationSchema = z.object({
   scannedCopy: z
     .string()
     .nonempty({ message: 'Scanned copy is required.' })
-    .url({ message: 'Scanned copy must be a valid URL.' })
     .optional(),
 });
 
@@ -162,7 +160,6 @@ const createBirthCertificateValidationSchema = z.object({
   scannedCopy: z
     .string()
     .nonempty({ message: 'Scanned copy of the birth certificate is required.' })
-    .url({ message: 'Scanned copy must be a valid URL.' }),
 });
 
 const updateBirthCertificateValidationSchema = z.object({
@@ -176,7 +173,6 @@ const updateBirthCertificateValidationSchema = z.object({
   scannedCopy: z
     .string()
     .nonempty({ message: 'Scanned copy of the birth certificate is required.' })
-    .url({ message: 'Scanned copy must be a valid URL.' })
     .optional(),
 });
 
@@ -209,8 +205,7 @@ const createGuardianValidationSchema = z.object({
     }),
   nidScannedCopy: z
     .string()
-    .nonempty({ message: 'NID Scanned copy is required.' })
-    .url({ message: 'NID Scanned copy must be a valid URL.' }),
+    .nonempty({ message: 'NID Scanned copy is required.' }),
   birthCertificateNumber: z
     .string()
     .trim()
@@ -220,7 +215,6 @@ const createGuardianValidationSchema = z.object({
     .optional(),
   birthCertificateScannedCopy: z
     .string()
-    .url({ message: 'Birth certificate scanned copy must be a valid URL.' })
     .optional(),
 });
 
@@ -258,7 +252,6 @@ const updateGuardianValidationSchema = z.object({
   nidScannedCopy: z
     .string()
     .nonempty({ message: 'NID Scanned copy is required.' })
-    .url({ message: 'NID Scanned copy must be a valid URL.' })
     .optional(),
   birthCertificateNumber: z
     .string()
@@ -269,7 +262,6 @@ const updateGuardianValidationSchema = z.object({
     .optional(),
   birthCertificateScannedCopy: z
     .string()
-    .url({ message: 'Birth certificate scanned copy must be a valid URL.' })
     .optional(),
 });
 
@@ -341,8 +333,7 @@ const createEducationDetailsValidationSchema = z.object({
     .max(100, 'Highest education cannot exceed 100 characters'),
   certificateScannedCopy: z
     .string()
-    .nonempty({ message: 'Certificate scanned copy is required.' })
-    .url({ message: 'Certificate scanned copy must be a valid URL.' }),
+    .nonempty({ message: 'Certificate scanned copy is required.' }),
   institution: z
     .string()
     .trim()
@@ -365,7 +356,6 @@ const updateEducationDetailsValidationSchema = z.object({
     .optional(),
   certificateScannedCopy: z
     .string()
-    .url({ message: 'Certificate scanned copy must be a valid URL.' })
     .optional(),
   institution: z
     .string()
