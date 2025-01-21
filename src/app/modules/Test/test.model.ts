@@ -92,4 +92,4 @@ testSchema.pre('findOne', excludeDeletedQuery);
 // aggregate middleware for soft delete by utils
 testSchema.pre('aggregate', excludeDeletedAggregation);
 
-export const Test = model('Test', testSchema);
+export const Test = model<TTest>('Test', testSchema);

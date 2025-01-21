@@ -34,4 +34,4 @@ staffRoleSchema.pre('findOne', excludeDeletedQuery);
 // aggregate middleware for soft delete by utils
 staffRoleSchema.pre('aggregate', excludeDeletedAggregation);
 
-export const StaffRole = model('StaffRole', staffRoleSchema);
+export const StaffRole = model<TStaffRole>('StaffRole', staffRoleSchema);
