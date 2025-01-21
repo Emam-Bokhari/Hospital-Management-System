@@ -2,18 +2,18 @@
 import moment from 'moment-timezone';
 import { HttpError } from '../../errors/HttpError';
 
-export const generateDynamicId = async (model: any, prefix: string) => {
+export const generateDynamicId = async (model: any, prefix: string, fieldName: string = "id") => {
   try {
     const lastRecord = await model
       .findOne({})
-      .select('id')
+      .select(fieldName)
       .sort({ createdAt: -1 })
       .lean();
 
     // XXX-YYYYMMDD-XXXX
     // extract the date part (YYYYMMDD) and unique number from the last id
-    const lastDatePart = lastRecord?.id?.slice(4, 12);
-    const lastUniquePart = lastRecord?.id?.slice(13);
+    const lastDatePart = lastRecord?.[fieldName]?.slice(4, 12);
+    const lastUniquePart = lastRecord?.[fieldName]?.slice(13);
 
     // get current date in YYYYMMDD format
     const today = moment.tz('Asia/Dhaka');
