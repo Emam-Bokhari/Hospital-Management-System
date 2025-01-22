@@ -7,18 +7,18 @@ const getDeathRecordsOverviewController = asyncHandler(async (req, res) => {
 
     sendResponse(res, {
         success: true,
-        message: "Death records overview fetched successfully",
+        message: "Successfully fetched the death records overview",
         statusCode: 200,
         data: overviewData,
     })
 });
 
 const getDeathRecordsMonthlyStatsController = asyncHandler(async (req, res) => {
-    const year = req.params.year;
-    const monthlyStats = await DeathRecordAnalyticsServices.getDeathRecordsMonthlyStats(year)
+    const year = req.query.year;
+    const monthlyStats = await DeathRecordAnalyticsServices.getDeathRecordsMonthlyStats(year as string)
     sendResponse(res, {
         success: true,
-        message: "Death record monthly stats fetched successfully",
+        message: `Successfully fetched death records monthly statistics for the year ${year}`,
         statusCode: 200,
         data: monthlyStats,
     })

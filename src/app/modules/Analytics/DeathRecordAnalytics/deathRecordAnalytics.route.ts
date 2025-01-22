@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get("/overview", DeathRecordAnalyticsControllers.getDeathRecordsOverviewController)
 
+router.get("/monthly-stats", DeathRecordAnalyticsControllers.getDeathRecordsMonthlyStatsController)
+
 export const DeathRecordAnalyticsRoutes = router;
