@@ -61,10 +61,10 @@ const getDeathRecordsOverview = async () => {
 
 }
 
-const getDeathRecordsMonthlyStats = async (year?: number) => {
-    const currentYear = year || new Date().getFullYear();
+const getDeathRecordsMonthlyStats = async (year?: string) => {
+    const currentYear = Number(year) || new Date().getFullYear();
 
-    const stats = await DeathRecord.aggregate([
+    const monthlyStats = await DeathRecord.aggregate([
         {
             $match: {
                 deathDate: {
@@ -84,7 +84,7 @@ const getDeathRecordsMonthlyStats = async (year?: number) => {
         { $sort: { "_id": 1 } }
     ]);
 
-    return formatMonthlyStats(stats)
+    return formatMonthlyStats(monthlyStats)
 
 }
 
