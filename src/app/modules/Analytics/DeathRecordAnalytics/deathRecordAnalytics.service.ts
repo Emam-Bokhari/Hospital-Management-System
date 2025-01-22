@@ -6,11 +6,6 @@ const getDeathRecordsOverview = async () => {
     const endOfYear = new Date(currentYear, 11, 31, 23, 59, 59);
 
     const overviewData = await DeathRecord.aggregate([
-        // pipeline:1
-        {
-            $match: { isDeleted: false },
-        },
-        // pipeline:2
         {
             $facet: {
                 // total records count
@@ -51,9 +46,9 @@ const getDeathRecordsOverview = async () => {
 
     const totalRecords = data.totalRecords[0]?.total || 0;
     const totalMales = data.totalMales[0]?.total || 0;
-    const totalFemales = data.totalFemales[0]?.total || 0;
+    const totalFemales = data.totalFemales[0]?.total || 0
     const currentYearRecords = data.currentYearRecords[0]?.total || 0;
-    const mostCommonCause = data.mostCommonCause[0]?.count || "N/A"
+    const mostCommonCause = data.mostCommonCause[0]?._id || "N/A";
 
     return {
         totalRecords,
