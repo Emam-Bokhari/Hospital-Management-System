@@ -14,6 +14,8 @@ const getDeathRecordsOverviewController = asyncHandler(async (req, res) => {
 });
 
 
+
+
 export const DeathRecordAnalyticsControllers = {
     getDeathRecordsOverviewController,
 }

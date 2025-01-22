@@ -1,4 +1,5 @@
 import { DeathRecord } from "../../DeathRecord/deathRecord.model";
+import { formatMonthlyStats } from "./deathRecordAnalytics.utils";
 
 const getDeathRecordsOverview = async () => {
     const currentYear = new Date().getFullYear();
@@ -60,6 +61,34 @@ const getDeathRecordsOverview = async () => {
 
 }
 
+const getDeathRecordsMonthlyStats = async (year?: number) => {
+    const currentYear = year || new Date().getFullYear();
+
+    const stats = await DeathRecord.aggregate([
+        {
+            $match: {
+                deathDate: {
+                    $gte: new Date(`${currentYear}-01-01`),
+                    $lte: new Date(`${currentYear}-12-31`)
+                }
+            }
+        },
+        // group by month 
+        {
+            $group: {
+                _id: { $month: "$deathDate" },
+                totalDeaths: { $sum: 1 }
+            }
+        },
+        // sort by month
+        { $sort: { "_id": 1 } }
+    ]);
+
+    return formatMonthlyStats(stats)
+
+}
+
 export const DeathRecordAnalyticsServices = {
     getDeathRecordsOverview,
+    getDeathRecordsMonthlyStats,
 }
