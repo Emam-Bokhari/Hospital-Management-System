@@ -9,4 +9,6 @@ router.get("/monthly-stats", DeathRecordAnalyticsControllers.getDeathRecordsMont
 
 router.get("/causes", DeathRecordAnalyticsControllers.getDeathRecordsCausesController)
 
+router.get("/gender-stats", DeathRecordAnalyticsControllers.getDeathRecordsGenderStatsController)
+
 export const DeathRecordAnalyticsRoutes = router;

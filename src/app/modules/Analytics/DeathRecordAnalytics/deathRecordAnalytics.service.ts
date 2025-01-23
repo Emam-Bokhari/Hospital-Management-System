@@ -101,12 +101,12 @@ const getDeathRecordsCauses = async (year?: string, gender?: string) => {
 
     const matchCondition: TMatchCondition = {}
 
-    if (year) {
-        matchCondition.deathDate = {
-            $gte: new Date(`${currentYear}-01-01`),
-            $lte: new Date(`${currentYear}-12-31`),
-        }
+
+    matchCondition.deathDate = {
+        $gte: new Date(`${currentYear}-01-01`),
+        $lte: new Date(`${currentYear}-12-31`),
     }
+
 
     if (gender) {
         matchCondition.gender = gender;
@@ -121,6 +121,12 @@ const getDeathRecordsCauses = async (year?: string, gender?: string) => {
         },
         { $sort: { totalDeaths: -1 } }
     ])
+
+    // check if no data found return 0
+
+    if (!causesData || causesData.length === 0) {
+        return [{ causeOfDeath: "No data", totalDeaths: 0 }];
+    }
 
     return causesData
 
@@ -143,6 +149,16 @@ const getDeathRecordsGenderStats = async (year?: string) => {
         },
         { $sort: { totalDeaths: -1 } }
     ])
+
+    // check if no data found return 0
+    if (!genderStatsData || genderStatsData.length === 0) {
+        return [
+            { gender: "male", totalDeaths: 0 },
+            { gender: "female", totalDeaths: 0 },
+        ]
+    }
+
+
     return genderStatsData;
 }
 
