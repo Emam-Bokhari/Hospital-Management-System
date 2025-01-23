@@ -30,9 +30,20 @@ const getDeathRecordsCausesController = asyncHandler(async (req, res) => {
     const causesData = await DeathRecordAnalyticsServices.getDeathRecordsCauses(year as string, gender as string)
     sendResponse(res, {
         success: true,
-        message: `Successfully retrieved ${causesData.length} death causes data for year ${year} and gender ${gender}`,
+        message: `Successfully retrieved ${causesData.length} death causes data`,
         statusCode: 200,
         data: causesData
+    })
+})
+
+const getDeathRecordsGenderStatsController = asyncHandler(async (req, res) => {
+    const year = req.params.year;
+    const genderStatsData = await DeathRecordAnalyticsServices.getDeathRecordsGenderStats(year)
+    sendResponse(res, {
+        success: true,
+        message: "Gender-wise death statistics retrieved successfully.",
+        statusCode: 200,
+        data: genderStatsData,
     })
 })
 
@@ -41,4 +52,5 @@ export const DeathRecordAnalyticsControllers = {
     getDeathRecordsOverviewController,
     getDeathRecordsMonthlyStatsController,
     getDeathRecordsCausesController,
+    getDeathRecordsGenderStatsController,
 }
