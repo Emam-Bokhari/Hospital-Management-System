@@ -15,12 +15,12 @@ const getDeathRecordsOverviewController = asyncHandler(async (req, res) => {
 
 const getDeathRecordsMonthlyStatsController = asyncHandler(async (req, res) => {
     const year = req.query.year;
-    const monthlyStats = await DeathRecordAnalyticsServices.getDeathRecordsMonthlyStats(year as string)
+    const monthlyStatsData = await DeathRecordAnalyticsServices.getDeathRecordsMonthlyStats(year as string)
     sendResponse(res, {
         success: true,
         message: `Successfully fetched death records monthly statistics for the year ${year}`,
         statusCode: 200,
-        data: monthlyStats,
+        data: monthlyStatsData,
     })
 })
 

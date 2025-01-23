@@ -64,7 +64,7 @@ const getDeathRecordsOverview = async () => {
 const getDeathRecordsMonthlyStats = async (year?: string) => {
     const currentYear = Number(year) || new Date().getFullYear();
 
-    const monthlyStats = await DeathRecord.aggregate([
+    const monthlyStatsData = await DeathRecord.aggregate([
         {
             $match: {
                 deathDate: {
@@ -73,22 +73,61 @@ const getDeathRecordsMonthlyStats = async (year?: string) => {
                 }
             }
         },
-        // group by month 
+        // group by month and count
         {
             $group: {
                 _id: { $month: "$deathDate" },
                 totalDeaths: { $sum: 1 }
             }
         },
-        // sort by month
+        // sort by month 
         { $sort: { "_id": 1 } }
     ]);
 
-    return formatMonthlyStats(monthlyStats)
+    return formatMonthlyStats(monthlyStatsData)
+
+}
+
+const getDeathRecordsCauses = async (year?: string, gender?: string) => {
+    const currentYear = year ? Number(year) : new Date().getFullYear();
+
+    type TMatchCondition = {
+        deathDate?: {
+            $gte: Date;
+            $lte: Date;
+        };
+        gender?: string;
+    }
+
+    const matchCondition: TMatchCondition = {}
+
+    if (year) {
+        matchCondition.deathDate = {
+            $gte: new Date(`${currentYear}-01-01`),
+            $lte: new Date(`${currentYear}-12-31`),
+        }
+    }
+
+    if (gender) {
+        matchCondition.gender = gender;
+    }
+
+    const causesData = await DeathRecord.aggregate([
+        {
+            $match: matchCondition,
+        },
+        {
+            $group: { _id: "$causeOfDeath", totalDeaths: { $sum: 1 } }
+        },
+        { $sort: { totalDeaths: -1 } }
+    ])
+
+    return causesData
 
 }
 
 export const DeathRecordAnalyticsServices = {
     getDeathRecordsOverview,
     getDeathRecordsMonthlyStats,
+    getDeathRecordsCauses,
 }

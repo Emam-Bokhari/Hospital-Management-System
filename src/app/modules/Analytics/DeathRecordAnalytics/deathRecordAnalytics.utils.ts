@@ -13,7 +13,7 @@ export const MONTH_NAMES = [
     "December",
 ];
 
-// set month number to month name
+// set month number to month name and includes
 export const formatMonthlyStats = (stats: { _id: number, totalDeaths: number }[]) => {
     const result = stats.map((item) => ({
         month: MONTH_NAMES[item._id - 1],
