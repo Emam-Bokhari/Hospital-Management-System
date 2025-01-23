@@ -47,10 +47,22 @@ const getDeathRecordsGenderStatsController = asyncHandler(async (req, res) => {
     })
 })
 
+const getDeathRecordsAgeGroupStatsController = asyncHandler(async (req, res) => {
+    const year = req.query.year;
+    const ageGroupStatsData = await DeathRecordAnalyticsServices.getDeathRecordsAgeGroupStats(year as string);
+    sendResponse(res, {
+        success: true,
+        message: "Age group death statistics retrieved successfully",
+        statusCode: 200,
+        data: ageGroupStatsData,
+    })
+})
+
 
 export const DeathRecordAnalyticsControllers = {
     getDeathRecordsOverviewController,
     getDeathRecordsMonthlyStatsController,
     getDeathRecordsCausesController,
     getDeathRecordsGenderStatsController,
+    getDeathRecordsAgeGroupStatsController,
 }
