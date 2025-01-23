@@ -11,4 +11,6 @@ router.get("/causes", DeathRecordAnalyticsControllers.getDeathRecordsCausesContr
 
 router.get("/gender-stats", DeathRecordAnalyticsControllers.getDeathRecordsGenderStatsController)
 
+router.get("/age-group-stats", DeathRecordAnalyticsControllers.getDeathRecordsAgeGroupStatsController);
+
 export const DeathRecordAnalyticsRoutes = router;

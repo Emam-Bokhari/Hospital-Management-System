@@ -1,5 +1,5 @@
 import { DeathRecord } from "../../DeathRecord/deathRecord.model";
-import { formatMonthlyStats, getCurrentYear } from "./deathRecordAnalytics.utils";
+import { defaultAgeGroups, formatMonthlyStats, getAgeGroup, getCurrentYear } from "./deathRecordAnalytics.utils";
 
 const getDeathRecordsOverview = async () => {
     const currentYear = new Date().getFullYear();
@@ -181,28 +181,32 @@ const getDeathRecordsAgeGroupStats = async (year?: string) => {
                 default: "other",
                 output: {
                     totalDeaths: { $sum: 1 },
-                    age: { $push: "$age" }
                 }
             }
         },
         { $sort: { totalDeaths: -1 } }
     ])
 
-    // check if no data found return 0
+
+    // check if no data found return default age groups
     if (!ageGroupStatsData || ageGroupStatsData.length === 0) {
-        return [
-            { age: "0-18", totalDeaths: 0 },
-            { age: "18-30", totalDeaths: 0 },
-            { age: "30-40", totalDeaths: 0 },
-            { age: "40-50", totalDeaths: 0 },
-            { age: "50-60", totalDeaths: 0 },
-            { age: "60-70", totalDeaths: 0 },
-            { age: "70-80", totalDeaths: 0 },
-            { age: "80-90", totalDeaths: 0 },
-            { age: "90+", totalDeaths: 0 },
-        ]
+        return defaultAgeGroups;
     }
-    return ageGroupStatsData;
+
+    // Iterate through default age groups and match with available age group data
+    const filledAgeGroups = defaultAgeGroups.map((group) => {
+        const matchedGroup = ageGroupStatsData.find((data) => {
+            const groupName = getAgeGroup(data._id);
+            return group.age === groupName;
+        })
+
+        // Return the matched data or the default group structure with 0 deaths if no match found
+        return matchedGroup ? { age: group.age, totalDeaths: matchedGroup.totalDeaths } : group
+    })
+
+    return filledAgeGroups;
+
+
 }
 
 export const DeathRecordAnalyticsServices = {
