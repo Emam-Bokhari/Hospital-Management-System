@@ -126,8 +126,29 @@ const getDeathRecordsCauses = async (year?: string, gender?: string) => {
 
 }
 
+const getDeathRecordsGenderStats = async (year?: string) => {
+    const currentYear = year ? Number(year) : new Date().getFullYear();
+
+    const genderStatsData = await DeathRecord.aggregate([
+        {
+            $match: {
+                deathDate: {
+                    $gte: new Date(`${currentYear}-01-01`),
+                    $lte: new Date(`${currentYear}-12-31`)
+                }
+            }
+        },
+        {
+            $group: { _id: "$gender", totalDeaths: { $sum: 1 } }
+        },
+        { $sort: { totalDeaths: -1 } }
+    ])
+    return genderStatsData;
+}
+
 export const DeathRecordAnalyticsServices = {
     getDeathRecordsOverview,
     getDeathRecordsMonthlyStats,
     getDeathRecordsCauses,
+    getDeathRecordsGenderStats,
 }
