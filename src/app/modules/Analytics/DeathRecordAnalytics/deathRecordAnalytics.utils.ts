@@ -28,3 +28,8 @@ export const formatMonthlyStats = (stats: { _id: number, totalDeaths: number }[]
         }
     })
 }
+
+// get current year
+export const getCurrentYear = (year?: string) => {
+    return year ? Number(year) : new Date().getFullYear();
+}

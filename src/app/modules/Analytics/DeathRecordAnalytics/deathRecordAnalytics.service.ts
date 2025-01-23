@@ -1,5 +1,5 @@
 import { DeathRecord } from "../../DeathRecord/deathRecord.model";
-import { formatMonthlyStats } from "./deathRecordAnalytics.utils";
+import { formatMonthlyStats, getCurrentYear } from "./deathRecordAnalytics.utils";
 
 const getDeathRecordsOverview = async () => {
     const currentYear = new Date().getFullYear();
@@ -162,9 +162,53 @@ const getDeathRecordsGenderStats = async (year?: string) => {
     return genderStatsData;
 }
 
+const getDeathRecordsAgeGroupStats = async (year?: string) => {
+    const currentYear = getCurrentYear(year)
+
+    const ageGroupStatsData = await DeathRecord.aggregate([
+        {
+            $match: {
+                deathDate: {
+                    $gte: new Date(`${currentYear}-01-01`),
+                    $lte: new Date(`${currentYear}-12-31`),
+                }
+            }
+        },
+        {
+            $bucket: {
+                groupBy: "$age",
+                boundaries: [0, 18, 30, 40, 50, 60, 70, 80, 90, 100],
+                default: "other",
+                output: {
+                    totalDeaths: { $sum: 1 },
+                    age: { $push: "$age" }
+                }
+            }
+        },
+        { $sort: { totalDeaths: -1 } }
+    ])
+
+    // check if no data found return 0
+    if (!ageGroupStatsData || ageGroupStatsData.length === 0) {
+        return [
+            { age: "0-18", totalDeaths: 0 },
+            { age: "18-30", totalDeaths: 0 },
+            { age: "30-40", totalDeaths: 0 },
+            { age: "40-50", totalDeaths: 0 },
+            { age: "50-60", totalDeaths: 0 },
+            { age: "60-70", totalDeaths: 0 },
+            { age: "70-80", totalDeaths: 0 },
+            { age: "80-90", totalDeaths: 0 },
+            { age: "90+", totalDeaths: 0 },
+        ]
+    }
+    return ageGroupStatsData;
+}
+
 export const DeathRecordAnalyticsServices = {
     getDeathRecordsOverview,
     getDeathRecordsMonthlyStats,
     getDeathRecordsCauses,
     getDeathRecordsGenderStats,
+    getDeathRecordsAgeGroupStats,
 }

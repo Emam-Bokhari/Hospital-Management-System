@@ -38,7 +38,7 @@ const getDeathRecordsCausesController = asyncHandler(async (req, res) => {
 
 const getDeathRecordsGenderStatsController = asyncHandler(async (req, res) => {
     const year = req.query.year;
-    const genderStatsData = await DeathRecordAnalyticsServices.getDeathRecordsGenderStats(year)
+    const genderStatsData = await DeathRecordAnalyticsServices.getDeathRecordsGenderStats(year as string)
     sendResponse(res, {
         success: true,
         message: "Gender-wise death statistics retrieved successfully.",
