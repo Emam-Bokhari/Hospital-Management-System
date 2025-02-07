@@ -49,7 +49,6 @@ export type TAdmissionBooking = {
     admissionDate: Date;
     dischargeDate: Date;
     reasonForAdmission: string;
-    medicalHistory?: string[]
+    medicalHistory?: string[];
     status?: TStatus;
-    payment?: Types.ObjectId;
 }
