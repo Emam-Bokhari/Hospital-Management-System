@@ -33,4 +33,7 @@ specializationSchema.pre('findOne', excludeDeletedQuery);
 // aggregate middleware for soft delete by utils
 specializationSchema.pre('aggregate', excludeDeletedAggregation);
 
-export const Specialization = model<TSpecialization>('Specialization', specializationSchema);
+export const Specialization = model<TSpecialization>(
+  'Specialization',
+  specializationSchema,
+);

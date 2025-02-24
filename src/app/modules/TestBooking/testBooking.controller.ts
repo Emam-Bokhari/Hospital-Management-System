@@ -39,7 +39,7 @@ const getTestBookingController = asyncHandler(async (req, res) => {
   });
 });
 
-const updateTestBookingStatusController = asyncHandler(async (req, res) => {
+const updateTestBookingStatusByIdController = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const { status } = req.body;
 
@@ -58,5 +58,5 @@ export const TestBookingControllers = {
   createTestBookingController,
   getAllTestBookingsController,
   getTestBookingController,
-  updateTestBookingStatusController,
+  updateTestBookingStatusByIdController,
 };

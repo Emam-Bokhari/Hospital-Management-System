@@ -24,7 +24,10 @@ const getAllStaffs = async () => {
       {
         path: 'staffRole',
         select: 'name',
-        populate: { path: 'createdBy', select: 'firstName lastName email role' },
+        populate: {
+          path: 'createdBy',
+          select: 'firstName lastName email role',
+        },
       },
     ])
     .populate({ path: 'createdBy', select: 'firstName lastName email role' });
@@ -42,7 +45,10 @@ const getStaffById = async (id: string) => {
       {
         path: 'staffRole',
         select: 'name',
-        populate: { path: 'createdBy', select: 'firstName lastName email role' },
+        populate: {
+          path: 'createdBy',
+          select: 'firstName lastName email role',
+        },
       },
     ])
     .populate({ path: 'createdBy', select: 'firstName lastName email role' });

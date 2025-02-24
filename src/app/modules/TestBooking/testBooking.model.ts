@@ -113,4 +113,7 @@ const testBookingSchema = new Schema<TTestBooking>(
   },
 );
 
-export const TestBooking = model<TTestBooking>('TestBooking', testBookingSchema);
+export const TestBooking = model<TTestBooking>(
+  'TestBooking',
+  testBookingSchema,
+);

@@ -5,13 +5,25 @@ import { DeathRecordValidationSchema } from './deathRecord.validation';
 
 const router = express.Router();
 
-router.post('/', validateRequestSchema(DeathRecordValidationSchema.createDeathRecordValidationSchema), DeathRecordControllers.createDeathRecordController);
+router.post(
+  '/',
+  validateRequestSchema(
+    DeathRecordValidationSchema.createDeathRecordValidationSchema,
+  ),
+  DeathRecordControllers.createDeathRecordController,
+);
 
 router.get('/', DeathRecordControllers.getAllDeathRecordsController);
 
 router.get('/:id', DeathRecordControllers.getDeathRecordController);
 
-router.patch('/:id', validateRequestSchema(DeathRecordValidationSchema.updateDeathRecordValidationSchema), DeathRecordControllers.updateDeathRecordController);
+router.patch(
+  '/:id',
+  validateRequestSchema(
+    DeathRecordValidationSchema.updateDeathRecordValidationSchema,
+  ),
+  DeathRecordControllers.updateDeathRecordController,
+);
 
 router.delete('/:id', DeathRecordControllers.deleteDeathRecordController);
 

@@ -19,7 +19,7 @@ router.get('/:id', TestBookingControllers.getTestBookingController);
 
 router.patch(
   '/:id/status',
-  TestBookingControllers.updateTestBookingStatusController,
+  TestBookingControllers.updateTestBookingStatusByIdController,
 );
 
 export const TestBookingRoutes = router;

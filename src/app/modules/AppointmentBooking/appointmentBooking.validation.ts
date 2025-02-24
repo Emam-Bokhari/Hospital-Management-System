@@ -85,8 +85,7 @@ export const createAppointmentBookingValidationSchema = z.object({
       ),
     status: z
       .enum(['pending', 'confirmed', 'completed', 'cancelled'])
-      .default('pending')
-      .optional(),
+      .default('pending'),
     prescriptionFiles: z.array(z.string()).optional(),
     testReportFiles: z.array(z.string()).optional(),
     additionalNotes: z
