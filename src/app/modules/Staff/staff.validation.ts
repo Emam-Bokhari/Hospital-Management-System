@@ -155,11 +155,9 @@ const createBirthCertificateValidationSchema = z.object({
     .regex(/^\d{17}$/, {
       message: 'Birth certificate number must be exactly 17 digits.',
     }),
-  scannedCopy: z
-    .string()
-    .nonempty({
-      message: 'Scanned copy of the birth certificate is required.',
-    }),
+  scannedCopy: z.string().nonempty({
+    message: 'Scanned copy of the birth certificate is required.',
+  }),
 });
 
 const updateBirthCertificateValidationSchema = z.object({
