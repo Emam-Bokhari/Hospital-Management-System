@@ -126,6 +126,9 @@ const admissionBookingSchema = new Schema<TAdmissionBooking>({
     ref: 'Bed',
     required: true,
   },
+  totalCost: {
+    type: Number,
+  },
   admissionDate: {
     type: Date,
     required: true,
@@ -150,7 +153,12 @@ const admissionBookingSchema = new Schema<TAdmissionBooking>({
     },
     default: 'pending',
   },
-});
+},
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 
 export const AdmissionBooking = model<TAdmissionBooking>(
   'AdmissionBooking',

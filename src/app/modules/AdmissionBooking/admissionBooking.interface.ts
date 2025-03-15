@@ -45,6 +45,7 @@ export type TAdmissionBooking = {
   guardian: TGuardian;
   address: TAddress;
   bed: Types.ObjectId;
+  totalCost: number;
   admissionDate: Date;
   dischargeDate: Date;
   reasonForAdmission: string;

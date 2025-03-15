@@ -108,7 +108,8 @@ const createAdmissionBookingValidationSchema = z.object({
         guardian: createGuardianValidationSchema,
         address: addressValidationSchema,
         bed: z.string(),
-        admissionDate: z.string(),
+        totalCost: z.number().optional(),
+        admissionDate: z.string().optional(),
         dischargeDate: z.string(),
         reasonForAdmission: z
             .string()
