@@ -131,9 +131,7 @@ const createNidValidationSchema = z.object({
     .regex(/^\d{10}$/, {
       message: 'NID number must be exactly 10 digits.',
     }),
-  scannedCopy: z
-    .string()
-    .nonempty({ message: 'Scanned copy is required.' })
+  scannedCopy: z.string().nonempty({ message: 'Scanned copy is required.' }),
 });
 
 const updateNidValidationSchema = z.object({
@@ -159,7 +157,9 @@ const createBirthCertificateValidationSchema = z.object({
     }),
   scannedCopy: z
     .string()
-    .nonempty({ message: 'Scanned copy of the birth certificate is required.' })
+    .nonempty({
+      message: 'Scanned copy of the birth certificate is required.',
+    }),
 });
 
 const updateBirthCertificateValidationSchema = z.object({
@@ -213,9 +213,7 @@ const createGuardianValidationSchema = z.object({
       message: 'Birth certificate number must be exactly 17 digits.',
     })
     .optional(),
-  birthCertificateScannedCopy: z
-    .string()
-    .optional(),
+  birthCertificateScannedCopy: z.string().optional(),
 });
 
 const updateGuardianValidationSchema = z.object({
@@ -260,9 +258,7 @@ const updateGuardianValidationSchema = z.object({
       message: 'Birth certificate number must be exactly 17 digits.',
     })
     .optional(),
-  birthCertificateScannedCopy: z
-    .string()
-    .optional(),
+  birthCertificateScannedCopy: z.string().optional(),
 });
 
 const createWorkScheduleValidationSchema = z.object({
@@ -354,9 +350,7 @@ const updateEducationDetailsValidationSchema = z.object({
     )
     .max(150, 'Highest education cannot exceed 150 characters')
     .optional(),
-  certificateScannedCopy: z
-    .string()
-    .optional(),
+  certificateScannedCopy: z.string().optional(),
   institution: z
     .string()
     .trim()

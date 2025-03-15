@@ -80,8 +80,9 @@ const testBookingSchema = new Schema<TTestBooking>(
       type: String,
       enum: {
         values: ['male', 'female'],
-        message: '{VALUE} is not a va;od gender',
+        message: '{VALUE} is not a valid gender',
       },
+      required: true,
     },
     address: {
       type: addressSchema,
@@ -112,4 +113,7 @@ const testBookingSchema = new Schema<TTestBooking>(
   },
 );
 
-export const TestBooking = model<TTestBooking>('TestBooking', testBookingSchema);
+export const TestBooking = model<TTestBooking>(
+  'TestBooking',
+  testBookingSchema,
+);

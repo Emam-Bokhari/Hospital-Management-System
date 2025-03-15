@@ -2,7 +2,11 @@
 import moment from 'moment-timezone';
 import { HttpError } from '../../errors/HttpError';
 
-export const generateDynamicId = async (model: any, prefix: string, fieldName: string = "id") => {
+export const generateDynamicId = async (
+  model: any,
+  prefix: string,
+  fieldName: string = 'id',
+) => {
   try {
     const lastRecord = await model
       .findOne({})

@@ -1,9 +1,7 @@
 import express from 'express';
 import { UserRoutes } from '../modules/User/user.route';
 import { DoctorRoutes } from '../modules/Doctor/doctor.route';
-
 import { SpecializationRoutes } from '../modules/Specialization/specialization.route';
-
 import { DepartmentRoutes } from '../modules/Department/department.route';
 import { StaffRoutes } from '../modules/Staff/staff.route';
 import { StaffRoleRoutes } from '../modules/StaffRole/staffRole.route';
@@ -14,6 +12,8 @@ import { BirthRecordRoutes } from '../modules/BirthRecord/birthRecord.route';
 import { DeathRecordRoutes } from '../modules/DeathRecord/deathRecord.route';
 import { BedRoutes } from '../modules/Bed/bed.route';
 import { DeathRecordAnalyticsRoutes } from '../modules/Analytics/DeathRecordAnalytics/deathRecordAnalytics.route';
+import { AdmissionBookingRoutes } from '../modules/AdmissionBooking/admissionBooking.route';
+
 
 const router = express.Router();
 
@@ -70,6 +70,10 @@ const moduleRoutes = [
   {
     path: '/death-records/analytics',
     route: DeathRecordAnalyticsRoutes,
+  },
+  {
+    path: '/admission-bookings',
+    route: AdmissionBookingRoutes,
   },
 ];
 
