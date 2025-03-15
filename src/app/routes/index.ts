@@ -14,7 +14,6 @@ import { BedRoutes } from '../modules/Bed/bed.route';
 import { DeathRecordAnalyticsRoutes } from '../modules/Analytics/DeathRecordAnalytics/deathRecordAnalytics.route';
 import { AdmissionBookingRoutes } from '../modules/AdmissionBooking/admissionBooking.route';
 
-
 const router = express.Router();
 
 const moduleRoutes = [
