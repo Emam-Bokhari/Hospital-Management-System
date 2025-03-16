@@ -46,9 +46,21 @@ const getReviewByIdController = asyncHandler(async (req, res) => {
     });
 });
 
+const deleteReviewByIdController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await ReviewServices.deleteReviewById(id);
+    sendResponse(res, {
+        success: true,
+        message: "Review deleted successfully",
+        statusCode: 200,
+        data: {}
+    })
+})
+
 export const ReviewControllers = {
     createReviewController,
     getAllReviewsController,
     getReviewsByDoctorIdController,
     getReviewByIdController,
+    deleteReviewByIdController,
 }
