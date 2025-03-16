@@ -14,6 +14,17 @@ const createReviewController = asyncHandler(async (req, res) => {
     });
 });
 
+export const getAllReviewsController = asyncHandler(async (req, res) => {
+    const reviews = await ReviewServices.getAllReviews();
+    sendResponse(res, {
+        success: true,
+        message: 'Review retrieved successfully',
+        statusCode: 200,
+        data: reviews,
+    });
+});
+
 export const ReviewControllers = {
     createReviewController,
+    getAllReviewsController,
 }

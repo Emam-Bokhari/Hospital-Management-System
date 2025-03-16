@@ -28,7 +28,7 @@ export const getReviewsByDoctorId = async (doctorId: string) => {
     const reviews = await Review.find({ doctorId: doctorId });
 
     if (reviews.length === 0) {
-        throw new HttpError(404, `No notice were found with role ${doctorId}`);
+        throw new HttpError(404, `No review were found with ID ${doctorId}`);
     }
 
     return reviews;
