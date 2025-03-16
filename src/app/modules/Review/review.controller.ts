@@ -35,8 +35,20 @@ export const getReviewsByDoctorIdController = asyncHandler(async (req, res) => {
     });
 });
 
+const getReviewByIdController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const review = await ReviewServices.getReviewById(id);
+    sendResponse(res, {
+        success: true,
+        message: 'Review retrieved successfully',
+        statusCode: 200,
+        data: review,
+    });
+});
+
 export const ReviewControllers = {
     createReviewController,
     getAllReviewsController,
     getReviewsByDoctorIdController,
+    getReviewByIdController,
 }

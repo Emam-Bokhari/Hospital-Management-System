@@ -24,7 +24,7 @@ export const getAllNotices = asyncHandler(async (req, res) => {
   });
 });
 
-export const getNoticesByRole = asyncHandler(async (req, res) => {
+export const getNoticesByRoleController = asyncHandler(async (req, res) => {
   const role = req.params.role;
   const notices = await NoticeServices.getNoticesByRole(role);
   sendResponse(res, {
@@ -61,7 +61,7 @@ const deleteNoticeByIdController = asyncHandler(async (req, res) => {
 export const NoticeControllers = {
   createNoticeController,
   getAllNotices,
-  getNoticesByRole,
+  getNoticesByRoleController,
   getNoticeByIdController,
   deleteNoticeByIdController,
 };
