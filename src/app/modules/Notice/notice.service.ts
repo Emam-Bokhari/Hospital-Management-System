@@ -8,7 +8,10 @@ const createNotice = async (payload: TNotice) => {
 }
 
 export const getAllNotices = async () => {
-    const notices = await Notice.find();
+    const notices = await Notice.find().populate({
+        path: 'createdBy',
+        select: 'firstName lastName email role',
+    });;
 
     if (notices.length === 0) {
         throw new HttpError(404, "No notice were found in the database")
