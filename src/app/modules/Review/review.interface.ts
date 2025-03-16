@@ -1,6 +1,8 @@
+import { Types } from "mongoose";
+
 export type TReview = {
-    reviewerId: string;
-    doctorId: string;
+    reviewerId: Types.ObjectId;
+    doctorId: Types.ObjectId;
     reviewText: string;
     isDeleted: boolean;
 }
