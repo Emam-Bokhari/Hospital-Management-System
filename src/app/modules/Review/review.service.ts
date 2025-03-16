@@ -24,7 +24,18 @@ export const getAllReviews = async () => {
     return reviews;
 };
 
+export const getReviewById = async (id: string) => {
+    const review = await Review.findById(id)
+
+    if (!review) {
+        throw new HttpError(404, `No review found with ID ${id}`);
+    }
+
+    return review;
+};
+
 export const ReviewServices = {
     createReview,
     getAllReviews,
+    getReviewById,
 }
