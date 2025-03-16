@@ -7,6 +7,8 @@ router.post("/", NoticeControllers.createNoticeController)
 
 router.get("/", NoticeControllers.getAllNotices);
 
+router.get("/:role", NoticeControllers.getNoticesByRole);
+
 router.get("/:id", NoticeControllers.getNoticeByIdController);
 
 router.delete("/:id", NoticeControllers.deleteNoticeByIdController)

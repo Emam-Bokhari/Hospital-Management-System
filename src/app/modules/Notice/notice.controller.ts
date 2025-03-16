@@ -24,6 +24,17 @@ export const getAllNotices = asyncHandler(async (req, res) => {
     })
 })
 
+export const getNoticesByRole = asyncHandler(async (req, res) => {
+    const role = req.params.role;
+    const notices = await NoticeServices.getNoticesByRole(role);
+    sendResponse(res, {
+        success: true,
+        message: "Notice retrieved successfully",
+        statusCode: 200,
+        data: notices,
+    })
+})
+
 const getNoticeByIdController = asyncHandler(async (req, res) => {
     const id = req.params.id;
     const notice = await NoticeServices.getNoticeById(id);
@@ -50,6 +61,7 @@ const deleteNoticeByIdController = asyncHandler(async (req, res) => {
 export const NoticeControllers = {
     createNoticeController,
     getAllNotices,
+    getNoticesByRole,
     getNoticeByIdController,
     deleteNoticeByIdController,
 }

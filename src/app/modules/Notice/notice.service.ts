@@ -20,6 +20,16 @@ export const getAllNotices = async () => {
     return notices;
 }
 
+export const getNoticesByRole = async (role: string) => {
+    const notices = await Notice.find({ targetAudience: role })
+
+    if (notices.length === 0) {
+        throw new HttpError(404, `No notice were found with role ${role}`)
+    }
+
+    return notices;
+}
+
 export const getNoticeById = async (id: string) => {
     const notice = await Notice.findById(id).populate({
         path: 'createdBy',
@@ -48,6 +58,7 @@ const deleteNoticeById = async (id: string) => {
 export const NoticeServices = {
     createNotice,
     getAllNotices,
+    getNoticesByRole,
     getNoticeById,
     deleteNoticeById,
 }
