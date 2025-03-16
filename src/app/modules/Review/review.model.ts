@@ -19,6 +19,11 @@ const reviewSchema = new Schema<TReview>({
         default: false,
     }
 
-})
+},
+    {
+        timestamps: true,
+        versionKey: false,
+    }
+)
 
 export const Review = model<TReview>("Review", reviewSchema)

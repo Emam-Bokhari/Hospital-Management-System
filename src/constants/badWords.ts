@@ -5,5 +5,5 @@ export const badWords = [
     "faggot", "fag", "gayass", "twat", "hoe", "douchebag", "scumbag", "loser", "moron",
     "dipshit", "prick", "wanker", "pissed", "shithole", "dumbfuck", "asshat", "bloody hell",
     "bollocks", "twatwaffle", "crap", "bugger", "jackass", "git", "numbnuts", "arse",
-    "whoremonger", "skank", "tramp", "hooker", "slag", "hoe", "scumbucket"
+    "whoremonger", "skank", "tramp", "hooker", "slag", "hoe", "scumbucket", "sexy", "hot", "sex"
 ];
