@@ -17,6 +17,21 @@ export const getAllNotices = async () => {
     return notices;
 }
 
+export const getNoticeById = async (id: string) => {
+    const notice = await Notice.findById(id).populate({
+        path: 'createdBy',
+        select: 'firstName lastName email role',
+    });
+
+    if (!notice) {
+        throw new HttpError(404, `No notice found with ID ${id}`)
+    }
+
+    return notice;
+}
+
 export const NoticeServices = {
     createNotice,
+    getAllNotices,
+    getNoticeById,
 }
