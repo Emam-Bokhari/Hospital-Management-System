@@ -14,7 +14,7 @@ const createReview = async (payload: TReview) => {
     return createdReview;
 };
 
-export const getAllReviews = async () => {
+const getAllReviews = async () => {
     const reviews = await Review.find()
 
     if (reviews.length === 0) {
@@ -24,7 +24,7 @@ export const getAllReviews = async () => {
     return reviews;
 };
 
-export const getReviewsByDoctorId = async (doctorId: string) => {
+const getReviewsByDoctorId = async (doctorId: string) => {
     const reviews = await Review.find({ doctorId: doctorId });
 
     if (reviews.length === 0) {
@@ -34,7 +34,7 @@ export const getReviewsByDoctorId = async (doctorId: string) => {
     return reviews;
 };
 
-export const getReviewById = async (id: string) => {
+const getReviewById = async (id: string) => {
     const review = await Review.findById(id)
 
     if (!review) {
@@ -44,9 +44,22 @@ export const getReviewById = async (id: string) => {
     return review;
 };
 
+const deleteReviewById = async (id: string) => {
+    const deletedReview = await Review.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        { isDeleted: true },
+        { new: true },
+    );
+    if (!deletedReview) {
+        throw new HttpError(404, `No review found with ID: ${id}`);
+    }
+    return deletedReview;
+};
+
 export const ReviewServices = {
     createReview,
     getAllReviews,
     getReviewById,
     getReviewsByDoctorId,
+    deleteReviewById,
 }
