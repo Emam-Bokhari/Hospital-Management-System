@@ -66,7 +66,7 @@ const updateBirthRecordById = async (
 
   const updatedBirthRecord = await BirthRecord.findOneAndUpdate(
     { _id: id, isDeleted: false },
-    modifiedUpdatedData,
+    { $set: modifiedUpdatedData },
     { new: true, runValidators: true },
   );
 

@@ -13,6 +13,7 @@ import { DeathRecordRoutes } from '../modules/DeathRecord/deathRecord.route';
 import { BedRoutes } from '../modules/Bed/bed.route';
 import { DeathRecordAnalyticsRoutes } from '../modules/Analytics/DeathRecordAnalytics/deathRecordAnalytics.route';
 import { AdmissionBookingRoutes } from '../modules/AdmissionBooking/admissionBooking.route';
+import { NoticeRoutes } from '../modules/Notice/notice.route';
 
 const router = express.Router();
 
@@ -64,6 +65,10 @@ const moduleRoutes = [
   {
     path: '/beds',
     route: BedRoutes,
+  },
+  {
+    path: '/notices',
+    route: NoticeRoutes,
   },
   // analytics
   {
