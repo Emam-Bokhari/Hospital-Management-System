@@ -48,4 +48,5 @@ export const ReviewServices = {
     createReview,
     getAllReviews,
     getReviewById,
+    getReviewsByDoctorId,
 }

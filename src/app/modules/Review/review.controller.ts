@@ -18,7 +18,18 @@ export const getAllReviewsController = asyncHandler(async (req, res) => {
     const reviews = await ReviewServices.getAllReviews();
     sendResponse(res, {
         success: true,
-        message: 'Review retrieved successfully',
+        message: 'Review are retrieved successfully',
+        statusCode: 200,
+        data: reviews,
+    });
+});
+
+export const getReviewsByDoctorIdController = asyncHandler(async (req, res) => {
+    const doctorId = req.params.doctorId;
+    const reviews = await ReviewServices.getReviewsByDoctorId(doctorId);
+    sendResponse(res, {
+        success: true,
+        message: 'Review are retrieved successfully',
         statusCode: 200,
         data: reviews,
     });
@@ -27,4 +38,5 @@ export const getAllReviewsController = asyncHandler(async (req, res) => {
 export const ReviewControllers = {
     createReviewController,
     getAllReviewsController,
+    getReviewsByDoctorIdController,
 }
