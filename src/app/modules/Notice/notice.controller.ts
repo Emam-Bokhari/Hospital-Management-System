@@ -24,7 +24,20 @@ export const getAllNotices = asyncHandler(async (req, res) => {
     })
 })
 
+const getNoticeByIdController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const notice = await NoticeServices.getNoticeById(id);
+    sendResponse(res, {
+        success: true,
+        message: 'Notice retrieved successfully',
+        statusCode: 200,
+        data: notice,
+    });
+});
+
 export const NoticeControllers = {
     createNoticeController,
     getAllNotices,
+    getNoticeByIdController,
+
 }

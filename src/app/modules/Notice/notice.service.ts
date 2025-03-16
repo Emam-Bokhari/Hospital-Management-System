@@ -42,7 +42,6 @@ const deleteNoticeById = async (id: string) => {
     return deletedNotice;
 };
 
-
 export const NoticeServices = {
     createNotice,
     getAllNotices,
