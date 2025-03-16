@@ -1,4 +1,5 @@
-import { badWords } from "../../../constants/badWords";
+import { badWords } from "../../constants/badWords";
+
 
 // check bad words
 export const filterBadWords = (text: string) => {
