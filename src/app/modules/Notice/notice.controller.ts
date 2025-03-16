@@ -14,6 +14,17 @@ const createNoticeController = asyncHandler(async (req, res) => {
     });
 });
 
+export const getAllNotices = asyncHandler(async (req, res) => {
+    const notices = await NoticeServices.getAllNotices();
+    sendResponse(res, {
+        success: true,
+        message: "Notice retrieved successfully",
+        statusCode: 200,
+        data: notices,
+    })
+})
+
 export const NoticeControllers = {
     createNoticeController,
+    getAllNotices,
 }
