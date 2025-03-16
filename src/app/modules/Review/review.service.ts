@@ -35,6 +35,7 @@ const getReviewsByDoctorId = async (doctorId: string) => {
 };
 
 const getReviewById = async (id: string) => {
+
     const review = await Review.findById(id)
 
     if (!review) {

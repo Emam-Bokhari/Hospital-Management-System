@@ -7,7 +7,7 @@ router.post("/", ReviewControllers.createReviewController);
 
 router.get("/", ReviewControllers.getAllReviewsController);
 
-router.get("/:doctorId", ReviewControllers.getReviewsByDoctorIdController);
+router.get("/doctor/:doctorId", ReviewControllers.getReviewsByDoctorIdController);
 
 router.get("/:id", ReviewControllers.getReviewByIdController);
 
