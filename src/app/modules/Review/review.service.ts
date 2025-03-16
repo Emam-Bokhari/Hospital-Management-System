@@ -24,6 +24,16 @@ export const getAllReviews = async () => {
     return reviews;
 };
 
+export const getReviewsByDoctorId = async (doctorId: string) => {
+    const reviews = await Review.find({ doctorId: doctorId });
+
+    if (reviews.length === 0) {
+        throw new HttpError(404, `No notice were found with role ${doctorId}`);
+    }
+
+    return reviews;
+};
+
 export const getReviewById = async (id: string) => {
     const review = await Review.findById(id)
 
