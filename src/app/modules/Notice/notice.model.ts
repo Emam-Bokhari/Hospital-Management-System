@@ -32,7 +32,7 @@ const noticeSchema = new Schema<TNotice>(
       type: String,
     },
     createdBy: {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: 'User',
     },
     isDeleted: {
