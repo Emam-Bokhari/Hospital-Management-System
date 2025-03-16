@@ -35,9 +35,21 @@ const getNoticeByIdController = asyncHandler(async (req, res) => {
     });
 });
 
+const deleteNoticeByIdController = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await NoticeServices.deleteNoticeById(id);
+
+    sendResponse(res, {
+        success: true,
+        message: 'Notice deleted successfully',
+        statusCode: 200,
+        data: {},
+    });
+});
+
 export const NoticeControllers = {
     createNoticeController,
     getAllNotices,
     getNoticeByIdController,
-
+    deleteNoticeByIdController,
 }
