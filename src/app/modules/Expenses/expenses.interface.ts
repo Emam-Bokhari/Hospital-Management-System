@@ -31,6 +31,7 @@ export type TExpenses = {
         toolName: string;
         brand?: string;
         quantity: number;
+        unitPrice: number;
         supplier: string;
         purchaseDate: string;
         warrantyPeriod?: string; // e.g., '2 years'
@@ -41,7 +42,7 @@ export type TExpenses = {
     maintenance?: {
         maintenanceType: string;
         description: string;
-        const: number;
+        cost: number;
         vendor?: string;
         maintenanceDate: string;
     }

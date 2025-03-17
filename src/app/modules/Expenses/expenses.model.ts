@@ -1,6 +1,7 @@
 import { Schema, model, Types } from "mongoose";
+import { TExpenses } from "./expenses.interface";
 
-const expensesSchema = new Schema({
+const expensesSchema = new Schema<TExpenses>({
     expenseType: {
         type: String,
         enum: ["staffSalaries", "medicalSupplies", "diagnosticTools", "maintenance", "rent", "marketing", "utility", "government", "others"],
