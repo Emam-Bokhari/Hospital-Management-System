@@ -17,6 +17,16 @@ const getAllExpenses = async () => {
     return expenses;
 }
 
+export const getExpensesByType = async (type: string) => {
+    const expenses = await Expenses.find({ expenseType: type });
+
+    if (expenses.length === 0) {
+        throw new HttpError(404, `No expenses were found with role ${type}`);
+    }
+
+    return expenses;
+};
+
 const getExpensesById = async (id: string) => {
     const expenses = await Expenses.findById(id);
 
@@ -42,6 +52,7 @@ const deleteExpensesById = async (id: string) => {
 export const ExpensesServices = {
     createExpenses,
     getAllExpenses,
+    getExpensesByType,
     getExpensesById,
     deleteExpensesById,
 }
