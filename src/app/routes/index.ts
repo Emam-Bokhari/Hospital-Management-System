@@ -15,6 +15,7 @@ import { DeathRecordAnalyticsRoutes } from '../modules/Analytics/DeathRecordAnal
 import { AdmissionBookingRoutes } from '../modules/AdmissionBooking/admissionBooking.route';
 import { NoticeRoutes } from '../modules/Notice/notice.route';
 import { ReviewRoutes } from '../modules/Review/review.route';
+import { ExpensesRoutes } from '../modules/Expenses/expenses.route';
 
 const router = express.Router();
 
@@ -74,6 +75,10 @@ const moduleRoutes = [
   {
     path: '/reviews',
     route: ReviewRoutes,
+  },
+  {
+    path: '/expenses',
+    route: ExpensesRoutes,
   },
   // analytics
   {
