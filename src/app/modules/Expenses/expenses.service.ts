@@ -17,7 +17,18 @@ const getAllExpenses = async () => {
     return expenses;
 }
 
+const getExpensesById = async (id: string) => {
+    const expenses = await Expenses.findById(id);
+
+    if (!expenses) {
+        throw new HttpError(404, `No expenses found with ID ${id}`);
+    }
+
+    return expenses;
+}
+
 export const ExpensesServices = {
     createExpenses,
     getAllExpenses,
+    getExpensesById,
 }
