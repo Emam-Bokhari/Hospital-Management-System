@@ -27,8 +27,21 @@ const getExpensesById = async (id: string) => {
     return expenses;
 }
 
+const deleteExpensesById = async (id: string) => {
+    const deletedExpenses = await Expenses.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        { isDeleted: true },
+        { new: true },
+    );
+    if (!deletedExpenses) {
+        throw new HttpError(404, `No expenses found with ID: ${id}`);
+    }
+    return deletedExpenses;
+};
+
 export const ExpensesServices = {
     createExpenses,
     getAllExpenses,
     getExpensesById,
+    deleteExpensesById,
 }
