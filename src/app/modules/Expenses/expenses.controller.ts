@@ -35,8 +35,20 @@ const getExpensesByType = asyncHandler(async (req, res) => {
     });
 })
 
+const getExpensesById = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const expenses = await ExpensesServices.getExpensesById(id);
+    sendResponse(res, {
+        success: true,
+        message: 'Expenses is retrieved successfully',
+        statusCode: 200,
+        data: expenses,
+    });
+})
+
 export const ExpensesControllers = {
     createExpensesController,
     getAllExpenses,
     getExpensesByType,
+    getExpensesById,
 }
