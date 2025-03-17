@@ -14,6 +14,17 @@ const createExpensesController = asyncHandler(async (req, res) => {
     });
 });
 
+export const getAllExpenses = asyncHandler(async (req, res) => {
+    const expenses = await ExpensesServices.getAllExpenses();
+    sendResponse(res, {
+        success: true,
+        message: 'Expenses are retrieved successfully',
+        statusCode: 200,
+        data: expenses,
+    });
+});
+
 export const ExpensesControllers = {
     createExpensesController,
+    getAllExpenses,
 }

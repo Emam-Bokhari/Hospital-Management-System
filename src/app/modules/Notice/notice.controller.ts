@@ -18,7 +18,7 @@ export const getAllNotices = asyncHandler(async (req, res) => {
   const notices = await NoticeServices.getAllNotices();
   sendResponse(res, {
     success: true,
-    message: 'Notice retrieved successfully',
+    message: 'Notice are retrieved successfully',
     statusCode: 200,
     data: notices,
   });
@@ -29,7 +29,7 @@ export const getNoticesByRoleController = asyncHandler(async (req, res) => {
   const notices = await NoticeServices.getNoticesByRole(role);
   sendResponse(res, {
     success: true,
-    message: 'Notice retrieved successfully',
+    message: 'Notice are retrieved successfully',
     statusCode: 200,
     data: notices,
   });
