@@ -46,9 +46,21 @@ const getExpensesById = asyncHandler(async (req, res) => {
     });
 })
 
+const deleteExpensesById = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await ExpensesServices.deleteExpensesById(id);
+    sendResponse(res, {
+        success: true,
+        message: "Expenses is deleted successfully",
+        statusCode: 200,
+        data: {}
+    })
+})
+
 export const ExpensesControllers = {
     createExpensesController,
     getAllExpenses,
     getExpensesByType,
     getExpensesById,
+    deleteExpensesById,
 }
