@@ -50,6 +50,13 @@ const bedSchema = new Schema<TBed>(
       type: Boolean,
       default: false,
     },
+    action: {
+      type: String,
+      enum: {
+        values: ['add', "remove"],
+        message: '{VALUE} is not a valid action',
+      },
+    }
   },
   {
     timestamps: true,

@@ -9,4 +9,5 @@ export type TBed = {
   admissionNotes?: string;
   createdBy?: Types.ObjectId;
   isDeleted?: boolean;
+  action?: "add" | "remove";
 };

@@ -40,20 +40,18 @@ const updateBedById = async (id: string, payload: Partial<TBed>) => {
     throw new HttpError(404, `No bed found with ID: ${id}`);
   }
 
-  const { facilities, ...remainingBedData } = payload;
+  const { action, facilities, ...remainingBedData } = payload;
 
   const modifiedUpdatedData: Record<string, unknown> = {
     ...remainingBedData,
   };
 
   //  update array fields
-  if (facilities) {
-    const currentFacilities = bed?.facilities || [];
-
-    if (facilities.length > 0) {
-      modifiedUpdatedData.facilities = Array.from(
-        new Set([...currentFacilities, ...facilities]),
-      );
+  if (action && facilities) {
+    if (action === "add") {
+      modifiedUpdatedData.$addToSet = { facilities: facilities }
+    } else if (action === "remove") {
+      modifiedUpdatedData.$pull = { facilities: facilities }
     }
   }
 
