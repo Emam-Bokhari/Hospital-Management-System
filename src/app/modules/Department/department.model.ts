@@ -11,6 +11,9 @@ import {
 } from '../../utils/modelSpecific/queryFilters';
 
 const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
+  _id: {
+    type: String,
+  },
   symptom: {
     type: String,
     trim: true,
@@ -24,6 +27,9 @@ const symptomsAddressedSchema = new Schema<TSymptomsAddressed>({
 });
 
 const possibleCausesSchema = new Schema<TPossibleCauses>({
+  _id: {
+    type: String,
+  },
   cause: {
     type: String,
     trim: true,
@@ -77,6 +83,10 @@ export const departmentSchema = new Schema<TDepartment>(
       type: Boolean,
       default: false,
     },
+    action: {
+      type: String,
+      enum: ['add', 'remove', "update"],
+    }
   },
   {
     timestamps: true,

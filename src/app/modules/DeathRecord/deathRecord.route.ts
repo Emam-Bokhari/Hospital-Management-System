@@ -28,3 +28,4 @@ router.patch(
 router.delete('/:id', DeathRecordControllers.deleteDeathRecordController);
 
 export const DeathRecordRoutes = router;
+

@@ -17,14 +17,6 @@ router.get('/', DepartmentControllers.getAllDepartmentsController);
 
 router.get('/:id', DepartmentControllers.getDepartmentController);
 
-router.patch(
-  '/:id',
-  validateRequestSchema(
-    DepartmentValidationSchema.updateDepartmentValidationSchema,
-  ),
-  DepartmentControllers.updateDepartmentController,
-);
-
 router.delete('/:id', DepartmentControllers.deleteDepartmentController);
 
 export const DepartmentRoutes = router;

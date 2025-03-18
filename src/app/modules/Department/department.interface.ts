@@ -1,11 +1,13 @@
 import { Types } from 'mongoose';
 
 export type TSymptomsAddressed = {
+  _id: string;
   symptom: string;
   description: string;
 };
 
 export type TPossibleCauses = {
+  _id: string;
   cause: string;
   description: string;
 };
@@ -20,4 +22,5 @@ export type TDepartment = {
   status?: 'active' | 'inActive';
   createdBy?: Types.ObjectId;
   isDeleted?: boolean;
+  action?: "add" | "remove" | "update"
 };
