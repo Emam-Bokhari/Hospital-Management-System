@@ -182,7 +182,7 @@ const doctorSchema = new Schema<TDoctor>(
     },
     specialization: {
       type: Schema.Types.ObjectId,
-      required: true,
+
       ref: 'Specialization',
     },
     department: {
@@ -192,17 +192,17 @@ const doctorSchema = new Schema<TDoctor>(
     firstName: {
       type: String,
       trim: true,
-      required: true,
+
     },
     lastName: {
       type: String,
       trim: true,
-      required: true,
+
     },
     gender: {
       type: String,
       enum: ['male', 'female'],
-      required: true,
+
     },
     dateOfBirth: {
       type: String,
@@ -212,46 +212,46 @@ const doctorSchema = new Schema<TDoctor>(
         },
         message: (props) => `${props.value} is not a valid date format!`,
       },
-      required: true,
+
     },
     nationality: {
       type: String,
-      required: true,
+
     },
     religion: {
       type: String,
-      required: true,
+
     },
     profilePicture: {
       type: String,
     },
     contactInformation: {
       type: contactInformationSchema,
-      required: true,
+
     },
     emergencyContact: {
       type: emergencyContactSchema,
-      required: true,
+
     },
     educationDetails: {
       type: [educationDetailsSchema],
-      required: true,
+
     },
     qualifications: [
       {
         type: String,
         trim: true,
-        required: true,
+
       },
     ],
     licenseNumber: {
       type: String,
       trim: true,
-      required: true,
+
     },
     previousWorkPlace: {
       type: [previousWorkPlaceSchema],
-      required: true,
+
     },
     yearsOfExperience: {
       type: Number,
@@ -259,11 +259,11 @@ const doctorSchema = new Schema<TDoctor>(
     },
     medicalPracticeInformation: {
       type: medicalPracticeInformationSchema,
-      required: true,
+
     },
     awards: {
       type: [awardsSchema],
-      required: true,
+
     },
     workingDays: {
       type: [String],
@@ -276,17 +276,17 @@ const doctorSchema = new Schema<TDoctor>(
         'Saturday',
         'Sunday',
       ],
-      required: true,
+
     },
     workingHours: [
       {
         startTime: {
           type: String,
-          required: true,
+
         },
         endTime: {
           type: String,
-          required: true,
+
         },
       },
     ],
@@ -301,7 +301,7 @@ const doctorSchema = new Schema<TDoctor>(
         'Saturday',
         'Sunday',
       ],
-      required: true,
+
     },
     isDeleted: {
       type: Boolean,
@@ -338,33 +338,39 @@ previousWorkPlaceSchema.pre('save', async function (next) {
 // check working hours & available time slots if start time before end time
 doctorSchema.pre('save', async function (next) {
   try {
-    // validate working hours
-    this.workingHours.forEach((workingHour) => {
-      validateTimeRange(
-        workingHour.startTime,
-        workingHour.endTime,
-        'Start time cannot be later than end time in working hours. ',
-      );
-    });
-
+    if (this.workingHours && Array.isArray(this.workingHours)) {
+      this.workingHours.forEach((workingHour) => {
+        if (workingHour?.startTime && workingHour?.endTime) {
+          validateTimeRange(
+            workingHour.startTime,
+            workingHour.endTime,
+            'Start time cannot be later than end time in working hours.',
+          );
+        }
+      });
+    }
     next();
   } catch (err: any) {
     next(err);
   }
 });
+
 
 // check if working days and off days overlapping
 doctorSchema.pre('save', async function (next) {
   try {
-    validateOffDays(
-      this.workingDays,
-      this.offDays,
-      'Off days cannot overlap with working days, Change your days',
-    );
+    if (this.workingDays && this.offDays) {
+      validateOffDays(
+        this.workingDays,
+        this.offDays,
+        'Off days cannot overlap with working days, Change your days',
+      );
+    }
     next();
   } catch (err: any) {
     next(err);
   }
 });
+
 
 export const Doctor = model<TDoctor>('Doctor', doctorSchema);
