@@ -1,7 +1,9 @@
+import config from "../../config";
 import { HttpError } from "../../errors/HttpError";
 import { TUser } from "../User/user.interface";
 import { User } from "../User/user.model";
 import { TLoginUser } from "./auth.interface";
+import jwt from 'jsonwebtoken';
 
 const registerUser = async (payload: TUser) => {
 
@@ -40,9 +42,29 @@ const loginUser = async (payload: TLoginUser) => {
         throw new HttpError(403, "The user account is suspended")
     }
 
+    // check if the user  password is matched
+    if (!(await User.isPasswordMatched(payload.password, user.password))) {
+        throw new HttpError(401, "Your password is incorrect, Please try again with correct password")
+    }
+
+    // create jwt token
+    const jwtPayload = {
+        email: user.email,
+        role: user?.role,
+    }
+
+    const token = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+        expiresIn: "7d"
+    });
+
+    return {
+        token,
+    }
+
 
 }
 
 export const AuthServices = {
     registerUser,
+    loginUser,
 }

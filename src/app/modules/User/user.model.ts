@@ -79,7 +79,7 @@ userSchema.statics.isUserExists = async (email: string) => {
 
 // statics method for password matched
 userSchema.statics.isPasswordMatched = async function (plainTextPassword, hashedPassword) {
-  return await 
+  return await bcrypt.compare(plainTextPassword, hashedPassword)
 }
 
 // query middleware for soft delete by utils
