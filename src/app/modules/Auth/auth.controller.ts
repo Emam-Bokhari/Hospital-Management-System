@@ -14,6 +14,19 @@ const registerUserController = asyncHandler(async (req, res) => {
     })
 })
 
+const loginUserController = asyncHandler(async (req, res) => {
+    const loginUserPayload = req.body;
+    const loggedInUser = await AuthServices.loginUser(loginUserPayload);
+
+    sendResponse(res, {
+        success: true,
+        message: "User login successfully",
+        statusCode: 200,
+        data: loggedInUser,
+    })
+})
+
 export const AuthControllers = {
     registerUserController,
+    loginUserController,
 }
