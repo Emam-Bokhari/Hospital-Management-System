@@ -5,11 +5,6 @@ import { Doctor } from '../Doctor/doctor.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 
-const createUser = async (payload: TUser) => {
-  const createdUser = await User.create(payload);
-
-  return createdUser;
-};
 
 const getAllUsers = async () => {
   const users = await User.find();
@@ -93,7 +88,6 @@ const deleteUserById = async (id: string) => {
 };
 
 export const UserServices = {
-  createUser,
   getAllUsers,
   getUserById,
   updateUserById,

@@ -1,11 +1,11 @@
 import { model, Schema } from 'mongoose';
-import { TUser } from './user.interface';
+import { TUser, UserModel } from './user.interface';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
 } from '../../utils/modelSpecific/queryFilters';
 
-const userSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser, UserModel>(
   {
     firstName: {
       type: String,
@@ -56,6 +56,11 @@ const userSchema = new Schema<TUser>(
   },
 );
 
+// statics method for check if user is exists
+userSchema.statics.isUserExists = async (email: string) => {
+  return await User.findOne({ email: email }).select("+password")
+}
+
 // query middleware for soft delete by utils
 userSchema.pre('find', excludeDeletedQuery);
 userSchema.pre('findOne', excludeDeletedQuery);
@@ -63,4 +68,4 @@ userSchema.pre('findOne', excludeDeletedQuery);
 // aggregate middleware for soft delete by utils
 userSchema.pre('aggregate', excludeDeletedAggregation);
 
-export const User = model<TUser>('User', userSchema);
+export const User = model<TUser, UserModel>('User', userSchema);

@@ -2,17 +2,6 @@ import { UserServices } from './user.service';
 import { sendResponse } from '../../utils/global/sendResponse';
 import { asyncHandler } from '../../utils/global/asyncHandler';
 
-const createUserController = asyncHandler(async (req, res) => {
-  const userPayload = req.body;
-  const createdUser = await UserServices.createUser(userPayload);
-
-  sendResponse(res, {
-    success: true,
-    message: 'User registered successfully',
-    statusCode: 201,
-    data: createdUser,
-  });
-});
 
 const getAllUsersController = asyncHandler(async (req, res) => {
   const users = await UserServices.getAllUsers();
@@ -63,7 +52,6 @@ const deleteUserController = asyncHandler(async (req, res) => {
 });
 
 export const UserControllers = {
-  createUserController,
   getAllUsersController,
   getUserController,
   updateUserController,
