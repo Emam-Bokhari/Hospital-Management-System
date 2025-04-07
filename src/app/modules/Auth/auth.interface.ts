@@ -1,6 +1,4 @@
-export type TAuth = {
-    firstName: string;
-    lastName: string;
+export type TLoginUser = {
     email: string;
     password: string;
 }

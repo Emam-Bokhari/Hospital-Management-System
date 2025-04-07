@@ -4,6 +4,8 @@ import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
 } from '../../utils/modelSpecific/queryFilters';
+import bcrypt from "bcrypt"
+import config from '../../config';
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -56,9 +58,28 @@ const userSchema = new Schema<TUser, UserModel>(
   },
 );
 
+// hashed password by bcrypt
+userSchema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password,
+    Number(config.bcrypt_salt_rounds)
+  )
+  next()
+})
+
+// password field is empty
+userSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next()
+})
+
 // statics method for check if user is exists
 userSchema.statics.isUserExists = async (email: string) => {
   return await User.findOne({ email: email }).select("+password")
+}
+
+// statics method for password matched
+userSchema.statics.isPasswordMatched = async function (plainTextPassword, hashedPassword) {
+  return await 
 }
 
 // query middleware for soft delete by utils
