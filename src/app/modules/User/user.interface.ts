@@ -1,4 +1,5 @@
 import { Document, Model } from "mongoose";
+import { USER_ROLE } from "./user.constant";
 
 export interface TUser extends Document {
   _id: string;
@@ -9,13 +10,15 @@ export interface TUser extends Document {
   role?:
   | 'user'
   | 'doctor'
-  | 'accounts-specialist'
-  | 'finance-manager'
+  | 'accountsSpecialist'
+  | 'financeManager'
   | 'admin'
-  | 'super-admin';
+  | 'superAdmin';
   status?: 'active' | 'suspend';
   isDeleted?: boolean;
 };
+
+export type TUserRole = keyof typeof USER_ROLE;
 
 // statics methods
 export interface UserModel extends Model<TUser> {
