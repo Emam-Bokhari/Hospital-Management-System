@@ -10,7 +10,7 @@ export interface TUser extends Document {
   role?:
   | 'user'
   | 'doctor'
-  | 'accountsSpecialist'
+  | 'receptionist'
   | 'financeManager'
   | 'admin'
   | 'superAdmin';

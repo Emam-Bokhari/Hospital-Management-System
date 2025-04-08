@@ -36,7 +36,7 @@ const createUserValidationSchema = z.object({
       .enum([
         'user',
         'doctor',
-        'accounts-specialist',
+        'receptionist',
         'finance-manager',
         'admin',
         'super-admin',
@@ -87,7 +87,7 @@ const updateUserValidationSchema = z.object({
       .enum([
         'user',
         'doctor',
-        'accounts-specialist',
+        'receptionist',
         'finance-manager',
         'admin',
         'super-admin',

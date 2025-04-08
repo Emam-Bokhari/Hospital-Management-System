@@ -35,7 +35,7 @@ const userSchema = new Schema<TUser, UserModel>(
       enum: [
         'user',
         'doctor',
-        'accounts-specialist',
+        'receptionist',
         'finance-manager',
         'admin',
         'super-admin',

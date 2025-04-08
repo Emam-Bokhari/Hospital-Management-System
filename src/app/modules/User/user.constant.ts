@@ -1,7 +1,7 @@
 export const USER_ROLE = {
     user: 'user',
     doctor: 'doctor',
-    accountsSpecialist: 'accountsSpecialist',
+    receptionist: 'receptionist',
     financeManager: 'financeManager',
     admin: 'admin',
     superAdmin: 'superAdmin',
