@@ -85,8 +85,8 @@ export const departmentSchema = new Schema<TDepartment>(
     },
     action: {
       type: String,
-      enum: ['add', 'remove', "update"],
-    }
+      enum: ['add', 'remove', 'update'],
+    },
   },
   {
     timestamps: true,

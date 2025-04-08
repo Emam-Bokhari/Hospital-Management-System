@@ -192,17 +192,14 @@ const doctorSchema = new Schema<TDoctor>(
     firstName: {
       type: String,
       trim: true,
-
     },
     lastName: {
       type: String,
       trim: true,
-
     },
     gender: {
       type: String,
       enum: ['male', 'female'],
-
     },
     dateOfBirth: {
       type: String,
@@ -212,46 +209,37 @@ const doctorSchema = new Schema<TDoctor>(
         },
         message: (props) => `${props.value} is not a valid date format!`,
       },
-
     },
     nationality: {
       type: String,
-
     },
     religion: {
       type: String,
-
     },
     profilePicture: {
       type: String,
     },
     contactInformation: {
       type: contactInformationSchema,
-
     },
     emergencyContact: {
       type: emergencyContactSchema,
-
     },
     educationDetails: {
       type: [educationDetailsSchema],
-
     },
     qualifications: [
       {
         type: String,
         trim: true,
-
       },
     ],
     licenseNumber: {
       type: String,
       trim: true,
-
     },
     previousWorkPlace: {
       type: [previousWorkPlaceSchema],
-
     },
     yearsOfExperience: {
       type: Number,
@@ -259,11 +247,9 @@ const doctorSchema = new Schema<TDoctor>(
     },
     medicalPracticeInformation: {
       type: medicalPracticeInformationSchema,
-
     },
     awards: {
       type: [awardsSchema],
-
     },
     workingDays: {
       type: [String],
@@ -276,17 +262,14 @@ const doctorSchema = new Schema<TDoctor>(
         'Saturday',
         'Sunday',
       ],
-
     },
     workingHours: [
       {
         startTime: {
           type: String,
-
         },
         endTime: {
           type: String,
-
         },
       },
     ],
@@ -301,7 +284,6 @@ const doctorSchema = new Schema<TDoctor>(
         'Saturday',
         'Sunday',
       ],
-
     },
     isDeleted: {
       type: Boolean,
@@ -355,7 +337,6 @@ doctorSchema.pre('save', async function (next) {
   }
 });
 
-
 // check if working days and off days overlapping
 doctorSchema.pre('save', async function (next) {
   try {
@@ -371,6 +352,5 @@ doctorSchema.pre('save', async function (next) {
     next(err);
   }
 });
-
 
 export const Doctor = model<TDoctor>('Doctor', doctorSchema);

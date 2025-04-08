@@ -22,5 +22,5 @@ export type TDepartment = {
   status?: 'active' | 'inActive';
   createdBy?: Types.ObjectId;
   isDeleted?: boolean;
-  action?: "add" | "remove" | "update"
+  action?: 'add' | 'remove' | 'update';
 };

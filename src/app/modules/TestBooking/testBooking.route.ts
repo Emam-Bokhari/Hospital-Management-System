@@ -9,16 +9,29 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user, USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  auth(
+    USER_ROLE.user,
+    USER_ROLE.receptionist,
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+  ),
   validateRequestSchema(
     TestBookingValidationSchema.createTestBookingValidationSchema,
   ),
   TestBookingControllers.createTestBookingController,
 );
 
-router.get('/', auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin), TestBookingControllers.getAllTestBookingsController);
+router.get(
+  '/',
+  auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  TestBookingControllers.getAllTestBookingsController,
+);
 
-router.get('/:id', auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin), TestBookingControllers.getTestBookingController);
+router.get(
+  '/:id',
+  auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  TestBookingControllers.getTestBookingController,
+);
 
 router.patch(
   '/:id/status',

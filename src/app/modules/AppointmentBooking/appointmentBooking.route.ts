@@ -9,7 +9,12 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user, USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  auth(
+    USER_ROLE.user,
+    USER_ROLE.receptionist,
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+  ),
   validateRequestSchema(
     AppointmentBookingValidationSchema.createAppointmentBookingValidationSchema,
   ),

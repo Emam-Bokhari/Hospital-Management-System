@@ -20,6 +20,10 @@ router.get('/', DepartmentControllers.getAllDepartmentsController);
 
 router.get('/:id', DepartmentControllers.getDepartmentController);
 
-router.delete('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), DepartmentControllers.deleteDepartmentController);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  DepartmentControllers.deleteDepartmentController,
+);
 
 export const DepartmentRoutes = router;

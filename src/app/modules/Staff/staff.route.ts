@@ -14,9 +14,17 @@ router.post(
   StaffControllers.createStaffController,
 );
 
-router.get('/', auth(USER_ROLE.admin, USER_ROLE.superAdmin), StaffControllers.getAllStaffsController);
+router.get(
+  '/',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  StaffControllers.getAllStaffsController,
+);
 
-router.get('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), StaffControllers.getStaffController);
+router.get(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  StaffControllers.getStaffController,
+);
 
 router.patch(
   '/:id',
@@ -25,6 +33,10 @@ router.patch(
   StaffControllers.updateStaffController,
 );
 
-router.delete('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), StaffControllers.deleteStaffController);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  StaffControllers.deleteStaffController,
+);
 
 export const StaffRoutes = router;

@@ -34,6 +34,10 @@ router.patch(
   TestControllers.updateTestAvailabilityController,
 );
 
-router.delete('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), TestControllers.deleteTestController);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  TestControllers.deleteTestController,
+);
 
 export const TestRoutes = router;

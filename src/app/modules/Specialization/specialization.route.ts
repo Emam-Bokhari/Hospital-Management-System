@@ -29,6 +29,10 @@ router.patch(
   SpecializationControllers.updateSpecializationController,
 );
 
-router.delete('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), SpecializationControllers.deleteSpecializationController);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  SpecializationControllers.deleteSpecializationController,
+);
 
 export const SpecializationRoutes = router;

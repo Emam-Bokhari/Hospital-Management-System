@@ -16,9 +16,17 @@ router.post(
   StaffRoleControllers.createStaffRoleController,
 );
 
-router.get('/', auth(USER_ROLE.admin, USER_ROLE.superAdmin), StaffRoleControllers.getAllStaffRolesController);
+router.get(
+  '/',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  StaffRoleControllers.getAllStaffRolesController,
+);
 
-router.get('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), StaffRoleControllers.getStaffRoleController);
+router.get(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  StaffRoleControllers.getStaffRoleController,
+);
 
 router.patch(
   '/:id',
@@ -29,6 +37,10 @@ router.patch(
   StaffRoleControllers.updateStaffRoleController,
 );
 
-router.delete('/:id', auth(USER_ROLE.admin, USER_ROLE.superAdmin), StaffRoleControllers.deleteStaffRoleController);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.superAdmin),
+  StaffRoleControllers.deleteStaffRoleController,
+);
 
 export const StaffRoleRoutes = router;

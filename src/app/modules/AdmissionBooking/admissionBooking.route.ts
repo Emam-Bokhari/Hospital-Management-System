@@ -9,18 +9,37 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user, USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  auth(
+    USER_ROLE.user,
+    USER_ROLE.receptionist,
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+  ),
   validateRequestSchema(
     AdmissionBookingValidationSchema.createAdmissionBookingValidationSchema,
   ),
   AdmissionBookingControllers.createAdmissionBookingController,
 );
 
-router.get('/', auth(USER_ROLE.receptionist, USER_ROLE.financeManager, USER_ROLE.admin, USER_ROLE.superAdmin), AdmissionBookingControllers.getAllAdmissionBookingsController);
+router.get(
+  '/',
+  auth(
+    USER_ROLE.receptionist,
+    USER_ROLE.financeManager,
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+  ),
+  AdmissionBookingControllers.getAllAdmissionBookingsController,
+);
 
 router.get(
   '/:id',
-  auth(USER_ROLE.receptionist, USER_ROLE.financeManager, USER_ROLE.admin, USER_ROLE.superAdmin),
+  auth(
+    USER_ROLE.receptionist,
+    USER_ROLE.financeManager,
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+  ),
   AdmissionBookingControllers.getAdmissionBookingByIdController,
 );
 

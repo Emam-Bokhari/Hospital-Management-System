@@ -5,7 +5,6 @@ import { Doctor } from '../Doctor/doctor.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 
-
 const getAllUsers = async () => {
   const users = await User.find();
 

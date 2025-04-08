@@ -61,7 +61,6 @@ const getDepartmentById = async (id: string) => {
   return department;
 };
 
-
 const deleteDepartmentById = async (id: string) => {
   const deletedDepartment = await Department.findOneAndUpdate(
     { _id: id, isDeleted: false },

@@ -48,10 +48,10 @@ const updateBedById = async (id: string, payload: Partial<TBed>) => {
 
   //  update array fields
   if (action && facilities) {
-    if (action === "add") {
-      modifiedUpdatedData.$addToSet = { facilities: facilities }
-    } else if (action === "remove") {
-      modifiedUpdatedData.$pull = { facilities: facilities }
+    if (action === 'add') {
+      modifiedUpdatedData.$addToSet = { facilities: facilities };
+    } else if (action === 'remove') {
+      modifiedUpdatedData.$pull = { facilities: facilities };
     }
   }
 

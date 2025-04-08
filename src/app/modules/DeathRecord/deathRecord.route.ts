@@ -16,9 +16,17 @@ router.post(
   DeathRecordControllers.createDeathRecordController,
 );
 
-router.get('/', auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin), DeathRecordControllers.getAllDeathRecordsController);
+router.get(
+  '/',
+  auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  DeathRecordControllers.getAllDeathRecordsController,
+);
 
-router.get('/:id', auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin), DeathRecordControllers.getDeathRecordController);
+router.get(
+  '/:id',
+  auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  DeathRecordControllers.getDeathRecordController,
+);
 
 router.patch(
   '/:id',
@@ -29,7 +37,10 @@ router.patch(
   DeathRecordControllers.updateDeathRecordController,
 );
 
-router.delete('/:id', auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin), DeathRecordControllers.deleteDeathRecordController);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.receptionist, USER_ROLE.admin, USER_ROLE.superAdmin),
+  DeathRecordControllers.deleteDeathRecordController,
+);
 
 export const DeathRecordRoutes = router;
-
