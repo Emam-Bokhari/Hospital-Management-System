@@ -16,10 +16,15 @@ import { AdmissionBookingRoutes } from '../modules/AdmissionBooking/admissionBoo
 import { NoticeRoutes } from '../modules/Notice/notice.route';
 import { ReviewRoutes } from '../modules/Review/review.route';
 import { ExpensesRoutes } from '../modules/Expenses/expenses.route';
+import { AuthRoutes } from '../modules/Auth/auth.route';
 
 const router = express.Router();
 
 const moduleRoutes = [
+  {
+    path: "/auth",
+    route: AuthRoutes,
+  },
   {
     path: '/users',
     route: UserRoutes,

@@ -42,26 +42,26 @@ export type TMedicalPracticeInformation = {
 
 export type TDoctor = {
   userId?: Types.ObjectId;
-  specialization: Types.ObjectId;
+  specialization?: Types.ObjectId;
   department?: Types.ObjectId;
-  firstName: string;
-  lastName: string;
-  gender: 'male' | 'female';
-  dateOfBirth: string;
-  nationality: string;
-  religion: string;
+  firstName?: string;
+  lastName?: string;
+  gender?: 'male' | 'female';
+  dateOfBirth?: string;
+  nationality?: string;
+  religion?: string;
   profilePicture?: string;
-  contactInformation: TContactInformation;
-  emergencyContact: TEmergencyContact;
-  educationDetails: TEducationDetails[];
-  qualifications: string[];
-  licenseNumber: string;
-  licenseExpiryDate: string;
+  contactInformation?: TContactInformation;
+  emergencyContact?: TEmergencyContact;
+  educationDetails?: TEducationDetails[];
+  qualifications?: string[];
+  licenseNumber?: string;
+  licenseExpiryDate?: string;
   previousWorkPlace?: TPreviousWorkPlace[];
   yearsOfExperience?: number;
-  medicalPracticeInformation: TMedicalPracticeInformation;
+  medicalPracticeInformation?: TMedicalPracticeInformation;
   awards?: TAwards[];
-  workingDays: [
+  workingDays?: [
     'Monday',
     'Tuesday',
     'Wednesday',
@@ -70,8 +70,8 @@ export type TDoctor = {
     'Saturday',
     'Sunday',
   ];
-  workingHours: { startTime: string; endTime: string }[];
-  offDays: [
+  workingHours?: { startTime: string; endTime: string }[];
+  offDays?: [
     'Monday',
     'Tuesday',
     'Wednesday',
