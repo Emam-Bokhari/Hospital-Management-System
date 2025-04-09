@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Appointments Management API
+  description: |
+    API documentation for managing appointments, including creation, updates, and other operations.
+  version: '1.0.0'
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  '/appointmentBookings':
+    post:
+      tags:
+        - appointment bookings
+      summary: Create a new appointment
+      description: Endpoint to create a new appointment in the system.
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../components/schemas/AppointmentBookingData.yaml'
+      responses:
+        '200':
+          description: Successfully created an appointment.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/AppointmentBookingData.yaml'
+    get:
+      tags:
+        - appointment bookings
+      summary: Retrieve all appointments
+      description: Fetch a list of all appointments with their details.
+      responses:
+        '200':
+          description: Successfully retrieved the list of appointments.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '../components/schemas/AppointmentBookingData.yaml'
+  '/appointmentBookings/{id}':
+    get:
+      tags:
+        - appointment bookings
+      summary: Retrieve a single appointment
+      description: Fetch the details of a specific appointment using its unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the appointment.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the appointment details.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/AppointmentBookingData.yaml'
+    patch:
+      tags:
+        - appointment bookings
+      summary: Update an appointment
+      description: Update the details of an existing appointment using its unique identifier.
+      operationId: updateAppointmentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the appointment to be updated.
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  description: The unique identifier of the appointment.
+                  example: 54abc12345de67890fghiaz
+                firstName:
+                  type: string
+                  description: The updated first name of the user.
+                  example: Emam
+      responses:
+        '200':
+          description: Successfully updated the appointment details.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            description: The unique identifier of the updated appointment.
+                            example: 54abc12345de67890fghiaz
+                          firstName:
+                            type: string
+                            description: The updated first name of the user.
+                            example: Emam
+    delete:
+      tags:
+        - appointment bookings
+      summary: Soft delete an appointment
+      description: Soft delete an appointment record using its unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the appointment to be deleted.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully marked the appointment as deleted
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}

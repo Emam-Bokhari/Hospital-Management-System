@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Staff Management API
+  description: |
+    API documentation for managing staff-related operations including creation, updates, and more.
+  version: '1.0.0'
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  '/staffs':
+    post:
+      tags:
+        - staffs
+      summary: Create a staffs
+      description: Endpoint to create a new staff member.
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../components/schemas/StaffData.yaml'
+      responses:
+        '200':
+          description: Success response indicating the staff has been created successfully.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/StaffData.yaml'
+    get:
+      tags:
+        - staffs
+      summary: Retrieve all staff's information
+      description: Fetches the complete list of staff's data.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '../components/schemas/StaffData.yaml'
+  '/staffs/{id}':
+    get:
+      tags:
+        - staffs
+      summary: Retrieve a staff member's details
+      description: Fetch the details of a specific staff member based on their unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the staff member.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved staff details.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/StaffData.yaml'
+    patch:
+      tags:
+        - staffs
+      summary: Update staff data
+      description: Modify the details of a specific staff member.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier for the staff member.
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: Emam
+      responses:
+        '200':
+          description: Successfully updated staff data.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          firstName:
+                            type: string
+                            example: Emam
+    delete:
+      tags:
+        - staffs
+      summary: Soft delete staff data
+      description: Soft delete a specific staff member's data.
+      responses:
+        '200':
+          description: Successfully soft deleted the staff data.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}

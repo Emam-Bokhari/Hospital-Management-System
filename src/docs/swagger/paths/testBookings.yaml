@@ -1,0 +1,143 @@
+openapi: 3.0.0
+info:
+  title: Test Booking API
+  description: |
+    API documentation for managing test booking operations, including creation, updates, and more.
+  version: '1.0.0'
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  '/testBookings':
+    post:
+      tags:
+        - test bookings
+      summary: Create a test booking
+      description: >
+        This endpoint allows the creation of a new test booking record. A test booking represents a reservation for a test at a specified time and location. The request should include details about the user, the test type, preferred time, and any other relevant information like medical history or symptoms
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../components/schemas/TestBookingData.yaml'
+      responses:
+        '201':
+          description: Successful response indicating that the test booking was created
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/TestBookingData.yaml'
+    get:
+      tags:
+        - test bookings
+      summary: Retrieve test bookings data
+      description: Retrieve all test bookings information
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '../components/schemas/TestBookingData.yaml'
+  '/testBookings/{id}':
+    get:
+      tags:
+        - test bookings
+      summary: Retrieve a specific test booking
+      description: Fetch details of a specific test booking by its unique identifier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the test booking
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/AppointmentBookingData.yaml'
+    patch:
+      tags:
+        - test bookings
+      summary: Update test booking details
+      description: Modify the details of a specific test booking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the test booking
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                userInfo:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                      example: Emam
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      userInfo:
+                        type: object
+                        properties:
+                          firstName:
+                            type: string
+                            example: Emam
+    delete:
+      tags:
+        - test bookings
+      summary: Perform a soft delete on a test booking
+      description: Mark a test booking as deleted without permanently removing it
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the test booking
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}

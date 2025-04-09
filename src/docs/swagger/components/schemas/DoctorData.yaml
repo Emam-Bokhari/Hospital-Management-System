@@ -1,0 +1,175 @@
+type: object
+required:
+  - firstName
+  - lastName
+  - gender
+  - dateOfBirth
+  - contactInformation
+  - nationality
+  - religion
+  - professionalInformation
+  - educationDetails
+  - availabilityInformation
+  - emergencyContact
+properties:
+  _id:
+    type: string
+    example: 64abc12345de67890fghijk
+  userId:
+    type: string
+    example: 64abc12345de67890fghijz
+  firstName:
+    type: string
+    example: Moshfiqur
+  lastName:
+    type: string
+    example: Rahman
+  gender:
+    type: string
+    example: male
+  dateOfBirth:
+    type: string
+    example: '2000-04-23'
+  profilePicture:
+    type: string
+    example: https://example.com/images/moshfiq.jpg
+  contactInformation:
+    type: object
+    properties:
+      phone:
+        type: string
+        example: '+8801315773424'
+      email:
+        type: string
+        example: moshfiq@gmail.com
+  nationality:
+    type: string
+    example: Bangladeshi
+  religion:
+    type: string
+    example: Islam
+  professionalInformation:
+    type: object
+    required:
+      - specialization
+      - qualifications
+      - licenseNumber
+      - licenseExpiryDate
+      - yearsOfExperience
+    properties:
+      specialization:
+        type: string
+        example: Cardiologist
+      qualifications:
+        type: string
+        example: ['MBBS', 'MD']
+      licenseNumber:
+        type: string
+        example: 'Abc123'
+      licenseExpiryDate:
+        type: string
+        example: '2030-05-15'
+      hospitalOrClinic:
+        type: string
+        example: City Medical Hospital
+      yearsOfExperience:
+        type: number
+        format: int32
+        example: 15
+  educationDetails:
+    type: array
+    items:
+      type: object
+      required:
+        - universityName
+        - degreeEarned
+        - duration
+        - universityLocation
+      properties:
+        universityName:
+          type: string
+          example: Dhaka Medical College
+        degreeEarned:
+          type: string
+          example: 'MBBS'
+        duration:
+          type: string
+          example: '2000-2005'
+        specializationEducation:
+          type: string
+          example: General Medicine
+        universityLocation:
+          type: string
+          example: Dhaka, Bangladesh
+        universityWebsite:
+          type: string
+          format: url
+          example: https://example.com
+  awardsAndRecognition:
+    type: array
+    items:
+      type: object
+      properties:
+        awardName:
+          type: string
+          example: Best Cardiologist
+        awardYear:
+          type: string
+          example: 2020
+        awardDescription:
+          type: string
+          example: Awarded for outstanding patient care
+        issuingOrganization:
+          type: string
+          example: Bangladesh Medical Council
+        awardCategory:
+          type: string
+          example: Excellence in Medicine
+  availabilityInformation:
+    type: object
+    required:
+      - workingDays
+      - workingHours
+      - availableTimeSlots
+      - offDays
+    properties:
+      workingDays:
+        type: string
+        example: ['Monday', 'Wednesday', 'Friday']
+      workingHours:
+        type: string
+        example: ['9:00 AM - 5:00 PM']
+      availableTimeSlots:
+        type: string
+        example: ['9:00 AM - 10:00 AM', '3:00 PM - 4:00 PM']
+      offDays:
+        type: string
+        example: ['2024-12-25']
+  emergencyContact:
+    type: object
+    required:
+      - name
+      - phone
+      - relationship
+    properties:
+      name:
+        type: string
+        example: Emam
+      phone:
+        type: string
+        example: '+8801315773424'
+      email:
+        type: string
+        example: moshfiq@gmail.com
+      relationship:
+        type: string
+        example: cousin
+  medicalPracticeInformation:
+    type: object
+    properties:
+      hospitalAffiliation:
+        type: string
+        example: City Medical Hospital
+      chamberAddress:
+        type: string
+        example: '123 Medical Road, Dhaka'

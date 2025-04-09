@@ -1,0 +1,41 @@
+type: object
+properties:
+  _id:
+    type: string
+    example: ObjectId
+  testName:
+    type: string
+    example: CBC Test
+  testDescription:
+    type: string
+    example: A detailed description of the CBC test
+  testCategory:
+    type: string
+    example: Blood Test
+  testCode:
+    type: string
+    example: BT-001
+  price:
+    type: string
+    example: 750
+  duration:
+    type: string
+    example: '30 minutes'
+  testAvailability:
+    type: boolean
+    example: true
+  testPreparationInstructions:
+    type: string
+    example: Fast for 8 hours before the test
+  testMethodology:
+    type: string
+    example: Blood sample collection
+  roomNumber:
+    type: string
+    example: TEST-02-001 # Department name, floor number, room sequence
+  floorNumber:
+    type: string
+    example: '02'
+  createdBy:
+    type: string
+    example: ObjectId
