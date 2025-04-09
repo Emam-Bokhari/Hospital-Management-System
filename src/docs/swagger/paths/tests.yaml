@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Test  API
+  description: |
+    API documentation for managing test operations, including creation, updates, and more.
+  version: '1.0.0'
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  '/tests':
+    post:
+      tags:
+        - tests
+      summary: Create test data
+      description: Add a new test to the system
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              allOf:
+                - $ref: '../components/schemas/TestData.yaml'
+      responses:
+        '201':
+          description: Success Response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/TestData.yaml'
+    get:
+      tags:
+        - tests
+      summary: Retrieve all test data
+      description: Fetch a list of all available test data
+      responses:
+        '200':
+          description: Fetch a list of all available test data
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '../components/schemas/TestData.yaml'
+  '/tests/{id}':
+    get:
+      tags:
+        - tests
+      summary: Retrieve a specific test data
+      description: Fetch detailed information about a specific test using its unique identifier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier for the test
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/TestData.yaml'
+    patch:
+      tags:
+        - tests
+      summary: Update test data
+      description: Modify details of an existing test using its unique identifier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the test to update
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                testName:
+                  type: string
+                  example: Ct Scean
+      responses:
+        '200':
+          description: Successfully updated test data
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          testName:
+                            type: string
+                            example: Ct Scean
+    delete:
+      tags:
+        - tests
+      summary: Perform a soft delete
+      description: Mark an existing test record as deleted without permanently removing it from the database
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the test to be deleted
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success Response
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}

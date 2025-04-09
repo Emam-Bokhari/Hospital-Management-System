@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: User Management API
+  description: API documentation for managing user-related operations including registration, authentication, and more.
+  version: '1.0.0'
+servers:
+  - url: localhost:3000/api/docs
+    description: Development Server
+paths:
+  '/auth/register':
+    post:
+      tags:
+        - auths
+      summary: Register a New User
+      description: |
+        Endpoint to register a new user in the system. The request body must include user details 
+        such as first name, last name, email, password etc. On successful registration, 
+        the API returns a confirmation response along with the user's data.
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../components/schemas/UserData.yaml'
+      responses:
+        '201':
+          description: |
+            Registration was successful. The response includes the newly created user's details and a success message.
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/UserData.yaml'
+  '/users':
+    get:
+      tags:
+        - users
+      summary: Retrieve a list of all users
+      description: >
+        Fetches all users from the system. This endpoint returns a list of user objects, with each containing relevant user details.
+      responses:
+        '200':
+          description: Successfully retrieved the list of users
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '../components/schemas/UserData.yaml'
+  '/users/{id}':
+    get:
+      tags:
+        - users
+      summary: Retrieve a user by their unique ID
+      description: >
+        Fetches a single user based on the provided user ID. Returns user details including first name, last name, email, and other related information.
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the user to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the user details
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '../components/schemas/UserData.yaml'
+    patch:
+      tags:
+        - users
+      summary: Update a user by their unique ID
+      description: >
+        Updates the details of a user identified by their unique ID. You can modify user properties such as the first name, last name, email, etc.
+      operationId: updateUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the user to be updated.
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: ObjectId
+                firstName:
+                  type: string
+                  example: 'Emam'
+      responses:
+        '200':
+          description: Successfully updated the user details
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: ObjectId
+                          firstName:
+                            type: string
+                            example: Emam
+    delete:
+      tags:
+        - users
+      summary: Soft Delete a user by their unique ID
+      description: >
+        Deletes the user identified by their unique ID from the system. The user will be soft delete.
+      operationId: deleteUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the user to delete.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted the user
+          content:
+            'application/json':
+              schema:
+                allOf:
+                  - $ref: '../components/responses.yaml#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: {}
