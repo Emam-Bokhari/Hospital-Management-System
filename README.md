@@ -75,6 +75,6 @@ For any inquiries, or suggestions, feel free to reach out:
 
 - **Email**: [moshfiqurrahman37@gmail.com](mailto:moshfiqurrahman37@gmail.com)
 - **GitHub**: [Emam-Bokhari](https://github.com/Emam-Bokhari)
-- **LinkedIn**: [Moshfiqur Rahman](https://www.linkedin.com/in/moshfiqur-rahman-a302b32a3/)
+- **LinkedIn**: [Moshfiqur Rahman](https://www.linkedin.com/in/moshfiqur-rahman-emam-bokhari/)
 
 I am always open to feedback ! 😊
